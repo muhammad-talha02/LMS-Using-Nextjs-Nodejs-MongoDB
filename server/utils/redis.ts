@@ -11,4 +11,4 @@ const redisClient = () => {
 };
 
 
-export const redis = new Redis(redisClient())
+export const redis = new Redis(redisClient());
