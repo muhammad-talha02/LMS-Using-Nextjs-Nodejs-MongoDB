@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors"
 export const app = express();
 import { ErrorMiddleware } from "./middleware/error";
-
+import userRouter from "./routes/user.route";
 // Middleware
 
 // body parser
@@ -21,6 +21,9 @@ app.use(cors({
     origin:process.env.ORIGIN
 }));
 
+// Routes
+
+app.use("/api/v1", userRouter)
 
 // testing API
 
