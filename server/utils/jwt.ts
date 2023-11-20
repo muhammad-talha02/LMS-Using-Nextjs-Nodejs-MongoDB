@@ -1,8 +1,10 @@
 require("dotenv").config();
-import { Response } from "express";
+import { NextFunction, Response } from "express";
 import { IUser } from "../models/user.model";
 import { redis } from "./redis";
 import { Secret } from "jsonwebtoken";
+import { catchAsyncError } from "../middleware/catchAsyncErrors";
+import ErrorHandler from "./ErrorHandler";
 
 interface ITokenOptions {
   expires: Date;
@@ -26,7 +28,7 @@ interface ITokenOptions {
   // option for cookies
 
   export const accessTokenOptions: ITokenOptions = {
-    expires: new Date(Date.now() + accessTokenExpires * 60 * 60* 1000),
+    expires: new Date(Date.now() + accessTokenExpires * 60 * 60 * 1000),
     maxAge: accessTokenExpires * 60 * 60 * 1000,
     httpOnly: true,
     sameSite: "lax",
