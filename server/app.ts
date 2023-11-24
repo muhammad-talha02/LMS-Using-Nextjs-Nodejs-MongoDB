@@ -5,7 +5,10 @@ import cors from "cors"
 export const app = express();
 import { ErrorMiddleware } from "./middleware/error";
 import userRouter from "./routes/user.route";
-// Middleware
+import courseRouter from "./routes/course.route";
+
+
+// ? Middlewares
 
 // body parser
 
@@ -24,6 +27,7 @@ app.use(cors({
 // Routes
 
 app.use("/api/v1", userRouter)
+app.use("/api/v1", courseRouter)
 
 // testing API
 
