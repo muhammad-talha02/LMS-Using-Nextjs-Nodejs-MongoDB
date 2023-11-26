@@ -6,7 +6,7 @@ export const app = express();
 import { ErrorMiddleware } from "./middleware/error";
 import userRouter from "./routes/user.route";
 import courseRouter from "./routes/course.route";
-
+import responseTime from "response-time"
 
 // ? Middlewares
 
@@ -23,6 +23,11 @@ app.use(cookieParser());
 app.use(cors({
     origin:process.env.ORIGIN
 }));
+
+
+//To check Response time
+
+app.use(responseTime())
 
 // Routes
 
