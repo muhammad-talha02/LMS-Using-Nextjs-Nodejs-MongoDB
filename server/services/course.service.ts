@@ -1,3 +1,4 @@
+import { Response } from "express";
 import { catchAsyncError } from "../middleware/catchAsyncErrors";
 import courseModel from "../models/course.model";
 
