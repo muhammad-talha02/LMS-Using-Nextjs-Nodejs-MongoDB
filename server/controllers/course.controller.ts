@@ -9,6 +9,7 @@ import mongoose from "mongoose";
 import ejs from "ejs";
 import path from "path";
 import sendMail from "../utils/sendMail";
+import NotificationModel from "../models/notification.model";
 
 // Upload Course
 
@@ -202,6 +203,13 @@ export const addQuestion = catchAsyncError(
       // add this question to our course content
 
       courseContent.questions.push(newQuestion);
+
+      await NotificationModel.create({
+        userId: req.user?._id,
+        title: `New Question from ${req.user?.name}`,
+        message: `You have a new question in ${courseContent?.title}`,
+      });
+
       await course?.save();
 
       res.status(200).json({
@@ -265,7 +273,13 @@ export const addAnswer = catchAsyncError(
 
       if (req.user?._id === question?.user?._id) {
         // create a notification
-        res.send("Hey notify");
+
+        await NotificationModel.create({
+          userId: req.user?._id,
+          title: "Answer on a Question",
+          message: `You have a new Order for ${courseContent?.title}`,
+        });
+  
       } else {
         const data = {
           name: question.user.name,
@@ -383,7 +397,9 @@ export const addReplyToReview = catchAsyncError(
         return next(new ErrorHandler("Course not found", 404));
       }
 
-      const review = course.reviews?.find((rev: any) => rev?._id.toString() === reviewId);
+      const review = course.reviews?.find(
+        (rev: any) => rev?._id.toString() === reviewId
+      );
       if (!review) {
         return next(new ErrorHandler("Review not found", 404));
       }
@@ -393,8 +409,8 @@ export const addReplyToReview = catchAsyncError(
         comment,
       };
 
-      if(!review.commentReplies){
-        review.commentReplies = []
+      if (!review.commentReplies) {
+        review.commentReplies = [];
       }
       review.commentReplies?.push(replyData);
 
