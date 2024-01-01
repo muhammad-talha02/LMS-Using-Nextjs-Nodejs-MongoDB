@@ -22,7 +22,6 @@ const sendMail = async (options: EmailOptions): Promise<void> => {
   });
 
   const { email, subject, template, data } = options;
-
   // get the path to email template file
 
   const templatePath = path.join(__dirname, "../mails", template);
