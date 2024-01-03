@@ -448,3 +448,28 @@ export const updateUserRole = catchAsyncError(
     }
   }
 );
+
+// DELETE USER ---ONLY FOR ADMIN
+
+export const deleteUser = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+
+      const user = await userModel.findById(id);
+      if (!user) {
+        return next(new ErrorHandler("User not found", 400));
+      }
+
+      await user.deleteOne({id})
+
+      await redis.del(id)
+      res.status(201).json({
+        success: true,
+        message: "User Delete Successfully",
+      });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
