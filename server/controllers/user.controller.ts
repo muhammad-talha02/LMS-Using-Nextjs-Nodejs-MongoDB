@@ -13,7 +13,11 @@ import {
   sendToken,
 } from "../utils/jwt";
 import { redis } from "../utils/redis";
-import { getAllUsersService, getUserById } from "../services/user.service";
+import {
+  getAllUsersService,
+  getUserById,
+  updateUserRoleService,
+} from "../services/user.service";
 import cloudinary from "cloudinary";
 
 // Register User
@@ -425,6 +429,45 @@ export const getAllUsers = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       getAllUsersService(res);
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+// UPDATE USER ROLE --ADMIN-ONLY
+
+export const updateUserRole = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id, role } = req.body;
+
+      updateUserRoleService(res, id, role);
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+// DELETE USER ---ONLY FOR ADMIN
+
+export const deleteUser = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+
+      const user = await userModel.findById(id);
+      if (!user) {
+        return next(new ErrorHandler("User not found", 400));
+      }
+
+      await user.deleteOne({id})
+
+      await redis.del(id)
+      res.status(201).json({
+        success: true,
+        message: "User Delete Successfully",
+      });
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }
