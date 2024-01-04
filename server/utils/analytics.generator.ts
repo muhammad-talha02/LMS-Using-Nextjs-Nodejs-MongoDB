@@ -18,12 +18,12 @@ export async function generateLast12MonthData<T extends Document>(
     const endDate = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),
-      currentDate.getDate() - i * 28
+      currentDate.getDate() - i * 29
     );
     const startDate = new Date(
       endDate.getFullYear(),
       endDate.getMonth(),
-      endDate.getDate() - 28
+      endDate.getDate() - 29
     );
 
     const monthYear = endDate.toLocaleDateString("default", {
@@ -33,8 +33,8 @@ export async function generateLast12MonthData<T extends Document>(
     });
 
     const count = await model.countDocuments({
-      createAt: {
-        $gt: startDate,
+      createdAt: {
+        $gte: startDate,
         $lt: endDate,
       },
     });
