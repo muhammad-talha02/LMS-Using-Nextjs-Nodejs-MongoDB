@@ -39,7 +39,7 @@ export const createLayout = catchAsyncError(
       if (type === "Categories") {
         const { categories } = req.body;
 
-        const catItem =await Promise.all(
+        const catItem = await Promise.all(
           categories.map(async (item: any) => {
             return {
               title: item.title,
@@ -53,6 +53,93 @@ export const createLayout = catchAsyncError(
         sucess: true,
         message: "Created Sucessfully",
       });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 404));
+    }
+  }
+);
+
+// Edit Layout ---admin-only
+
+export const updateLayout = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { type } = req.body;
+
+      if (type === "Banner") {
+        const bannerData: any = await LayoutModel.findOne({ type: "Banner" });
+        const { image, title, subTitle } = req.body;
+        if (bannerData) {
+          await cloudinary.v2.uploader.destroy(
+            bannerData?.banner.image.public_id
+          );
+        }
+        const myCloud = await cloudinary.v2.uploader.upload(image, {
+          folder: "layout",
+        });
+
+        const banner = {
+          image: {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url,
+          },
+          title,
+          subTitle,
+        };
+        await LayoutModel.findByIdAndUpdate(bannerData?._id, { banner });
+      }
+
+      if (type === "FAQ") {
+        const { faq } = req.body;
+        const FAQID: any = await LayoutModel.findOne({ type: "FAQ" });
+        await LayoutModel.findByIdAndUpdate(FAQID?._id, { type: "FAQ", faq });
+      }
+      if (type === "Categories") {
+        const { categories } = req.body;
+
+        const categoriesID: any = await LayoutModel.findOne({
+          type: "Categories",
+        });
+        const catItem = await Promise.all(
+          categories.map(async (item: any) => {
+            return {
+              title: item.title,
+            };
+          })
+        );
+
+        await LayoutModel.findByIdAndUpdate(categoriesID?._id, {
+          type,
+          categories: catItem,
+        });
+      }
+
+      res.status(200).json({
+        sucess: true,
+        message: "Updated Sucessfully",
+      });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 404));
+    }
+  }
+);
+
+// get Layout by type
+
+export const getLayout = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { type } = req.params;
+
+      const layout = await LayoutModel.findOne({ type });
+      if (layout) {
+        res.status(200).json({
+          sucess: true,
+          layout,
+        });
+      }
+
+      return next(new ErrorHandler(`${type} not found`, 404));
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 404));
     }
