@@ -52,7 +52,7 @@ const layoutSchema = new Schema<ILayout>({
   faq: [faqSchema],
   categories: [catgeorySchema],
   banner: {
-    image: { type: bannerImgSchema },
+    image: bannerImgSchema ,
     title: { type: String },
     subTitle: { type: String },
   },
