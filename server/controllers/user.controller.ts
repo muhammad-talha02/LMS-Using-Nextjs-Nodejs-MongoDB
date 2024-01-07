@@ -91,7 +91,6 @@ export const createActivationToken = (
       expiresIn: "5m",
     }
   );
-  console.log(token);
   return { token, activationCode };
 };
 
@@ -112,7 +111,6 @@ export const activateUser = catchAsyncError(
         activation_token,
         process.env.ACTIVATION_SECRET_KEY as string
       ) as { user: IUser; activationCode: string };
-      console.log(newUser);
       if (newUser.activationCode !== activation_code) {
         return next(new ErrorHandler("invalid activation code", 400));
       }
@@ -153,7 +151,6 @@ export const loginUser = catchAsyncError(
       }
 
       const user = await userModel.findOne({ email }).select("+password");
-      console.log(user);
       if (!user) {
         return next(new ErrorHandler("Email not exist", 400));
       }
@@ -179,7 +176,6 @@ export const logoutUser = catchAsyncError(
       res.cookie("refresh_token", "", { maxAge: 1 });
 
       const userId = req.user?._id || "";
-      console.log("User Id", userId);
       redis.del(userId);
       res.status(200).json({
         success: true,
@@ -191,6 +187,7 @@ export const logoutUser = catchAsyncError(
   }
 );
 
+//? Update Access Token
 export const updateAcessToken = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -208,7 +205,7 @@ export const updateAcessToken = catchAsyncError(
       }
       const session = await redis.get(decode.id as string);
       if (!session) {
-        return next(new ErrorHandler("No session on redis", 400));
+        return next(new ErrorHandler("Please login to access this resource", 400));
       }
 
       const user = JSON.parse(session);
@@ -231,6 +228,7 @@ export const updateAcessToken = catchAsyncError(
       res.cookie("access_token", accessToken, accessTokenOptions);
       res.cookie("refresh_token", refreshToken, refreshTokenOptions);
 
+      await redis.set(user._id, JSON.stringify(user), "EX", 604800); // 7 days
       res.status(200).json({
         success: true,
         accessToken,
@@ -461,9 +459,9 @@ export const deleteUser = catchAsyncError(
         return next(new ErrorHandler("User not found", 400));
       }
 
-      await user.deleteOne({id})
+      await user.deleteOne({ id });
 
-      await redis.del(id)
+      await redis.del(id);
       res.status(201).json({
         success: true,
         message: "User Delete Successfully",
