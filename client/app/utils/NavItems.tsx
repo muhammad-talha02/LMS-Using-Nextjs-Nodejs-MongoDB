@@ -48,11 +48,19 @@ const NavItems: FC<Props> = ({ activeItem, isMobile }) => {
             {
                 isMobile && (
                     <div className="800px:hidden mt-5">
-                        <div className="w-full text-center py-6">
-                            {
+                                                <div className='py-6 text-center w-full'>
+                            <Link
+                                href={"/"}
+                                className="text-[25px] font-Poppins font-500 text-black dark:text-white"
+                            >
+                                Compile Academy
+                            </Link>
+                        </div>
+                        {/* <div className="w-full text-center py-6"> */}
+                            {navItemsData &&
                                 navItemsData?.map((item, index) => (
                                     <Link href={`${item.url}`} key={item.name}>
-                                        <span className={`${activeItem === index ? "dark:text-[#37a39a] text-[crimson]" : "dark:text-white text-black"} text-[18px] px-6 font-Poppins font-[400]`}>
+                                        <span className={`${activeItem === index ? "dark:text-[#37a39a] text-[crimson]" : "dark:text-white text-black"} py-6 block text-[18px] px-6 font-Poppins font-[400]`}>
 
                                             {item.name}
                                         </span>
@@ -60,7 +68,7 @@ const NavItems: FC<Props> = ({ activeItem, isMobile }) => {
                                 ))
                             }
                         </div>
-                    </div>
+                    // </div>
                 )
             }
         </>
