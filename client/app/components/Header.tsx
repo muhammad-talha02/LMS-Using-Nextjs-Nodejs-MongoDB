@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import React, { FC, useState } from 'react'
 import NavItems from '../utils/NavItems'
+import ThemeSwitcher from './ThemeSwitcher'
 
 type Props = {
     open: boolean,
@@ -39,6 +40,7 @@ const Header: FC<Props> = (props) => {
                         </div>
                         <div className="flex items-center">
                             <NavItems activeItem={activeItem} isMobile={false}/>
+                            <ThemeSwitcher/>
                         </div>
                     </div>
                 </div>
