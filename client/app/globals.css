@@ -27,7 +27,7 @@ body {
     hsla(0, 0%, 100%, 0) 89.25%
   );
 
-  animation: changeBackgroundColor 8s infinite alternate;
+  animation: changeBackgroundColor 4s infinite alternate;
 }
 
 @keyframes changeBackgroundColor {
