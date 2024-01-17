@@ -20,7 +20,10 @@ const Page: FC<Props> = (props) => {
         keywords="Programming,MERN,Machine Learning"
       />
       <Header open={open} setOpen={setOpen} activeItem={activeItem} />
+      <div className="w-full max-w-[1200px] m-auto">
+
       <Hero/>
+      </div>
     </div>
   )
 }

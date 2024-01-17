@@ -22,9 +22,9 @@ const Header: FC<Props> = (props) => {
             setOpenSidebar(false);
         }
     };
-    console.log("window", window)
 
-    // useEffect(() => {
+    useEffect(() => {
+
         if (typeof window !== undefined) {
             window.addEventListener("scroll", () => {
                 if (window.scrollY > 80) {
@@ -32,9 +32,10 @@ const Header: FC<Props> = (props) => {
                 } else {
                     setActive(false);
                 }
+                console.log("Scroll -->", window.scrollY)
             });
         }
-    // });
+    }, [])
     return (
         <div className="w-full relative">
             <div
@@ -43,7 +44,7 @@ const Header: FC<Props> = (props) => {
                     : "w-full border-b dark:border-[#ffffff1c] h-[80px] z-[80] dark:shadow"
                     }`}
             >
-                <div className="w-[95%] 800px:w-[92%] m-auto py-0 h-full">
+                <div className="w-[95%] 800px:w-[92%] max-w-[1200px] m-auto py-0 h-full">
                     <div className="w-full h-[80px] flex items-center justify-between p-3">
                         <div>
                             <Link
