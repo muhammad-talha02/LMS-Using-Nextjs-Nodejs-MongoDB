@@ -6,7 +6,7 @@ import NavItems from "../utils/NavItems";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
 import CustomModal from "../utils/CustomModal";
-import Login from "./Login";
+import Login from "./Auth/Login";
 
 type Props = {
     open: boolean;

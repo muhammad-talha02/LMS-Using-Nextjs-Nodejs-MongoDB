@@ -1,0 +1,35 @@
+"use client"
+import React, { FC, useState } from 'react'
+import { useFormik } from 'formik'
+import Yup from "yup"
+import { AiOutlineEye, AiOutlineEyeInvisible, AiFillGithub } from 'react-icons/ai'
+import { FcGoogle } from 'react-icons/fc'
+type Props = {
+    setRoute: (route: string) => void
+}
+
+const validationSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid Email").required("Please enter your email"),
+    password: Yup.string().required("Please enter password").min(6)
+})
+
+const Login: FC<Props> = ({ setRoute }: Props) => {
+    const [show, setShow] = useState(false);
+
+    const formik = useFormik({
+        initialValues: { email: "", password: '' },
+        validationSchema: validationSchema,
+        onSubmit: async (values) => {
+            console.log("Values -->", values)
+        }
+    })
+
+
+
+    const { errors, touched, values, handleChange, handleSubmit } = formik
+    return (
+        <div>Login</div>
+    )
+}
+
+export default Login
