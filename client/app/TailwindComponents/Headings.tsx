@@ -9,7 +9,7 @@ export const H1 = (props: Props) => {
 
     const { children, classes } = props
     return (
-        <h1 className={`dark:text-white text-black font-bold ${classes ? classes : "text-3xl"}`}>
+        <h1 className={`dark:text-white text-black font-Poppins font-bold ${classes ? classes : "text-3xl"}`}>
             {
                 children
             }
