@@ -25,10 +25,10 @@ app.use(cookieParser());
 //  cors => cross origin resoure sharing
 
 app.use(
-  cors()
-  // cors({
-  //   origin: process.env.ORIGIN,
-  // })
+cors({
+    origin: ['http://localhost:3000/'],
+    credentials:true
+  })
 );
 
 //To check Response time
