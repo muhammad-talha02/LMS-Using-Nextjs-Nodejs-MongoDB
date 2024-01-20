@@ -1,7 +1,9 @@
 import { styles } from '@/app/styles/style'
-import React, { FC, useRef, useState } from 'react'
-import { Toast } from 'react-hot-toast'
+import { useActivationMutation } from '@/redux/features/auth/authApi'
+import React, { FC, useEffect, useRef, useState } from 'react'
+import toast, { Toast } from 'react-hot-toast'
 import { VscWorkspaceTrusted } from 'react-icons/vsc'
+import { useSelector } from 'react-redux'
 type Props = {
     setRoute: (route: string) => void
 }
@@ -13,7 +15,27 @@ type VerifyNumber = {
     "3": string,
 }
 const Verification: FC<Props> = ({ setRoute }) => {
+    const { token } = useSelector((state: any) => state.auth)
+    const [activateUser, result] = useActivationMutation()
     const [invalidError, setInvalidError] = useState<boolean>(false);
+
+
+    // Success or Error Message
+    useEffect(() => {
+        if (result.isSuccess) {
+            toast.success("Acount activated successfully")
+            setRoute("Login")
+        }
+        if (result.error) {
+            const errorData = result.error as any
+            console.log(result)
+            setInvalidError(true)
+            toast.error(`Error: ${errorData?.data.message}`)
+
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [result.isSuccess, result.isError])
 
     const inputRef = [
         useRef<HTMLInputElement>(null),
@@ -29,10 +51,18 @@ const Verification: FC<Props> = ({ setRoute }) => {
         3: '',
     })
 
-console.log("vVerify Nukmber", VerifyNumber)
+    console.log("vVerify Nukmber", VerifyNumber)
 
     const verificationHandler = async () => {
-        setInvalidError(true)
+        const verificationCode = Object.values(VerifyNumber).join("");
+
+        if (verificationCode.length !== 4) {
+
+            setInvalidError(true)
+            toast.error("Invalid Activation Code")
+            return
+        }
+        await activateUser({ activation_token: token, activation_code: verificationCode })
     }
     const handleInputChange = (index: number, value: string) => {
         setInvalidError(false)
@@ -64,7 +94,7 @@ console.log("vVerify Nukmber", VerifyNumber)
                             className={`w-[65px] h-[65px] bg-transparent border-[3px] rounded-[10px] flex justify-around items-center text-black dark:text-white text-[18px] font-Poppins outline-none text-center ${invalidError ? "shake border-red-500" : "border-[#000] dark:border-white"}`}
                             maxLength={1}
                             value={VerifyNumber[key as keyof VerifyNumber]}
-                            onChange={(e)=>handleInputChange(index,e.target.value)}
+                            onChange={(e) => handleInputChange(index, e.target.value)}
                         />
                     })
                 }
@@ -76,9 +106,9 @@ console.log("vVerify Nukmber", VerifyNumber)
             </div>
             <br />
             <h5 className='text-black dark:text-white text-center pt-4 font-Poppins text-[14px]'>
-                    Go back to Login? 
-                    <span className='text-[#2190ff] pl-1 cursor-pointer' onClick={()=>setRoute("Login")}>Sign in</span>
-                </h5>
+                Go back to Login?
+                <span className='text-[#2190ff] pl-1 cursor-pointer' onClick={() => setRoute("Login")}>Sign in</span>
+            </h5>
         </div>
     )
 }
