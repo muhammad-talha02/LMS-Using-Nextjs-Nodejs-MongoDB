@@ -115,9 +115,9 @@ const Header: FC<Props> = (props) => {
                             </div>
                             {
                                 user ? (
-                                    // <Link href={"/profile"}>
+                                    <Link href={"/profile"}>
                                     <Image src={user.avatar ? user.avatar : noAvatar} width={30} height={30} alt="profile" className="cursor-pointer rounded-full" />
-                                    // </Link>
+                                    </Link>
                                 ) : <HiOutlineUserCircle
                                     size={25}
                                     className="hidden 800px:block cursor-pointer dark:text-white text-black"
