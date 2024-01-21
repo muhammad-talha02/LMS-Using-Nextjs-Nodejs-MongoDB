@@ -12,6 +12,9 @@ import Verification from "./Auth/Verification";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import noAvatar from "../../public/noavatar.png"
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
+import { useSocialAuthMutation } from "@/redux/features/auth/authApi";
 
 type Props = {
     open: boolean;
@@ -29,7 +32,39 @@ const Header: FC<Props> = (props) => {
     // User from store
 
     const { user } = useSelector((state: any) => state.auth)
-    console.log(user)
+
+    const { data } = useSession()
+
+    const [socialLogin, result] = useSocialAuthMutation()
+    console.log("d", result.isSuccess)
+
+
+    // Success or Error Message
+    useEffect(() => {
+        if (!user) {
+            if (data) {
+                socialLogin({
+                    email: data?.user?.email,
+                    name: data?.user?.name,
+                    avatar: data?.user?.image,
+                })
+                console.log("Loginsndnn")
+            }
+        }
+            if (result.isSuccess) {
+                const message = result.data?.message
+                toast.success(message || "Login Successfully")
+                setOpen(false)
+            }
+        // if (result.error) {
+        //     const errorData = result.error as any
+        //     console.log(result)
+        //     toast.error(`Error: ${errorData?.data.message}`)
+
+        // }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data, user])
     const handleSidebar = (e: any) => {
         if (e.target.id !== "screen") {
             setOpenSidebar(false);
@@ -80,9 +115,9 @@ const Header: FC<Props> = (props) => {
                             </div>
                             {
                                 user ? (
-                                    <Link href={"/profile"}>
-                                    <Image src={user.avatar ? user.avatar : noAvatar} width={30} height={30} alt="profile" className="cursor-pointer rounded-full"/>
-                                    </Link>
+                                    // <Link href={"/profile"}>
+                                    <Image src={user.avatar ? user.avatar : noAvatar} width={30} height={30} alt="profile" className="cursor-pointer rounded-full" />
+                                    // </Link>
                                 ) : <HiOutlineUserCircle
                                     size={25}
                                     className="hidden 800px:block cursor-pointer dark:text-white text-black"
