@@ -1,10 +1,12 @@
 "use client"
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from "yup"
 import { AiOutlineEye, AiOutlineEyeInvisible, AiFillGithub } from 'react-icons/ai'
 import { FcGoogle } from 'react-icons/fc'
 import { styles } from '../../../app/styles/style'
+import { useRegisterMutation } from '@/redux/features/auth/authApi'
+import toast from 'react-hot-toast'
 type Props = {
     setRoute: (route: string) => void
 }
@@ -17,13 +19,37 @@ const validationSchema = Yup.object().shape({
 
 const SignUp: FC<Props> = ({ setRoute }: Props) => {
     const [show, setShow] = useState(false);
+    const [regsiterUser, result] = useRegisterMutation()
+
+
+    // Success or Error Message
+    useEffect(() => {
+        if (result.isSuccess) {
+            const message = result.data?.message || "Registration Successfully"
+            toast.success(message)
+            setRoute("Verification")
+        }
+        if (result.error) {
+            const errorData = result.error as any
+            console.log(result)
+            toast.error(`Error: ${errorData?.data.message}`)
+
+        }
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [result.isSuccess, result.isError])
 
     const formik = useFormik({
         initialValues: { name: "", email: "", password: '' },
-        // validationSchema: validationSchema,
+        validationSchema: validationSchema,
         onSubmit: async (values) => {
             // console.log("Values -->", values)
-            setRoute("Verification")
+            const data = {
+                name: values.name,
+                email: values.email,
+                password: values.password,
+            }
+            await regsiterUser(data)
         }
     })
 
