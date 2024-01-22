@@ -1,5 +1,5 @@
 import { apiSlice } from "../api/apiSlice";
-import { userLoggedIn, userRegisteration } from "./authSlice";
+import { userLoggedIn, userLoggedOut, userRegisteration } from "./authSlice";
 
 type IRegistrationResponse = {
   message: string;
@@ -63,8 +63,8 @@ export const authApi = apiSlice.injectEndpoints({
       query: (data) => ({
         url: "social-auth",
         method: "POST",
-        body:data,
-        credentials:"include" as const
+        body: data,
+        credentials: "include" as const,
       }),
       async onQueryStarted(args, { queryFulfilled, dispatch }) {
         try {
@@ -78,8 +78,28 @@ export const authApi = apiSlice.injectEndpoints({
         } catch (error) {}
       },
     }),
+    logout: builder.query({
+      query() {
+        return {
+          url: "logout",
+          method: "GET",
+          credentials: "include" as const,
+        };
+      },
+      async onQueryStarted(args, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
+          dispatch(userLoggedOut());
+        } catch (error) {}
+      },
+    }),
   }),
 });
 
-export const { useRegisterMutation, useActivationMutation, useLoginMutation, useSocialAuthMutation } =
-  authApi;
+export const {
+  useRegisterMutation,
+  useActivationMutation,
+  useLoginMutation,
+  useSocialAuthMutation,
+  useLogoutQuery
+} = authApi;
