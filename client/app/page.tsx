@@ -14,7 +14,7 @@ const Page: FC<Props> = (props) => {
   const [activeItem, setActiveItem] = useState(0)
   const [route, setRoute] = useState("Login")
   return (
-    <div>
+    <>
       <Heading
         title="Compile Academy"
         description="Compile academy is a platform for students to learn and enhance skills."
@@ -25,7 +25,7 @@ const Page: FC<Props> = (props) => {
 
       <Hero/>
       </div>
-    </div>
+    </>
   )
 }
 

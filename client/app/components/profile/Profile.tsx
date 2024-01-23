@@ -3,7 +3,7 @@
 import React, { FC, useState } from 'react'
 import SidebarProfile from './SidebarProfile'
 import { useLogoutQuery } from '@/redux/features/auth/authApi'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 import toast from 'react-hot-toast'
 
@@ -18,6 +18,9 @@ const Profile: FC<Props> = ({ user }) => {
   const [avatar, setAvatar] = useState(null)
   const [logout, setlogout] = useState(false)
 
+  const { data } = useSession()
+
+
   const { } = useLogoutQuery(undefined, {
     skip: !logout
   })
@@ -25,7 +28,9 @@ const Profile: FC<Props> = ({ user }) => {
 
   const logoutHandler = async () => {
     setlogout(true);
-    await signOut()
+    if(data !== null){
+      await signOut()
+    }
     // toast.success("Logout Sucessfully")
   }
 
