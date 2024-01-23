@@ -6,6 +6,7 @@ import { useLogoutQuery } from '@/redux/features/auth/authApi'
 import { signOut, useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 import toast from 'react-hot-toast'
+import ProfileInfo from './ProfileInfo'
 
 type Props = {
   user: any
@@ -28,7 +29,7 @@ const Profile: FC<Props> = ({ user }) => {
 
   const logoutHandler = async () => {
     setlogout(true);
-    if(data !== null){
+    if (data !== null) {
       await signOut()
     }
     // toast.success("Logout Sucessfully")
@@ -51,6 +52,12 @@ const Profile: FC<Props> = ({ user }) => {
       <div className={`w-[60px] 800px:w-[310px] h-[450px] dark:bg-slate-900 bg-white bg-opacity-90 border dark:border-[#ffffff1d] border-[#00000014] rounded-[5px] shadow-sm mt-[80px] mb-[80px] sticky ${scroll ? "top-[120px]" : "top-[30px]"}`}>
 
         <SidebarProfile user={user} active={active} setActive={setActive} avatar={avatar} logoutHandler={logoutHandler} />
+      </div>
+      <div className="w-full my-[80px]">
+
+        {
+          active === 1 && <ProfileInfo user={user} avatar={avatar}/>
+        }
       </div>
     </div>
   )
