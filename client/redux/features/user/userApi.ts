@@ -11,8 +11,19 @@ export const userApi = apiSlice.injectEndpoints({
           credentials: "include" as const,
         };
       },
+      invalidatesTags: ["geUser"],
+    }),
+    updateUserInfo: builder.mutation({
+      query(data) {
+        return {
+          url: "updateUser",
+          method: "PUT",
+          body: data,
+          credentials: "include" as const,
+        };
+      },
     }),
   }),
 });
 
-export const { useUpdateAvatarMutation } = userApi;
+export const { useUpdateAvatarMutation, useUpdateUserInfoMutation } = userApi;

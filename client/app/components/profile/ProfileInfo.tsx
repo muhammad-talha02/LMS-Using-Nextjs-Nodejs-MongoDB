@@ -3,9 +3,10 @@ import React, { FC, useEffect, useState } from 'react'
 import noAvatar from "../../../public/noavatar.png"
 import { AiOutlineCamera } from 'react-icons/ai';
 import { styles } from '@/app/styles/style';
-import { useUpdateAvatarMutation } from '@/redux/features/user/userApi';
+import { useUpdateAvatarMutation, useUpdateUserInfoMutation } from '@/redux/features/user/userApi';
 import toast from 'react-hot-toast';
 import { useLoadUserQuery } from '@/redux/features/api/apiSlice';
+import useMutation from '../../hooks/useMutation';
 
 
 type Props = {
@@ -17,17 +18,27 @@ type Props = {
 const ProfileInfo: FC<Props> = ({ user, avatar }) => {
     const [profileName, setProfileName] = useState(user && user.name)
     const [loadUser, setLoadUser] = useState(false)
-    const [updateAvatar, result] = useUpdateAvatarMutation()
-    const { } = useLoadUserQuery(undefined, { skip: !loadUser })
+    // const [updateAvatar, result] = useUpdateAvatarMutation()
+
+    // Update User APi
+    const { actionApi, result: updateResult } = useMutation({
+        api: useUpdateUserInfoMutation,
+        successMsg: "User Updated Sucessfully"
+    })
+
+    // Update Profile Picture Api
+    const { actionApi: UpdateAvatar, result: avatarResult } = useMutation({
+        api: useUpdateAvatarMutation,
+        successMsg: "Avatar Updated Sucessfully"
+    })
     const imageHandler = (e: any) => {
 
-        const file = e.target.files[0]
         const fileReader = new FileReader()
         console.log(fileReader)
         fileReader.onload = () => {
             if (fileReader.readyState === 2) {
                 console.log(fileReader)
-                updateAvatar({
+                UpdateAvatar({
                     avatar: fileReader.result
                 })
             }
@@ -35,18 +46,12 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
         fileReader.readAsDataURL(e.target.files[0])
 
     }
-    useEffect(() => {
-        if (result.isSuccess) {
-            setLoadUser(true)
-            toast.success("Updated Sucessfully")
-        }
-        if (result.error) {
-            console.log("Error ->", result.error)
-        }
-    }, [result.isSuccess, result.error])
 
-    const handleSubmit = () => {
-
+    const handleSubmit = (e: any) => {
+        e.preventDefault()
+        if (profileName.length > 5) {
+            actionApi({ name: profileName })
+        }
     }
 
 
@@ -78,7 +83,7 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
                     <label htmlFor="email" className={`${styles.label}`}>Email: </label>
                     <input type='email' className={`${styles.input} dark:disabled:opacity-70 disabled:bg-white-900 disabled:text-gray-300`} value={"talha@gmail.com"} name='email' id='email' disabled={true} readOnly />
                 </div>
-                <button className='w-full 800px:w-[130px] py-2 my-3 border-2 border-[--t-blue] hover:opacity-80'>Update</button>
+                <button className='w-full 800px:w-[130px] py-2 my-3 border-2 border-[--t-blue] hover:opacity-80'>{updateResult.isLoading ? "Updating" : "Update"}</button>
             </form>
         </div>
     )
