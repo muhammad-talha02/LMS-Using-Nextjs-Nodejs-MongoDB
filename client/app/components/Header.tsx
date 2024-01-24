@@ -14,7 +14,7 @@ import Image from "next/image";
 import noAvatar from "../../public/noavatar.png"
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
-import { useSocialAuthMutation } from "@/redux/features/auth/authApi";
+import { useLogoutQuery, useSocialAuthMutation } from "@/redux/features/auth/authApi";
 
 type Props = {
     open: boolean;
@@ -27,6 +27,7 @@ type Props = {
 const Header: FC<Props> = (props) => {
     const [active, setActive] = useState(false);
     const [openSidebar, setOpenSidebar] = useState(false);
+    const [logout, setLogout] = useState(false);
     const { open, setOpen, activeItem, route, setRoute } = props;
 
     // User from store
@@ -35,8 +36,13 @@ const Header: FC<Props> = (props) => {
 
     const { data } = useSession()
 
+
+    const { } = useLogoutQuery(undefined, {
+        skip: !logout
+    })
+
     const [socialLogin, result] = useSocialAuthMutation()
-    console.log("d", result.isSuccess)
+    console.log("d", data)
 
 
     // Success or Error Message
@@ -51,11 +57,13 @@ const Header: FC<Props> = (props) => {
                 console.log("Loginsndnn")
             }
         }
-            if (result.isSuccess) {
-                const message = result.data?.message
-                toast.success(message || "Login Successfully")
-                setOpen(false)
-            }
+        if (result.isSuccess) {
+            const message = result.data?.message
+            toast.success(message || "Login Successfully")
+        }
+        // if (data === null) {
+        //     setLogout(true)
+        // }
         // if (result.error) {
         //     const errorData = result.error as any
         //     console.log(result)
@@ -116,7 +124,7 @@ const Header: FC<Props> = (props) => {
                             {
                                 user ? (
                                     <Link href={"/profile"}>
-                                    <Image src={user.avatar ? user.avatar : noAvatar} width={30} height={30} alt="profile" className="cursor-pointer rounded-full" />
+                                        <Image src={user.avatar ? user.avatar : noAvatar} width={30} height={30} alt="profile" className="cursor-pointer rounded-full" />
                                     </Link>
                                 ) : <HiOutlineUserCircle
                                     size={25}
