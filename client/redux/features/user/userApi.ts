@@ -23,7 +23,17 @@ export const userApi = apiSlice.injectEndpoints({
         };
       },
     }),
+    changePassword: builder.mutation({
+      query(data) {
+        return {
+          url: "updatePassword",
+          method: "PUT",
+          body: data,
+          credentials: "include" as const,
+        };
+      },
+    }),
   }),
 });
 
-export const { useUpdateAvatarMutation, useUpdateUserInfoMutation } = userApi;
+export const { useUpdateAvatarMutation, useUpdateUserInfoMutation , useChangePasswordMutation } = userApi;
