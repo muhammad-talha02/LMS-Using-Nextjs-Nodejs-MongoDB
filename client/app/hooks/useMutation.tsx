@@ -20,6 +20,7 @@ const useMutation = ({ api, successMsg = "Success", successFunc }: Props) => {
         }
         if (result.isError) {
             console.log("Error ->", result.error.message)
+            toast.error(result.error.data.message || "Error")
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [result.isSuccess, result.isError, result.error])
