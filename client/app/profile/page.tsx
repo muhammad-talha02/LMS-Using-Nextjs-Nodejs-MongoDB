@@ -22,7 +22,7 @@ const Page = (props: Props) => {
             <Protected>
 
                 <Heading
-                    title={`${user?.name} profile`}
+                    title={`${user?.name} Profile`}
                     description="Compile academy is a platform for students to learn and enhance skills."
                     keywords="Programming,MERN,Machine Learning"
                 />

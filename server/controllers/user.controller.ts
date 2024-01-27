@@ -341,7 +341,7 @@ export const updatePassword = catchAsyncError(
       const user = await userModel.findById(req.user?._id).select("+password");
       if (user?.password === undefined) {
         return next(
-          new ErrorHandler("User is not valid for chnage password", 400)
+          new ErrorHandler("User is not valid for change password", 400)
         );
       }
       const isPasswordMatch = await user?.comparePassword(oldPassword);
