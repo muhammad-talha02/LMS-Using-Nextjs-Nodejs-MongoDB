@@ -61,7 +61,7 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
             <div className="profileImg">
                 <div className="imgBox relative">
                     <label htmlFor='profileImg'>
-                        <Image src={user.avatar.url || avatar || noAvatar} width={150} height={150} alt='profile-img' className='w-[100px] h-[100px] rounded-full border-[3px] border-[#37a39a]' />
+                        <Image src={user?.avatar?.url || avatar || noAvatar} width={150} height={150} alt='profile-img' className='w-[100px] h-[100px] rounded-full border-[3px] border-[#37a39a]' />
                         <div className='dark:bg-[#0b0f19] bg-white  w-[25px] border-[3px] border-[#37a39a] h-[25px] flex justify-center items-center rounded-full absolute bottom-[4px] right-[8px]'>
                             <AiOutlineCamera size={15} className='dark:text-white text-black' />
 

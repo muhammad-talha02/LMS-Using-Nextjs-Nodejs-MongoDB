@@ -46,14 +46,15 @@ const Item: FC<ItemProps> = (props) => {
 
 
 interface SidebarProps {
-
+collapsed:boolean,
+setCollapsed:(collapsed:boolean) => void
 }
 const AdminSidebar: FC<SidebarProps> = (props) => {
+    const {collapsed, setCollapsed} = props
     const { user } = useSelector((state: any) => state.auth);
     const [logout, setLogout] = useState(false);
     const [selected, setSelected] = useState("Dashboard");
     const [mounted, setMounted] = useState(false);
-    const [collapsed, setCollapsed] = useState(false);
     const { theme } = useTheme();
 
     useEffect(() => {
