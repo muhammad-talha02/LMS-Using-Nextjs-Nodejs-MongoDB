@@ -14,22 +14,132 @@ import WysiwygIcon from "@mui/icons-material/Wysiwyg";
 import ManageHistoryIcon from "@mui/icons-material/ManageHistory";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { GiCrossedSwords } from "react-icons/gi";
 
-export {
-    HomeOutlinedIcon,
-    ArrowForwardIosIcon,
-    ArrowBackIosIcon,
-    PeopleOutlinedIcon,
-    ReceiptOutlinedIcon,
-    BarChartOutlinedIcon,
-    MapOutlinedIcon,
-    GroupsIcon,
-    OndemandVideoIcon,
-    VideoCallIcon,
-    WebIcon,
-    QuizIcon,
-    WysiwygIcon,
-    ManageHistoryIcon,
-    SettingsIcon,
-    ExitToAppIcon
-}
+// export {
+//     HomeOutlinedIcon,
+//     ArrowForwardIosIcon,
+//     ArrowBackIosIcon,
+//     PeopleOutlinedIcon,
+//     ReceiptOutlinedIcon,
+//     BarChartOutlinedIcon,
+//     MapOutlinedIcon,
+//     GroupsIcon,
+//     OndemandVideoIcon,
+//     VideoCallIcon,
+//     WebIcon,
+//     QuizIcon,
+//     WysiwygIcon,
+//     ManageHistoryIcon,
+//     SettingsIcon,
+//     ExitToAppIcon,
+//     GiCrossedSwords
+// }
+const MenuItems = [
+    {
+        subMenu: [
+            {
+                title: "Dashboard",
+                Icon: HomeOutlinedIcon ,
+                to: "/"
+            }
+        ]
+    },
+    {
+        label: "Data",
+        subMenu: [
+            {
+                title: "Users",
+                Icon: GroupsIcon ,
+                to: "/"
+            },
+            {
+                title: "Invoices",
+                Icon: ReceiptOutlinedIcon ,
+                to: "/"
+            },
+        ]
+    },
+    {
+        label: "Content",
+        subMenu: [
+            {
+                title: "Create Course",
+                Icon: VideoCallIcon ,
+                to: "/"
+            },
+            {
+                title: "Live Courses",
+                Icon: OndemandVideoIcon ,
+                to: "/"
+            },
+        ]
+    },
+    {
+        label: "Customization",
+        subMenu: [
+            {
+                title: "Hero",
+                Icon: WebIcon ,
+                to: "/"
+            },
+            {
+                title: "FAQ",
+                Icon: QuizIcon ,
+                to: "/"
+            },
+            {
+                title: "Categories",
+                Icon: WysiwygIcon ,
+                to: "/"
+            },
+        ]
+    },
+    {
+        label: "Controllers",
+        subMenu: [
+            {
+                title: "Manage Teams",
+                Icon: PeopleOutlinedIcon ,
+                to: "/"
+            },
+                    ]
+    },
+    {
+        label: "Analytics",
+        subMenu: [
+            {
+                title: "Course Analytics",
+                Icon: BarChartOutlinedIcon ,
+                to: "/"
+            },
+            {
+                title: "Orders Analytics",
+                Icon: MapOutlinedIcon ,
+                to: "/"
+            },
+            {
+                title: "Users Analytics",
+                Icon: ManageHistoryIcon ,
+                to: "/"
+            },
+                    ]
+    },
+    {
+        label: "Extras",
+        subMenu: [
+            {
+                title: "Settings",
+                Icon: SettingsIcon ,
+                to: "/"
+            },
+            {
+                title: "Logout",
+                Icon: ExitToAppIcon ,
+                to: "/"
+            },
+                    ]
+    },
+]
+
+export default MenuItems

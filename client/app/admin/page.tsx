@@ -5,7 +5,7 @@ import AdminSidebar from '../components/admin/AdminSidebar'
 
 type Props = {}
 
-const Admin = (props: Props) => {
+const Page = (props: Props) => {
     return (
         <>
             <Heading
@@ -23,4 +23,4 @@ const Admin = (props: Props) => {
     )
 }
 
-export default Admin
+export default Page
