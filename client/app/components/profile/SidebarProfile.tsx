@@ -23,7 +23,7 @@ const SidebarProfile: FC<Props> = (props) => {
                 onClick={() => setActive(1)}
             >
 
-                <Image src={user?.avatar.url || avatar || noAvatar} width={150} height={150} className='w-[20px] h-[20px] 800px:w-[30px] 800px:h-[30px] rounded-full cursor-pointer' alt='Avatar' />
+                <Image src={user?.avatar?.url || avatar || noAvatar} width={150} height={150} className='w-[20px] h-[20px] 800px:w-[30px] 800px:h-[30px] rounded-full cursor-pointer' alt='Avatar' />
                 <h5 className='pl-2 800px:block hidden font-Poppins text-black dark:text-white'>
                     My Account
                 </h5>
@@ -46,7 +46,7 @@ const SidebarProfile: FC<Props> = (props) => {
             </div>
             {
                 user.role === "admin" &&
-                <Link href={"/admin"} className={`w-full flex items-center px-3 py-4 cursor-pointer ${active === 6 ? "dark:bg-slate-800 bg-white" : "bg-transparent"}`}
+                <Link href={"/admin/dashboard"} className={`w-full flex items-center px-3 py-4 cursor-pointer ${active === 6 ? "dark:bg-slate-800 bg-white" : "bg-transparent"}`}
                     onClick={() => setActive(6)}
                 >
                     <MdOutlineAdminPanelSettings size={20}  className='text-black dark:text-white'  />

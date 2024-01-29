@@ -1,0 +1,28 @@
+.sidebar{
+    background-image:  linear-gradient(
+        147.92deg,
+        hsla(239, 76%, 53%, 0.24),
+        hsla(0, 0%, 100%, 0) 89.25%);
+}
+
+/* width */
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+  .sidebar::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.326); 
+    border-radius: 2px;
+  }
+   
+  /* Handle */
+  .sidebar::-webkit-scrollbar-thumb {
+    background: rgb(255, 255, 255); 
+    border-radius: 2px;
+  }
+  
+  /* Handle on hover */
+  .sidebar::-webkit-scrollbar-thumb:hover {
+    background: #ffffffac; 
+  }

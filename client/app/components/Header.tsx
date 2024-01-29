@@ -124,7 +124,7 @@ const Header: FC<Props> = (props) => {
                             {
                                 user ? (
                                     <Link href={"/profile"}>
-                                        <Image src={user.avatar.url ? user.avatar.url : noAvatar} width={30} height={30} alt="profile" className="cursor-pointer rounded-full" />
+                                        <Image src={user?.avatar?.url ? user.avatar.url : noAvatar} width={30} height={30} alt="profile" className="cursor-pointer rounded-full" />
                                     </Link>
                                 ) : <HiOutlineUserCircle
                                     size={25}
