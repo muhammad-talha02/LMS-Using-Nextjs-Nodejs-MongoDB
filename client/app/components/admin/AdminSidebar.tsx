@@ -32,7 +32,7 @@ const Item: FC<ItemProps> = (props) => {
 
                 {
                     menu?.map(({ title, Icon, to }) => (
-                        <Link key={title} href={to} onClick={() => setSelected(title)} className={`px-5 my-2 text-[12px] mt-4 flex gap-3 hover:text-[--t-blue] hover:scale-x-105 ${selected === title && "text-[--t-blue]"}`}>
+                        <Link key={title} href={to} onClick={() => setSelected(title)} className={`px-5 my-2 text-[12px] mt-4 flex gap-3 hover:text-[--t-blue] hover:scale-y-105 ${selected === title && "text-[--t-blue]"}`}>
                             <Icon />
                             {!collapsed && <span className="text-[16px]">{title}</span>}
                         </Link>
