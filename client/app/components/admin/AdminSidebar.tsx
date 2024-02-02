@@ -64,7 +64,7 @@ const AdminSidebar: FC<SidebarProps> = (props) => {
         return;
     }
     return (
-        <div className={`sidebar fixed left-0 top-0 h-full transition-[width] duration-900 ${collapsed ? "w-[60px]" : "w-[280px] overflow-y-scroll"}`}>
+        <div className={`sidebar fixed left-0 top-0 h-full transition-[width] duration-900 ${collapsed ? "w-[60px]" : "w-[280px]"}`}>
    {   !collapsed ? <>      <div className="sidebarHeader mb-3">
                 <div className="flex justify-between py-3 px-5 items-center gap-8">
                     <Typography component="h1" className="">
