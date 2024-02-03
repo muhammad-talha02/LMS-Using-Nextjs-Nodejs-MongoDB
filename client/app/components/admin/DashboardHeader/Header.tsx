@@ -10,7 +10,7 @@ const DashboardHeader: FC<Props> = (props: Props) => {
 
 
     return (
-        <div className='flex bg-red-800 sticky top-0 justify-end items-center border dark:border-[#111C43] rounded-md border-gray-500'>
+        <div className='flex sticky top-0 justify-end items-center border-b-[1px] dark:border-[#111C43] dark:border-b-[#9b9b9b] border-b-gray-200 h-[61px] px-2'>
             <ThemeSwitcher />
             <Notifications />
         </div>

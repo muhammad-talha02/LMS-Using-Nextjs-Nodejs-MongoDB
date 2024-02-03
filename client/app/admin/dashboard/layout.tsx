@@ -23,9 +23,11 @@ const Layout = ({children}: Props) => {
         {/* <div className={`${collapsed ? "w-[80px]" :"w-[280px]"}`}> */}
             <AdminSidebar collapsed={collapsed} setCollapsed={setCollapsed}/>
         </div>
-        <div className={`${collapsed ? "ml-[60px]" :"ml-[280px]"} h-[200vh] p-3`}>
+        <div className={`${collapsed ? "ml-[60px]" :"ml-[280px]"} h-[200vh]`}>
             <DashboardHeader/>
+            <div className='px-3'>
             {children}   
+            </div>
         </div>
     </div>
 </AdminProtected>
