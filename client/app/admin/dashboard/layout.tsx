@@ -18,15 +18,13 @@ const Layout = ({children}: Props) => {
         description="Compile academy is a platform for students to learn and enhance skills."
         keywords="Programming,MERN,Machine Learning"
     />
-    <div className="h-[200vh]">
+    <div className="">
         <div>
         {/* <div className={`${collapsed ? "w-[80px]" :"w-[280px]"}`}> */}
             <AdminSidebar collapsed={collapsed} setCollapsed={setCollapsed}/>
-        <div className={`${collapsed ? "ml-[60px]" :"ml-[280px]"} w-full bg-yellow-200 sticky top-1 header`}>
+        </div>
+        <div className={`${collapsed ? "ml-[60px]" :"ml-[280px]"} h-[200vh] p-3`}>
             <DashboardHeader/>
-        </div>
-        </div>
-        <div className={`${collapsed ? "ml-[60px]" :"ml-[280px]"} w-full`}>
             {children}   
         </div>
     </div>
