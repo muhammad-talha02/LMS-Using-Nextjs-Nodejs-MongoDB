@@ -13,11 +13,7 @@ const Layout = ({children}: Props) => {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <AdminProtected>
-    <Heading
-        title="Admin | Compile Academy "
-        description="Compile academy is a platform for students to learn and enhance skills."
-        keywords="Programming,MERN,Machine Learning"
-    />
+
     <div className="">
         <div>
         {/* <div className={`${collapsed ? "w-[80px]" :"w-[280px]"}`}> */}
