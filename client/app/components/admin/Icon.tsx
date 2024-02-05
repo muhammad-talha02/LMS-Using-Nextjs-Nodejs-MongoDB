@@ -41,7 +41,7 @@ const MenuItems = [
             {
                 title: "Dashboard",
                 Icon: HomeOutlinedIcon ,
-                to: "/"
+                to: "/dashboard"
             }
         ]
     },
@@ -66,7 +66,7 @@ const MenuItems = [
             {
                 title: "Create Course",
                 Icon: VideoCallIcon ,
-                to: "/"
+                to: "/dashboard/create-course"
             },
             {
                 title: "Live Courses",
