@@ -46,7 +46,7 @@ const SidebarProfile: FC<Props> = (props) => {
             </div>
             {
                 user.role === "admin" &&
-                <Link href={"/admin/dashboard"} className={`w-full flex items-center px-3 py-4 cursor-pointer ${active === 6 ? "dark:bg-slate-800 bg-white" : "bg-transparent"}`}
+                <Link href={"/dashboard"} className={`w-full flex items-center px-3 py-4 cursor-pointer ${active === 6 ? "dark:bg-slate-800 bg-white" : "bg-transparent"}`}
                     onClick={() => setActive(6)}
                 >
                     <MdOutlineAdminPanelSettings size={20}  className='text-black dark:text-white'  />

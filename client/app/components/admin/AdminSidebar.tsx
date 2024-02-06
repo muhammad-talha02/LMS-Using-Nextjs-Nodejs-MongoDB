@@ -32,7 +32,7 @@ const Item: FC<ItemProps> = (props) => {
 
                 {
                     menu?.map(({ title, Icon, to }) => (
-                        <Link key={title} href={to} onClick={() => setSelected(title)} className={`px-5 my-2 text-[12px] mt-4 flex gap-3 hover:text-[--t-blue] hover:scale-x-105 ${selected === title && "text-[--t-blue]"}`}>
+                        <Link key={title} href={to} onClick={() => setSelected(title)} className={`px-5 my-2 text-[12px] mt-4 flex gap-3 hover:text-[--t-blue] hover:scale-y-105 ${selected === title && "text-[--t-blue]"}`}>
                             <Icon />
                             {!collapsed && <span className="text-[16px]">{title}</span>}
                         </Link>
@@ -64,7 +64,7 @@ const AdminSidebar: FC<SidebarProps> = (props) => {
         return;
     }
     return (
-        <div className={`sidebar fixed left-0 top-0 h-full transition-[width] duration-900 ${collapsed ? "w-[60px]" : "w-[280px] overflow-y-scroll"}`}>
+        <div className={`sidebar fixed left-0 top-0 h-full transition-[width] duration-900 ${collapsed ? "w-[60px]" : "w-[280px]"}`}>
    {   !collapsed ? <>      <div className="sidebarHeader mb-3">
                 <div className="flex justify-between py-3 px-5 items-center gap-8">
                     <Typography component="h1" className="">
