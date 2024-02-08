@@ -6,7 +6,7 @@ import { styles } from '@/app/styles/style';
 import { useUpdateAvatarMutation, useUpdateUserInfoMutation } from '@/redux/features/user/userApi';
 import toast from 'react-hot-toast';
 import { useLoadUserQuery } from '@/redux/features/api/apiSlice';
-import useMutation from '../../hooks/useMutation';
+import useMutation from '../../_hooks/useMutation';
 
 
 type Props = {

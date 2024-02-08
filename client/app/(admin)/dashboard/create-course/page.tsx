@@ -1,11 +1,12 @@
+import { CreateCourse } from '../../../components/admin/course'
 import React from 'react'
 
 type Props = {}
 
-const CreateCourse = (props: Props) => {
+const CreateCoursePage = (props: Props) => {
   return (
-    <div>CreateCourse</div>
+    <CreateCourse />
   )
 }
 
-export default CreateCourse
+export default CreateCoursePage

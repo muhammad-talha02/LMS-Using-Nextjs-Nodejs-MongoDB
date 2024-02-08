@@ -1,7 +1,7 @@
 "use client"
 import AdminSidebar from '@/app/components/admin/AdminSidebar'
 import DashboardHeader from '@/app/components/admin/DashboardHeader/Header'
-import AdminProtected from '@/app/hooks/adminProtected'
+import AdminProtected from '@/app/_hooks/adminProtected'
 import Heading from '@/app/utils/Heading'
 import React, { useState } from 'react'
 import "../../components/admin/admin.css"
