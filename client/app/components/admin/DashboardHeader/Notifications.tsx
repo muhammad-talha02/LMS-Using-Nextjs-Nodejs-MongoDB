@@ -1,5 +1,5 @@
 import { styles } from '../../../styles/style'
-import { Typography } from '@mui/material'
+import { Badge, Paper, Typography } from '@mui/material'
 import React, { FC, useEffect, useRef, useState } from 'react'
 import { IoMdNotificationsOutline } from 'react-icons/io'
 
@@ -10,8 +10,6 @@ const Notifications: FC<NotificationsProps> = (props) => {
   const notificationsRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const hideOnClickOutside = (e: any) => {
-      console.log(e.target)
-      console.log("Current -->", notificationsRef.current && !notificationsRef?.current.contains(e.target))
       if (notificationsRef.current && !notificationsRef?.current.contains(e.target)) {
         setOpen(false)
       }
@@ -26,17 +24,17 @@ const Notifications: FC<NotificationsProps> = (props) => {
 
   return (
     <div ref={notificationsRef}>
-      <div className="relative cursor-pointer mr-2 md:mr-5" id='notifyIcon'>
-        <IoMdNotificationsOutline className='text-2xl' onClick={() => setOpen(!open)} />
-        <span className='absolute -top-1 right-0 bg-[--t-blue] rounded-full w-[16px] h-[16px] text-[10px] flex items-center justify-center'>5</span>
-      </div>
+      <Badge badgeContent={5} color='primary' className="cursor-pointer mr-2 md:mr-5 text-[5px] select-none" id='notifyIcon' max={9} onClick={() => setOpen(!open)}>
+        <IoMdNotificationsOutline className='text-2xl -mr-1' />
+        {/* <span className='absolute -top-1 right-0 bg-[--t-blue] rounded-full w-[16px] h-[16px] text-[10px] flex items-center justify-center'>5</span> */}
+      </Badge>
       {
-        open && <div className="customScrollBar w-[280px] h-[50vh] bg-white border-[1px] dark:border-black darkborder-gray-600 rounded-sm dark:bg-[#111C43] absolute bg-[--t-blue] top-12 right-6 pt-2  overflow-y-scroll">
+        open && <Paper className="customScrollBar dark:text-white text-black w-[280px] h-[50vh] bg-white border-[1px] dark:border-gray-600 rounded-sm dark:bg-[#111C43] absolute bg-[--t-blue] top-12 right-6 pt-2  overflow-y-scroll">
           <Typography component={"h4"} fontSize={18} textAlign={"center"} className={`${styles.borderBottom}`}>Notifications</Typography>
           <div className="w-full">
             <NotifyBox />
           </div>
-        </div>
+        </Paper>
       }
     </div>
   )
