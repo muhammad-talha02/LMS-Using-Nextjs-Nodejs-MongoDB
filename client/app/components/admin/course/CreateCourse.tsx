@@ -38,7 +38,12 @@ const CreateCourse = (props: Props) => {
         <div className='w-full'>
             <div className="w-[80%]">
                 {
-                    active === 0 && <CourseInformation />
+                    active === 0 && <CourseInformation 
+                    courseInfo={courseInfo}
+                    setCourseInfo={setCourseInfo}
+                    active={active}
+                    setActive={setActive}
+                    />
                 }
             </div>
             <div className="w-[20%] mt-[100px] h-screen fixed top-18 right-0 z-[-1]">
