@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import InputField from '../../form/InputField'
 
 type Props = {
     active: number,
@@ -19,8 +20,9 @@ const CourseInformation: FC<Props> = (props) => {
 
     return (
         <div className='w-[80%] m-auto mt-24'>
+            <h1>fsdfsdfsfsdafasdfsadffasd</h1>
             <form onSubmit={handleSubmit}>
-                
+                <InputField />
             </form>
         </div>
     )
