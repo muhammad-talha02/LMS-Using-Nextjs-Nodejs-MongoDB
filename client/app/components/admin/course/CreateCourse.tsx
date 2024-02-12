@@ -46,7 +46,7 @@ const CreateCourse = (props: Props) => {
                     />
                 }
             </div>
-            <div className="w-[20%] mt-[100px] h-screen fixed top-18 right-0 z-[-1]">
+            <div className="w-[20%] mt-[100px] h-screen fixed top-12 right-0 z-[-1]">
                 <CourseOptions active={active} setActive={setActive}/>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { Grid, InputLabel, TextField } from '@mui/material'
+import { FormControl, FormLabel, Grid, InputLabel, TextField } from '@mui/material'
 import React from 'react'
 
 type Props = {
@@ -12,8 +12,11 @@ const InputLayout = (props: Props) => {
     const { label, children, ...test } = props
     return (
         <Grid item xs={12}>
-            <InputLabel {...test}>{label}</InputLabel>
-            {children}
+            <FormControl fullWidth className='text-black dark:text-white'>
+                <FormLabel htmlFor='test'>ahsgdadj</FormLabel>
+                {/* <InputLabel {...test}>{label}</InputLabel> */}
+                {children}
+            </FormControl>
         </Grid >
 
     )
