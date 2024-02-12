@@ -24,7 +24,7 @@ const Layout = ({ children }: Props) => {
                     {/* <div className={`${collapsed ? "w-[80px]" :"w-[280px]"}`}> */}
                     <AdminSidebar collapsed={collapsed} setCollapsed={setCollapsed} />
                 </div>
-                <div className={`${collapsed ? "ml-[60px]" : "ml-[280px]"} h-[200vh]`}>
+                <div className={`${collapsed ? "ml-[60px]" : "ml-[280px]"} min-h-[100vh]`}>
                     <DashboardHeader />
                     <div className='px-3'>
                         {/* <RouteLoader loading={loading} setLoading={setLoading}> */}
