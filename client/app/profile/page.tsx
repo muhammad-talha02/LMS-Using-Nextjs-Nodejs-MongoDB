@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 import Heading from '../utils/Heading'
 import { Header } from '../components'
-import Protected from '../hooks/useProtected'
+import Protected from '../_hooks/useProtected'
 import { useSelector } from 'react-redux'
 import Profile from '../components/profile/Profile'
 

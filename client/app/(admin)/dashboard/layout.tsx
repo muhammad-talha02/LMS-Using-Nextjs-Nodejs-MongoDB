@@ -1,7 +1,7 @@
 "use client"
 import AdminSidebar from '@/app/components/admin/AdminSidebar'
 import DashboardHeader from '@/app/components/admin/DashboardHeader/Header'
-import AdminProtected from '@/app/hooks/adminProtected'
+import AdminProtected from '@/app/_hooks/adminProtected'
 import Heading from '@/app/utils/Heading'
 import React, { useState } from 'react'
 import "../../components/admin/admin.css"
@@ -24,7 +24,7 @@ const Layout = ({ children }: Props) => {
                     {/* <div className={`${collapsed ? "w-[80px]" :"w-[280px]"}`}> */}
                     <AdminSidebar collapsed={collapsed} setCollapsed={setCollapsed} />
                 </div>
-                <div className={`${collapsed ? "ml-[60px]" : "ml-[280px]"} h-[200vh]`}>
+                <div className={`${collapsed ? "ml-[60px]" : "ml-[280px]"} min-h-[100vh]`}>
                     <DashboardHeader />
                     <div className='px-3'>
                         {/* <RouteLoader loading={loading} setLoading={setLoading}> */}

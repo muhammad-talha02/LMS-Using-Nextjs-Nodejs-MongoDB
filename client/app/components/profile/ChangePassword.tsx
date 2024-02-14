@@ -2,7 +2,7 @@ import { styles } from '@/app/styles/style';
 import { useChangePasswordMutation } from '@/redux/features/user/userApi';
 import { ChangeEvent, FC, useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import useMutation from '../../hooks/useMutation';
+import useMutation from '../../_hooks/useMutation';
 import toast from 'react-hot-toast';
 
 
