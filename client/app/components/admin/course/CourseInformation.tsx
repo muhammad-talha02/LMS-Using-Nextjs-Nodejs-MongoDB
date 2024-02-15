@@ -4,6 +4,7 @@ import InputField from '../../form/InputField'
 import { Box, Grid } from '@mui/material'
 import { styles } from '@/app/styles/style'
 import Image from 'next/image'
+import { NextButton } from '.'
 
 type Props = {
     active: number,
@@ -175,17 +176,17 @@ const CourseInformation: FC<Props> = (props) => {
                     </Grid>
 
                 </Grid>
-                    <NextButton />
+                <NextButton nextTitle='Next' handleNext={() => setActive(active + 1)} />
             </form>
         </div>
     )
 }
 
-const NextButton = () => {
-    return <div className="w-full flex justify-end mb-10">
+// const NextButton = () => {
+//     return <div className="w-full flex justify-end mb-10">
 
-     <input type='submit' value={'Next'} className='text-white bg-[--t-blue] rounded mt-8 cursor-pointer w-full 800px:w-[150px] h-[40px]' />
-    </div>
-}
+//      <input type='submit' value={'Next'} className='text-white bg-[--t-blue] rounded mt-8 cursor-pointer w-full 800px:w-[150px] h-[40px]' />
+//     </div>
+// }
 
 export default CourseInformation
