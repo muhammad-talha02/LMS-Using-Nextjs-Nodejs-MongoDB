@@ -16,7 +16,7 @@ const InputField = (props: Props) => {
 
     const { label, children, style, type, ...rest } = props
     return (
-        <Grid item xs={style.xs || 12} md={style.md || 6} lg={style.lg || 4}>
+        <Grid item xs={style.xs || 12} md={style.md || 6} lg={style.lg || 4} sx={style}>
             {label && <label htmlFor={rest.name}>{label}
             </label>}
             {children || <input type={type} className={`${styles.input} mt-[5px]`} {...rest} />}

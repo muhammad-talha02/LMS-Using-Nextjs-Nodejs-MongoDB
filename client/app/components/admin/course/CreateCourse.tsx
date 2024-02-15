@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import { CourseInformation, CourseOptions } from '.'
+import { CourseData, CourseInformation, CourseOptions } from '.'
 
 type Props = {}
 
@@ -24,13 +24,13 @@ const CreateCourse = (props: Props) => {
     })
 
     const [courseInfo, setCourseInfo] = useState({
-        name: "",
-        description: "",
-        price: "",
-        estimatedPrice: "",
-        tags: "",
-        levels: "",
-        demoUrl: "",
+        name: "k",
+        description: "k",
+        price: 2,
+        estimatedPrice: 1,
+        tags: "k",
+        levels: "k",
+        demoUrl: "k",
         thumbnail: ""
     })
 
@@ -38,16 +38,26 @@ const CreateCourse = (props: Props) => {
         <div className='w-full'>
             <div className="w-[80%]">
                 {
-                    active === 0 && <CourseInformation 
-                    courseInfo={courseInfo}
-                    setCourseInfo={setCourseInfo}
-                    active={active}
-                    setActive={setActive}
+                    active === 0 && <CourseInformation
+                        courseInfo={courseInfo}
+                        setCourseInfo={setCourseInfo}
+                        active={active}
+                        setActive={setActive}
+                    />
+                }
+                {
+                    active === 1 && <CourseData
+                        benefits={benefits}
+                        setBenefits={setBenefits}
+                        prerequisites={prerequisites}
+                        setPrerequisites={setPrerequisites}
+                        active={active}
+                        setActive={setActive}
                     />
                 }
             </div>
             <div className="w-[20%] mt-[100px] h-screen fixed top-12 right-0 z-[-1]">
-                <CourseOptions active={active} setActive={setActive}/>
+                <CourseOptions active={active} setActive={setActive} />
             </div>
         </div>
     )
