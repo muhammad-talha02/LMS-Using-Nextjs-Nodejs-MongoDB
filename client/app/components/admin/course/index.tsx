@@ -2,6 +2,7 @@ export { default as CreateCourse } from "./CreateCourse"
 export { default as CourseInformation } from "./CourseInformation"
 export { default as CourseOptions } from "./CourseOptions"
 export { default as CourseData } from "./CourseData"
+export { default as CourseContent } from "./CourseContent"
 
 type Props = {
     nextTitle?: string,

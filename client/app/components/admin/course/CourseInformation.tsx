@@ -82,7 +82,7 @@ const CourseInformation: FC<Props> = (props) => {
                 <Grid container spacing={2}>
 
                     <InputField
-                        style={{ xs: 12, lg: 12 }}
+                        style={{ md: 12, lg: 12 }}
                         type="text"
                         name='name'
                         id='name'
@@ -93,7 +93,7 @@ const CourseInformation: FC<Props> = (props) => {
                         onChange={handleChange}
                     />
                     <InputField
-                        style={{ lg: 12 }}
+                        style={{ lg: 12 ,md:12 }}
                         name='description'
                         label={"Course Description:"}
                     >
@@ -102,7 +102,7 @@ const CourseInformation: FC<Props> = (props) => {
                         </textarea>
                     </InputField>
                     <InputField
-                        style={{ xs: 12, lg: 6 }}
+                        style={{ md: 12, lg: 6 }}
                         type="number"
                         name='price'
                         id='price'
@@ -113,7 +113,7 @@ const CourseInformation: FC<Props> = (props) => {
                         onChange={handleChange}
                     />
                     <InputField
-                        style={{ xs: 12, lg: 6 }}
+                        style={{ md: 12, lg: 6 }}
                         type="number"
                         name='estimatedPrice'
                         id='estimatedPrice'
@@ -123,7 +123,7 @@ const CourseInformation: FC<Props> = (props) => {
                         onChange={handleChange}
                     />
                     <InputField
-                        style={{ xs: 12, lg: 12 }}
+                        style={{ md: 12, lg: 12 }}
                         type="text"
                         name='tags'
                         id='tags'
@@ -133,7 +133,7 @@ const CourseInformation: FC<Props> = (props) => {
                         onChange={handleChange}
                     />
                     <InputField
-                        style={{ xs: 12, lg: 6 }}
+                        style={{ md: 12, lg: 6 }}
                         type="text"
                         name='level'
                         id='level'
@@ -143,7 +143,7 @@ const CourseInformation: FC<Props> = (props) => {
                         onChange={handleChange}
                     />
                     <InputField
-                        style={{ xs: 12, lg: 6 }}
+                        style={{ md: 12, lg: 6 }}
                         type="text"
                         name='demoUrl'
                         id='demoUrl'
