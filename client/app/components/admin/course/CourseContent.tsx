@@ -1,11 +1,13 @@
 "use client";
 import { styles } from "@/app/styles/style";
 import React, { ChangeEvent, FC, useState } from "react";
-import { AiOutlineDelete } from "react-icons/ai";
-import { BsPencil } from "react-icons/bs";
+import { AiOutlineDelete, AiOutlinePlusCircle } from "react-icons/ai";
+import { BsLink45Deg, BsPencil } from "react-icons/bs";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { InputField } from "../../form";
 import { AddCircle } from "@mui/icons-material";
+import { Box } from "@mui/material";
+import toast from "react-hot-toast";
 
 type Props = {
     courseContentData: any;
@@ -16,7 +18,7 @@ type Props = {
 
 const CourseContent: FC<Props> = (props) => {
     const { courseContentData, setCourseContentData, active, setActive } = props;
-    console.log("COurseconetnr", courseContentData)
+    console.log("COurseconetnr", courseContentData);
     const [isCollapsed, setIsCollapsed] = useState(
         Array(courseContentData.length).fill(false)
     );
@@ -32,9 +34,34 @@ const CourseContent: FC<Props> = (props) => {
         setIsCollapsed(updatedCollpased);
     };
     const handleRemoveLink = (index: number, linkIndex: number) => {
-        const updatedCourseContentData = [...courseContentData]
-        updatedCourseContentData[index].links.splice(linkIndex, 1)
-        setCourseContentData(updatedCourseContentData)
+        const updatedCourseContentData = [...courseContentData];
+        updatedCourseContentData[index].links.splice(linkIndex, 1);
+        setCourseContentData(updatedCourseContentData);
+    };
+
+    const newContentHandler = (item: any) => {
+        if (item.title === '' || item.description === '' || item.videoUrl === '' || item.links[0].title === '' || item.links[0].url === '') {
+            toast.error("Please fill all required fields first")
+        }
+        else {
+            let newVideoSection = ''
+            if (courseContentData.length > 0) {
+                const lastVideoSection = courseContentData[courseContentData.length - 1].videoSection
+
+                // use tha last video section  if available else use user input
+                if (lastVideoSection) {
+                    newVideoSection = lastVideoSection
+                }
+            }
+            const newContent = {
+                videoUrl: '',
+                title: "",
+                videoSection: newVideoSection,
+                description: "",
+                links: [{ title: "", url: "" }]
+            }
+            setCourseContentData([...courseContentData, newContent])
+        }
     }
     return (
         <div className="w-[80%] mt-12 pt-3 m-auto">
@@ -58,7 +85,8 @@ const CourseContent: FC<Props> = (props) => {
                                                 } ? "w-[170px]" : "w-min"} font-Poppins cursor-pointer bg-transparent text-black dark:text-white outline-none`}
                                             onChange={(e: any) => {
                                                 const updatedCourseContentData = [...courseContentData];
-                                                updatedCourseContentData[index].videoSection = e.target.value;
+                                                updatedCourseContentData[index].videoSection =
+                                                    e.target.value;
                                                 setCourseContentData(updatedCourseContentData);
                                             }}
                                         />
@@ -152,7 +180,9 @@ const CourseContent: FC<Props> = (props) => {
                                             />
                                         </div>
                                         <div className="my-3">
-                                            <label htmlFor="description" className={styles.label}>Video Description</label>
+                                            <label htmlFor="description" className={styles.label}>
+                                                Video Description
+                                            </label>
                                             <textarea
                                                 rows={8}
                                                 value={item.description}
@@ -170,21 +200,26 @@ const CourseContent: FC<Props> = (props) => {
                                                 }}
                                             />
                                         </div>
-                                        <div>
-                                            {
-                                                item.links?.map((link: any, linkIndex: number) => {
-                                                    return <div className="my-3">
+                                        {/* Links  */}
+                                        <Box>
+
+                                            {item.links?.map((link: any, linkIndex: number) => {
+                                                return (
+                                                    <div className="my-3" key={linkIndex}>
                                                         <>
                                                             <div className="w-full flex items-center justify-between">
                                                                 <label htmlFor="" className={styles.label}>
                                                                     Link {linkIndex + 1}
                                                                 </label>
                                                                 <AiOutlineDelete
-                                                                    className={`${linkIndex === 0 ? "cursor-no-drop" : "cursor-pointer"}`}
-
-
+                                                                    className={`${linkIndex === 0
+                                                                        ? "cursor-no-drop"
+                                                                        : "cursor-pointer"
+                                                                        }`}
                                                                     onClick={() => {
-                                                                        linkIndex === 0 ? null : handleRemoveLink(index, linkIndex)
+                                                                        linkIndex === 0
+                                                                            ? null
+                                                                            : handleRemoveLink(index, linkIndex);
                                                                     }}
                                                                 />
                                                             </div>
@@ -198,13 +233,18 @@ const CourseContent: FC<Props> = (props) => {
                                                                 name="videourl"
                                                                 id="videourl"
                                                                 classes={"!mb-2"}
-                                                                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                                                onChange={(
+                                                                    e: ChangeEvent<HTMLInputElement>
+                                                                ) => {
                                                                     const updatedCourseContentData = [
                                                                         ...courseContentData,
                                                                     ];
-                                                                    updatedCourseContentData[index].links[linkIndex].title =
-                                                                        e.target.value;
-                                                                    setCourseContentData(updatedCourseContentData);
+                                                                    updatedCourseContentData[index].links[
+                                                                        linkIndex
+                                                                    ].title = e.target.value;
+                                                                    setCourseContentData(
+                                                                        updatedCourseContentData
+                                                                    );
                                                                 }}
                                                             />
                                                             <InputField
@@ -216,28 +256,61 @@ const CourseContent: FC<Props> = (props) => {
                                                                 placeholder="Source code Link.."
                                                                 name="videourl"
                                                                 id="videourl"
-                                                                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                                                onChange={(
+                                                                    e: ChangeEvent<HTMLInputElement>
+                                                                ) => {
                                                                     const updatedCourseContentData = [
                                                                         ...courseContentData,
                                                                     ];
-                                                                    updatedCourseContentData[index].links[linkIndex].url =
-                                                                        e.target.value;
-                                                                    setCourseContentData(updatedCourseContentData);
+                                                                    updatedCourseContentData[index].links[
+                                                                        linkIndex
+                                                                    ].url = e.target.value;
+                                                                    setCourseContentData(
+                                                                        updatedCourseContentData
+                                                                    );
                                                                 }}
                                                             />
                                                         </>
-
                                                     </div>
-                                                })
-                                            }
-                                            <AddCircle className="cursor-pointer" onClick={() => {
-                                                const updatedCourseContentData = [...courseContentData]
-                                                updatedCourseContentData[index].links = [...updatedCourseContentData[index].links, { title: "", url: "" }]
-                                                setCourseContentData(updatedCourseContentData)
-                                            }} />
-                                        </div>
+                                                );
+                                            })}
+                                            <Box
+                                                display={"flex"}
+                                                className="cursor-pointer"
+                                                gap={1}
+                                                alignItems={"center"}
+                                                onClick={() => {
+                                                    const updatedCourseContentData = [
+                                                        ...courseContentData,
+                                                    ];
+                                                    updatedCourseContentData[index].links.push({
+                                                        title: "",
+                                                        url: "",
+                                                    });
+                                                    setCourseContentData(updatedCourseContentData);
+                                                }}
+                                            >
+                                                <BsLink45Deg />
+                                                <span>Add Link</span>
+                                            </Box>
+                                        </Box>
                                     </>
                                 )}
+
+                                <br />
+
+                                {/* Add new Content  */}
+
+                                {
+                                    index === courseContentData.length - 1 && (
+                                        <div className="flex items-center text-[18px] cursor-pointer"
+                                            onClick={() => newContentHandler(item)}
+                                        >
+                                            <AiOutlinePlusCircle className="mr-2" />
+                                            <p>Add New Content</p>
+                                        </div>
+                                    )
+                                }
                             </div>
                         </>
                     );
