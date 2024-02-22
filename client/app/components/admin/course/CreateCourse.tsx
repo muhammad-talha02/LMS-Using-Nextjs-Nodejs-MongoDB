@@ -1,15 +1,15 @@
 "use client"
 import React, { useState } from 'react'
-import { CourseData, CourseInformation, CourseOptions } from '.'
+import { CourseContent, CourseData, CourseInformation, CourseOptions } from '.'
 
 type Props = {}
 
 const CreateCourse = (props: Props) => {
-    const [active, setActive] = useState(0)
+    const [active, setActive] = useState(2)
     const [benefits, setBenefits] = useState([{ title: "" }])
     const [prerequisites, setPrerequisites] = useState([{ title: "" }])
     const [courseData, setCourseData] = useState({})
-    const [courseContentData, setCourseContentData] = useState({
+    const [courseContentData, setCourseContentData] = useState([{
         videoUrl: "",
         title: "",
         description: "",
@@ -20,8 +20,8 @@ const CreateCourse = (props: Props) => {
                 url: ''
             }
         ],
-        suggestions: ""
-    })
+        // suggestions: ""
+    }])
 
     const [courseInfo, setCourseInfo] = useState({
         name: "k",
@@ -51,6 +51,14 @@ const CreateCourse = (props: Props) => {
                         setBenefits={setBenefits}
                         prerequisites={prerequisites}
                         setPrerequisites={setPrerequisites}
+                        active={active}
+                        setActive={setActive}
+                    />
+                }
+                {
+                    active === 2 && <CourseContent
+                        courseContentData={courseContentData}
+                        setCourseContentData={setCourseContentData}
                         active={active}
                         setActive={setActive}
                     />
