@@ -20,7 +20,7 @@ const CreateCourse = (props: Props) => {
                 url: ''
             }
         ],
-        suggestions: ""
+        // suggestions: ""
     }])
 
     const [courseInfo, setCourseInfo] = useState({

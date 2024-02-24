@@ -18,7 +18,7 @@ type Props = {
 
 const CourseContent: FC<Props> = (props) => {
     const { courseContentData, setCourseContentData, active, setActive } = props;
-    console.log("COurseconetnr", courseContentData);
+    // console.log("COurseconetnr", courseContentData);
     const [isCollapsed, setIsCollapsed] = useState(
         Array(courseContentData.length).fill(false)
     );
@@ -63,6 +63,18 @@ const CourseContent: FC<Props> = (props) => {
             setCourseContentData([...courseContentData, newContent])
         }
     }
+
+    const addNewSection = () => {
+        const lastCourseContentData = courseContentData[courseContentData.length - 1]
+        const checkLastisFilled = new Set(Object.values(lastCourseContentData)).has("") || lastCourseContentData.links.some((link: any) => new Set(Object.values(link)).has(""))
+        console.log("Last cONTENT DATAS", lastCourseContentData)
+        console.log("Check Last Fields", checkLastisFilled)
+        if (checkLastisFilled) {
+            toast.error("Please fill all above fields!")
+        }
+
+    }
+
     return (
         <div className="w-[80%] mt-12 pt-3 m-auto">
             <form onSubmit={handleSubmit}>
@@ -315,6 +327,11 @@ const CourseContent: FC<Props> = (props) => {
                         </>
                     );
                 })}
+                <br />
+                {/* Add New Section  */}
+                <div className="flex items-center cursor-pointer text-[20px]" onClick={addNewSection}>
+                    Add new Section
+                </div>
             </form>
         </div>
     );
