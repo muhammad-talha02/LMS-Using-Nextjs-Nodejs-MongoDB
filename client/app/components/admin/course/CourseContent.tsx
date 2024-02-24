@@ -8,6 +8,7 @@ import { InputField } from "../../form";
 import { AddCircle } from "@mui/icons-material";
 import { Box } from "@mui/material";
 import toast from "react-hot-toast";
+import { NextButton } from ".";
 
 type Props = {
     courseContentData: any;
@@ -18,18 +19,18 @@ type Props = {
 
 const CourseContent: FC<Props> = (props) => {
     const { courseContentData, setCourseContentData, active, setActive } = props;
-    // console.log("COurseconetnr", courseContentData);
     const [isCollapsed, setIsCollapsed] = useState(
         Array(courseContentData.length).fill(false)
-    );
-    const [activeSection, setActiveSection] = useState(1);
-
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-    };
-
-    const handleCollapsesToggle = (index: number) => {
-        const updatedCollpased = [...isCollapsed];
+        );
+        const [activeSection, setActiveSection] = useState(1);
+        
+        const handleSubmit = (e: any) => {
+            e.preventDefault();
+        };
+        
+        const handleCollapsesToggle = (index: number) => {
+            const updatedCollpased = [...isCollapsed];
+            console.log("Collapsed", updatedCollpased);
         updatedCollpased[index] = !updatedCollpased[index];
         setIsCollapsed(updatedCollpased);
     };
@@ -67,13 +68,34 @@ const CourseContent: FC<Props> = (props) => {
     const addNewSection = () => {
         const lastCourseContentData = courseContentData[courseContentData.length - 1]
         const checkLastisFilled = new Set(Object.values(lastCourseContentData)).has("") || lastCourseContentData.links.some((link: any) => new Set(Object.values(link)).has(""))
-        console.log("Last cONTENT DATAS", lastCourseContentData)
-        console.log("Check Last Fields", checkLastisFilled)
         if (checkLastisFilled) {
             toast.error("Please fill all above fields!")
         }
+        else{
+            setActiveSection(activeSection + 1)
+            const newContent = {
+                videoUrl: '',
+                title: "",
+                videoSection: `Untitle Section ${activeSection}`,
+                description: "",
+                links: [{ title: "", url: "" }]
+            }
+            setCourseContentData([...courseContentData, newContent])
+        }
 
     }
+
+const handleNext = ()=>{
+    const lastCourseContentData = courseContentData[courseContentData.length - 1]
+    const checkLastisFilled = new Set(Object.values(lastCourseContentData)).has("") || lastCourseContentData.links.some((link: any) => new Set(Object.values(link)).has(""))
+    if (checkLastisFilled) {
+        toast.error("Section Can't be Empty!")
+    }
+    else{
+        setActive(active + 1)
+        // handleSubmit()
+    }
+}
 
     return (
         <div className="w-[80%] mt-12 pt-3 m-auto">
@@ -106,19 +128,19 @@ const CourseContent: FC<Props> = (props) => {
                                     </div>
                                 )}
                                 <div className="flex w-full items-center justify-between my-0">
-                                    {isCollapsed[index] ? (
-                                        <>
+                                    {/* {isCollapsed[index] ? ( */}
+                                        <div>
                                             {item?.title ? (
                                                 <p className="font-Poppins dark:text-white text-black">
                                                     {index + 1}. {item.title}
                                                 </p>
                                             ) : (
-                                                <div></div>
+                                                <></>
                                             )}
-                                        </>
-                                    ) : (
+                                        </div>
+                                    {/* ) : (
                                         <div></div>
-                                    )}
+                                    )} */}
 
                                     {/* Arroe Button for video collapse  */}
                                     <div className="flex items-center">
@@ -330,9 +352,10 @@ const CourseContent: FC<Props> = (props) => {
                 <br />
                 {/* Add New Section  */}
                 <div className="flex items-center cursor-pointer text-[20px]" onClick={addNewSection}>
-                    Add new Section
+                 <AiOutlinePlusCircle className="mr-2"/>   Add new Section
                 </div>
             </form>
+            <NextButton prevTitle="Previous" nextTitle="Next" handlePrev={()=> setActive(active - 1)}/>
         </div>
     );
 };
