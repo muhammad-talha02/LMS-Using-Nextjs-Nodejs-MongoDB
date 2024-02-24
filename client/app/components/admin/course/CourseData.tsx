@@ -18,7 +18,7 @@ type Props = {
 const CourseData: FC<Props> = (props) => {
 
     const { benefits, setBenefits, prerequisites, setPrerequisites, active, setActive } = props
-    console.log("Benefots -->", benefits)
+    // console.log("Benefots -->", benefits)
     const handleBenefitsChange = (index: number, value: any) => {
 
         const updatedBenefits = [...benefits]
