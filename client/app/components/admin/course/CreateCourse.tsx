@@ -1,11 +1,11 @@
 "use client"
 import React, { useState } from 'react'
-import { CourseContent, CourseData, CourseInformation, CourseOptions } from '.'
+import { CourseContent, CourseData, CourseInformation, CourseOptions, CoursePreview } from '.'
 
 type Props = {}
 
 const CreateCourse = (props: Props) => {
-    const [active, setActive] = useState(2)
+    const [active, setActive] = useState(3)
     const [benefits, setBenefits] = useState([{ title: "" }])
     const [prerequisites, setPrerequisites] = useState([{ title: "" }])
     const [courseData, setCourseData] = useState({})
@@ -75,7 +75,11 @@ const CreateCourse = (props: Props) => {
         setCourseData(data)
     }
 
+const handleCourseCreate =async ()=>{
+
     console.log("Course Data", courseData)
+}
+
     return (
         <div className='w-full'>
             <div className="w-[80%]">
@@ -104,6 +108,14 @@ const CreateCourse = (props: Props) => {
                         active={active}
                         setActive={setActive}
                         handleSubmit={handleSubmit}
+                    />
+                }
+                {
+                    active === 3 && <CoursePreview
+                        active={active}
+                        setActive={setActive}
+                        courseData={courseData}
+                        handleCourseCreate={handleCourseCreate}
                     />
                 }
             </div>

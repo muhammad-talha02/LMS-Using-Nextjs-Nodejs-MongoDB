@@ -3,6 +3,8 @@ export { default as CourseInformation } from "./CourseInformation"
 export { default as CourseOptions } from "./CourseOptions"
 export { default as CourseData } from "./CourseData"
 export { default as CourseContent } from "./CourseContent"
+export { default as CoursePreview } from "./CoursePreview"
+export { default as CoursePlayer } from "./CoursePlayer"
 
 type Props = {
     nextTitle?: string,
