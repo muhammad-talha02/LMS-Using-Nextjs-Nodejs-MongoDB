@@ -7,7 +7,7 @@ export { default as CourseContent } from "./CourseContent"
 type Props = {
     nextTitle?: string,
     prevTitle?: string,
-    handleNext?: () => void
+    handleNext?: any
     handlePrev?: () => void
 }
 

@@ -34,6 +34,48 @@ const CreateCourse = (props: Props) => {
         thumbnail: ""
     })
 
+
+    const handleSubmit = () => {
+        // Format Benefits Array
+
+        const fomatBenefits = benefits.map((benefit: any) =>( { title: benefit.title }))
+        // Format Prequesities Array
+
+        const fomatPrequisities = prerequisites.map((prerequisite: any) =>( { title: prerequisite.title }))
+
+        // Format Course Content Data 
+
+        const formatCourseContentData = courseContentData?.map((courseContent: any) => ({
+            videoUrl: courseContent.videoUrl,
+            title: courseContent.title,
+            description: courseContent.description,
+            videoSection: courseContent.videoSection,
+            links: courseContent.links.map((link: any) => ({
+                title: link.title,
+                url: link.url,
+            })),
+            // suggestions: courseContent.suggestions
+        }))
+
+        const data = {
+            name: courseInfo.name,
+            description: courseInfo.description,
+            price: courseInfo.price,
+            estimatedPrice: courseInfo.estimatedPrice,
+            tags: courseInfo.tags,
+            level: courseInfo.levels,
+            demoUrl: courseInfo.demoUrl,
+            thumbnail: courseInfo.thumbnail,
+            totalVideos: courseContentData.length,
+            benefits: fomatBenefits,
+            prerequisites: fomatPrequisities,
+            courseContent: formatCourseContentData
+        }
+
+        setCourseData(data)
+    }
+
+    console.log("Course Data", courseData)
     return (
         <div className='w-full'>
             <div className="w-[80%]">
@@ -61,6 +103,7 @@ const CreateCourse = (props: Props) => {
                         setCourseContentData={setCourseContentData}
                         active={active}
                         setActive={setActive}
+                        handleSubmit={handleSubmit}
                     />
                 }
             </div>

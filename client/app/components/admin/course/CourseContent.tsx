@@ -15,10 +15,11 @@ type Props = {
     setCourseContentData: (courseContentData: any) => void;
     active: number;
     setActive: (active: number) => void;
+    handleSubmit:any
 };
 
 const CourseContent: FC<Props> = (props) => {
-    const { courseContentData, setCourseContentData, active, setActive } = props;
+    const { courseContentData, setCourseContentData, active, setActive, handleSubmit:handleCourseSubmit } = props;
     const [isCollapsed, setIsCollapsed] = useState(
         Array(courseContentData.length).fill(false)
         );
@@ -26,6 +27,7 @@ const CourseContent: FC<Props> = (props) => {
         
         const handleSubmit = (e: any) => {
             e.preventDefault();
+            handleCourseSubmit()
         };
         
         const handleCollapsesToggle = (index: number) => {
@@ -92,8 +94,8 @@ const handleNext = ()=>{
         toast.error("Section Can't be Empty!")
     }
     else{
-        setActive(active + 1)
-        // handleSubmit()
+        // setActive(active + 1)
+        handleCourseSubmit()
     }
 }
 
@@ -355,7 +357,7 @@ const handleNext = ()=>{
                  <AiOutlinePlusCircle className="mr-2"/>   Add new Section
                 </div>
             </form>
-            <NextButton prevTitle="Previous" nextTitle="Next" handlePrev={()=> setActive(active - 1)}/>
+            <NextButton prevTitle="Previous" nextTitle="Next" handlePrev={()=> setActive(active - 1)} handleNext={handleNext}/>
         </div>
     );
 };
