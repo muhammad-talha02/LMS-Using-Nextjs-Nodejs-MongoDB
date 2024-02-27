@@ -139,7 +139,7 @@ const CourseInformation: FC<Props> = (props) => {
                         id='level'
                         placeholder="Beginner/Intermediate/Expert"
                         label={"Level"}
-                        value={courseInfo.level}
+                        value={courseInfo.levels}
                         onChange={handleChange}
                     />
                     <InputField

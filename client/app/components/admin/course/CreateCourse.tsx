@@ -6,8 +6,8 @@ type Props = {}
 
 const CreateCourse = (props: Props) => {
     const [active, setActive] = useState(0)
-    const [benefits, setBenefits] = useState([{ title: "test" }])
-    const [prerequisites, setPrerequisites] = useState([{ title: "ffff" }])
+    const [benefits, setBenefits] = useState([{ title: "Logic Building" }])
+    const [prerequisites, setPrerequisites] = useState([{ title: "JavaScript" }])
     const [courseData, setCourseData] = useState({})
     const [courseContentData, setCourseContentData] = useState([{
         videoUrl: "dd",
@@ -24,12 +24,12 @@ const CreateCourse = (props: Props) => {
     }])
 
     const [courseInfo, setCourseInfo] = useState({
-        name: "k",
-        description: "k",
-        price: 80,
-        estimatedPrice: 80,
-        tags: "k",
-        levels: "k",
+        name: "MERN Stack Advanced Course",
+        description: "Hey, DO you want to Enhance your skills in Full Stack Development",
+        price: 1500,
+        estimatedPrice: 2000,
+        tags: "react",
+        levels: "Advanced",
         demoUrl: "1a92588781a7d1f226c934e795dfba50",
         thumbnail: ""
     })
