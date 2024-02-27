@@ -5,19 +5,19 @@ import { CourseContent, CourseData, CourseInformation, CourseOptions, CoursePrev
 type Props = {}
 
 const CreateCourse = (props: Props) => {
-    const [active, setActive] = useState(3)
-    const [benefits, setBenefits] = useState([{ title: "" }])
-    const [prerequisites, setPrerequisites] = useState([{ title: "" }])
+    const [active, setActive] = useState(0)
+    const [benefits, setBenefits] = useState([{ title: "test" }])
+    const [prerequisites, setPrerequisites] = useState([{ title: "ffff" }])
     const [courseData, setCourseData] = useState({})
     const [courseContentData, setCourseContentData] = useState([{
-        videoUrl: "",
-        title: "",
-        description: "",
+        videoUrl: "dd",
+        title: "dd",
+        description: "dd",
         videoSection: "Untitled Section",
         links: [
             {
-                title: "",
-                url: ''
+                title: "d",
+                url: 'd'
             }
         ],
         // suggestions: ""
@@ -26,11 +26,11 @@ const CreateCourse = (props: Props) => {
     const [courseInfo, setCourseInfo] = useState({
         name: "k",
         description: "k",
-        price: 2,
-        estimatedPrice: 1,
+        price: 80,
+        estimatedPrice: 80,
         tags: "k",
         levels: "k",
-        demoUrl: "k",
+        demoUrl: "1a92588781a7d1f226c934e795dfba50",
         thumbnail: ""
     })
 

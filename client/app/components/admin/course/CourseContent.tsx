@@ -94,8 +94,8 @@ const handleNext = ()=>{
         toast.error("Section Can't be Empty!")
     }
     else{
-        // setActive(active + 1)
         handleCourseSubmit()
+        setActive(active  + 1)
     }
 }
 
