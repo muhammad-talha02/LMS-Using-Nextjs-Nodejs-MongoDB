@@ -14,11 +14,13 @@ import {
   uploadCourse,
 } from "../controllers/course.controller";
 import { authrizeRoles, isAuthenticated } from "../middleware/auth";
+import { updateAcessToken } from "../controllers/user.controller";
 
 const courseRouter = express.Router();
 
 courseRouter.post(
   "/create-course",
+  updateAcessToken,
   isAuthenticated,
   authrizeRoles("admin"),
   uploadCourse
@@ -26,6 +28,7 @@ courseRouter.post(
 
 courseRouter.put(
   "/update-course/:id",
+  updateAcessToken,
   isAuthenticated,
   authrizeRoles("admin"),
   editCourse
@@ -36,24 +39,25 @@ courseRouter.get("/get-courses", getAllCourses);
 
 // Get course By ID
 
-courseRouter.get("/get-course-content/:id", isAuthenticated, getCourseByUser);
+courseRouter.get("/get-course-content/:id",updateAcessToken, isAuthenticated, getCourseByUser);
 
 // Add Question
 
-courseRouter.put("/add-question", isAuthenticated, addQuestion);
+courseRouter.put("/add-question", updateAcessToken, isAuthenticated, addQuestion);
 
 // Add Answer
 
-courseRouter.put("/add-answer", isAuthenticated, addAnswer);
+courseRouter.put("/add-answer",updateAcessToken, isAuthenticated, addAnswer);
 
 // Add Review in Course
 
-courseRouter.put("/add-review/:id", isAuthenticated, addReview);
+courseRouter.put("/add-review/:id", updateAcessToken, isAuthenticated, addReview);
 
 // Add Reply in Review in Course
 
 courseRouter.put(
   "/add-reply",
+  updateAcessToken,
   isAuthenticated,
   authrizeRoles("admin"),
   addReplyToReview
@@ -63,6 +67,7 @@ courseRouter.put(
 
 courseRouter.get(
   "/get-all-courses",
+  updateAcessToken,
   isAuthenticated,
   authrizeRoles("admin"),
   getAllCoursesByAdmin
@@ -75,6 +80,7 @@ courseRouter.post("/getVdoCipherOtp", generateVideoUrl);
 
 courseRouter.delete(
   "/delete-course/:id",
+  updateAcessToken,
   isAuthenticated,
   authrizeRoles("admin"),
   deleteCourse
