@@ -1,23 +1,23 @@
 "use client"
 import React, { useState } from 'react'
-import { CourseContent, CourseData, CourseInformation, CourseOptions } from '.'
+import { CourseContent, CourseData, CourseInformation, CourseOptions, CoursePreview } from '.'
 
 type Props = {}
 
 const CreateCourse = (props: Props) => {
-    const [active, setActive] = useState(2)
-    const [benefits, setBenefits] = useState([{ title: "" }])
-    const [prerequisites, setPrerequisites] = useState([{ title: "" }])
+    const [active, setActive] = useState(0)
+    const [benefits, setBenefits] = useState([{ title: "test" }])
+    const [prerequisites, setPrerequisites] = useState([{ title: "ffff" }])
     const [courseData, setCourseData] = useState({})
     const [courseContentData, setCourseContentData] = useState([{
-        videoUrl: "",
-        title: "",
-        description: "",
+        videoUrl: "dd",
+        title: "dd",
+        description: "dd",
         videoSection: "Untitled Section",
         links: [
             {
-                title: "",
-                url: ''
+                title: "d",
+                url: 'd'
             }
         ],
         // suggestions: ""
@@ -26,13 +26,59 @@ const CreateCourse = (props: Props) => {
     const [courseInfo, setCourseInfo] = useState({
         name: "k",
         description: "k",
-        price: 2,
-        estimatedPrice: 1,
+        price: 80,
+        estimatedPrice: 80,
         tags: "k",
         levels: "k",
-        demoUrl: "k",
+        demoUrl: "1a92588781a7d1f226c934e795dfba50",
         thumbnail: ""
     })
+
+
+    const handleSubmit = () => {
+        // Format Benefits Array
+
+        const fomatBenefits = benefits.map((benefit: any) =>( { title: benefit.title }))
+        // Format Prequesities Array
+
+        const fomatPrequisities = prerequisites.map((prerequisite: any) =>( { title: prerequisite.title }))
+
+        // Format Course Content Data 
+
+        const formatCourseContentData = courseContentData?.map((courseContent: any) => ({
+            videoUrl: courseContent.videoUrl,
+            title: courseContent.title,
+            description: courseContent.description,
+            videoSection: courseContent.videoSection,
+            links: courseContent.links.map((link: any) => ({
+                title: link.title,
+                url: link.url,
+            })),
+            // suggestions: courseContent.suggestions
+        }))
+
+        const data = {
+            name: courseInfo.name,
+            description: courseInfo.description,
+            price: courseInfo.price,
+            estimatedPrice: courseInfo.estimatedPrice,
+            tags: courseInfo.tags,
+            level: courseInfo.levels,
+            demoUrl: courseInfo.demoUrl,
+            thumbnail: courseInfo.thumbnail,
+            totalVideos: courseContentData.length,
+            benefits: fomatBenefits,
+            prerequisites: fomatPrequisities,
+            courseContent: formatCourseContentData
+        }
+
+        setCourseData(data)
+    }
+
+const handleCourseCreate =async ()=>{
+
+    console.log("Course Data", courseData)
+}
 
     return (
         <div className='w-full'>
@@ -61,6 +107,15 @@ const CreateCourse = (props: Props) => {
                         setCourseContentData={setCourseContentData}
                         active={active}
                         setActive={setActive}
+                        handleSubmit={handleSubmit}
+                    />
+                }
+                {
+                    active === 3 && <CoursePreview
+                        active={active}
+                        setActive={setActive}
+                        courseData={courseData}
+                        handleCourseCreate={handleCourseCreate}
                     />
                 }
             </div>
