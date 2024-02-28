@@ -15,7 +15,7 @@ const CourseOptions: FC<Props> = ({ active, setActive }) => {
         "Course Preview"
     ]
     return (
-        <div>
+        <div className='ml-3'>
             {
                 options?.map((option: string, index: number) => (
                     <div key={index} className='w-full flex py-5'>

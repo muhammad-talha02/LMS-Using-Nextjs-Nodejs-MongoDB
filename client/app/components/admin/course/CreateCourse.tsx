@@ -1,35 +1,42 @@
 "use client"
 import React, { useState } from 'react'
 import { CourseContent, CourseData, CourseInformation, CourseOptions, CoursePreview } from '.'
+import useMutation from '../../../_hooks/useMutation'
+import { useCreateCourseMutation } from '@/redux/features/courses/coursesApi'
 
 type Props = {}
 
 const CreateCourse = (props: Props) => {
+    const { actionApi: createCourse, result } = useMutation({
+        api: useCreateCourseMutation,
+        successMsg: "Course Created Successfully"
+    })
+
     const [active, setActive] = useState(0)
-    const [benefits, setBenefits] = useState([{ title: "test" }])
-    const [prerequisites, setPrerequisites] = useState([{ title: "ffff" }])
+    const [benefits, setBenefits] = useState([{ title: "Logic Building" }])
+    const [prerequisites, setPrerequisites] = useState([{ title: "JavaScript" }])
     const [courseData, setCourseData] = useState({})
     const [courseContentData, setCourseContentData] = useState([{
-        videoUrl: "dd",
-        title: "dd",
+        videoUrl: "28cc1a193de242e2ab56471d0cb51aa4",
+        title: "Introduction",
         description: "dd",
         videoSection: "Untitled Section",
         links: [
             {
-                title: "d",
-                url: 'd'
+                title: "MyGitHub",
+                url: 'https://github.com/muhammad-talha02/'
             }
         ],
         // suggestions: ""
     }])
 
     const [courseInfo, setCourseInfo] = useState({
-        name: "k",
-        description: "k",
-        price: 80,
-        estimatedPrice: 80,
-        tags: "k",
-        levels: "k",
+        name: "MERN Stack Advanced Course",
+        description: "Hey, DO you want to Enhance your skills in Full Stack Development",
+        price: 1500,
+        estimatedPrice: 2000,
+        tags: "react",
+        levels: "Advanced",
         demoUrl: "1a92588781a7d1f226c934e795dfba50",
         thumbnail: ""
     })
@@ -38,10 +45,10 @@ const CreateCourse = (props: Props) => {
     const handleSubmit = () => {
         // Format Benefits Array
 
-        const fomatBenefits = benefits.map((benefit: any) =>( { title: benefit.title }))
+        const fomatBenefits = benefits.map((benefit: any) => ({ title: benefit.title }))
         // Format Prequesities Array
 
-        const fomatPrequisities = prerequisites.map((prerequisite: any) =>( { title: prerequisite.title }))
+        const fomatPrequisities = prerequisites.map((prerequisite: any) => ({ title: prerequisite.title }))
 
         // Format Course Content Data 
 
@@ -68,17 +75,20 @@ const CreateCourse = (props: Props) => {
             thumbnail: courseInfo.thumbnail,
             totalVideos: courseContentData.length,
             benefits: fomatBenefits,
-            prerequisites: fomatPrequisities,
-            courseContent: formatCourseContentData
+            prequesities: fomatPrequisities,
+            courseData: formatCourseContentData
         }
 
         setCourseData(data)
     }
 
-const handleCourseCreate =async ()=>{
-
-    console.log("Course Data", courseData)
-}
+    const handleCourseCreate = async () => {
+const data = courseData
+        if (!result.isLoading) {
+            await createCourse(data)
+        }
+        console.log("Course Data", courseData)
+    }
 
     return (
         <div className='w-full'>
