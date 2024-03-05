@@ -5,6 +5,7 @@ export { default as CourseData } from "./CourseData"
 export { default as CourseContent } from "./CourseContent"
 export { default as CoursePreview } from "./CoursePreview"
 export { default as CoursePlayer } from "./CoursePlayer"
+export { default as AllCourses } from "./AllCourses"
 
 type Props = {
     nextTitle?: string,

@@ -71,7 +71,7 @@ const MenuItems = [
             {
                 title: "Live Courses",
                 Icon: OndemandVideoIcon ,
-                to: "/"
+                to: "/dashboard/courses"
             },
         ]
     },
