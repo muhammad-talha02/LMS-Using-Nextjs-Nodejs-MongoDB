@@ -19,10 +19,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
     const { data: AllUsers, isSuccess, isLoading } = useGetAllUsersQuery({})
 
 
-    //! -- Handle Delete User
-    const handleDeleteUser = (id: number) => {
-
-    }
+ 
     const columns = [
         { field: "id", headerName: "ID", flex: 0.5 },
         { field: "name", headerName: "name", flex: 0.8 },
@@ -35,7 +32,9 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
             headerName: "Delete",
             flex: 0.2,
             renderCell: (param: any) => {
-              return <DeleteAction id={param.row._id}/>
+              return <>
+             {!(param.row.role === "admin")&& <DeleteAction id={param.row.id}/>}
+              </>
             }
         },
         {
