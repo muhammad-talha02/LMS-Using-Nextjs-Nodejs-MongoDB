@@ -51,7 +51,7 @@ const MenuItems = [
             {
                 title: "Users",
                 Icon: GroupsIcon ,
-                to: "/"
+                to: "/dashboard/users"
             },
             {
                 title: "Invoices",
@@ -101,7 +101,7 @@ const MenuItems = [
             {
                 title: "Manage Teams",
                 Icon: PeopleOutlinedIcon ,
-                to: "/"
+                to: "/dashboard/team"
             },
                     ]
     },

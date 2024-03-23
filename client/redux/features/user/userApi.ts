@@ -33,7 +33,23 @@ export const userApi = apiSlice.injectEndpoints({
         };
       },
     }),
+
+    //? Get All Users
+    getAllUsers: builder.query({
+      query() {
+        return {
+          url: "get-all-users",
+          method: "GET",
+          credentials: "include" as const,
+        };
+      },
+    }),
   }),
 });
 
-export const { useUpdateAvatarMutation, useUpdateUserInfoMutation , useChangePasswordMutation } = userApi;
+export const {
+  useUpdateAvatarMutation,
+  useUpdateUserInfoMutation,
+  useChangePasswordMutation,
+  useGetAllUsersQuery
+} = userApi;
