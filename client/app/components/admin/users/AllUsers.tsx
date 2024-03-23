@@ -5,15 +5,24 @@ import { DataGrid } from '@mui/x-data-grid'
 import { AiOutlineDelete, AiOutlineMail } from 'react-icons/ai'
 import { format } from "timeago.js"
 import TableWrapper from '../TableWrapper'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { styles } from '@/app/styles/style'
+import { PopUp } from '../../Generic'
+import { DeleteAction } from './userActions'
 type Props = {
     isTeam?: boolean
 }
 
 const AllUsers: FC<Props> = ({ isTeam }) => {
+
+    const [addUserModal, setAddUserModal] = useState(false)
     const { data: AllUsers, isSuccess, isLoading } = useGetAllUsersQuery({})
 
+
+    //! -- Handle Delete User
+    const handleDeleteUser = (id: number) => {
+
+    }
     const columns = [
         { field: "id", headerName: "ID", flex: 0.5 },
         { field: "name", headerName: "name", flex: 0.8 },
@@ -26,13 +35,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
             headerName: "Delete",
             flex: 0.2,
             renderCell: (param: any) => {
-                return (
-                    <>
-                        <IconButton>
-                            <AiOutlineDelete size={20} className='dark:text-white text-black' />
-                        </IconButton>
-                    </>
-                )
+              return <DeleteAction id={param.row._id}/>
             }
         },
         {
@@ -81,19 +84,26 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
         })
     }
     return (
-        <div className='mt-20'>
-            <Box m="20px">
-                {isLoading ? "loading" : <Box>
-                    <div className="flex w-full justify-end">
-                        <button className={`${styles.button} !w-[220px] rounded-lg`}>Add New Member</button>
-                    </div>
-                    <TableWrapper>
-                        <DataGrid checkboxSelection columns={columns} rows={rows} />
-                    </TableWrapper>
+        <>
+            <div className='mt-8'>
+                <Box m="15px">
+                    {isLoading ? "loading" : <Box>
+                        <div className="flex w-full justify-end">
+                            <button className={`${styles.button} !w-[220px] rounded-lg`} onClick={() => setAddUserModal(true)}>Add New Member</button>
+                        </div>
+                        <TableWrapper>
+                            <DataGrid checkboxSelection columns={columns} rows={rows} />
+                        </TableWrapper>
+                    </Box>
+                    }
                 </Box>
-                        }
-            </Box>
-        </div>
+            </div>
+            {addUserModal &&
+                <PopUp open={addUserModal} setOpen={setAddUserModal} size={"sm"}>
+                    <h2>Are you sure</h2>
+                </PopUp>
+            }
+        </>
     )
 }
 

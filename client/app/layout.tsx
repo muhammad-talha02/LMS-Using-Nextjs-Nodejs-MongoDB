@@ -41,6 +41,7 @@ export default function RootLayout({
             </ThemeProvider>
           </SessionProvider>
         </Providers>
+        <div id="portal-root"></div>
       </body>
     </html>
   );

@@ -7,6 +7,7 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --t-blue: #37a39a;
+  --t-dark-bg: #0f1522;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -85,6 +86,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
