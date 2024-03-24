@@ -8,7 +8,7 @@ import TableWrapper from '../TableWrapper'
 import { FC, useState } from 'react'
 import { styles } from '@/app/styles/style'
 import { PopUp } from '../../Generic'
-import { DeleteAction } from './userActions'
+import { DeleteAction, MailAction } from './userActions'
 type Props = {
     isTeam?: boolean
 }
@@ -19,7 +19,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
     const { data: AllUsers, isSuccess, isLoading } = useGetAllUsersQuery({})
 
 
- 
+
     const columns = [
         { field: "id", headerName: "ID", flex: 0.5 },
         { field: "name", headerName: "name", flex: 0.8 },
@@ -28,26 +28,22 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
         { field: "purchased", headerName: "Purchased", flex: 0.5 },
         { field: "joinedAt", headerName: "Joined At", flex: 0.5 },
         {
-            field: " ",
+            field: "delete",
             headerName: "Delete",
             flex: 0.2,
             renderCell: (param: any) => {
-              return <>
-             {!(param.row.role === "admin")&& <DeleteAction id={param.row.id}/>}
-              </>
+                return <>
+                    {!(param.row.role === "admin") && <DeleteAction id={param.row.id} />}
+                </>
             }
         },
         {
-            field: "  ",
+            field: "email",
             headerName: "Email",
             flex: 0.2,
             renderCell: (params: any) => {
                 return (
-                    <a href={`mailto:${params.row.email}`}>
-                        <IconButton>
-                            <AiOutlineMail size={20} className='dark:text-white text-black' />
-                        </IconButton>
-                    </a>
+                    <MailAction row={params.row} />
                 )
             }
         },
@@ -87,9 +83,9 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
             <div className='mt-8'>
                 <Box m="15px">
                     {isLoading ? "loading" : <Box>
-                        <div className="flex w-full justify-end">
+                        {/* <div className="flex w-full justify-end">
                             <button className={`${styles.button} !w-[220px] rounded-lg`} onClick={() => setAddUserModal(true)}>Add New Member</button>
-                        </div>
+                        </div> */}
                         <TableWrapper>
                             <DataGrid checkboxSelection columns={columns} rows={rows} />
                         </TableWrapper>
@@ -97,11 +93,11 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
                     }
                 </Box>
             </div>
-            {addUserModal &&
+            {/* {addUserModal &&
                 <PopUp open={addUserModal} setOpen={setAddUserModal} size={"sm"}>
                     <h2>Are you sure</h2>
                 </PopUp>
-            }
+            } */}
         </>
     )
 }

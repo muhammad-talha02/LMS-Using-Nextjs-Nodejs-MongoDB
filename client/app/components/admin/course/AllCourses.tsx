@@ -8,6 +8,8 @@ import { FiEdit2 } from 'react-icons/fi'
 import TableWrapper from '../TableWrapper'
 import { useGetAllCoursesQuery } from '@/redux/features/courses/coursesApi'
 import {format} from "timeago.js"
+import ConfirmModal from '../../Generic/Modals/ConfirmModal'
+import { DeleteAction } from './courseActions'
 type Props = {}
 
 const AllCourses = (props: Props) => {
@@ -41,10 +43,8 @@ const AllCourses = (props: Props) => {
       renderCell: (param: any) => {
         return (
           <>
-            <IconButton>
-              <AiOutlineDelete size={20} className='dark:text-white text-black' />
-            </IconButton>
-          </>
+            <DeleteAction id={param.row.id}/>
+        </>
         )
       }
     }
