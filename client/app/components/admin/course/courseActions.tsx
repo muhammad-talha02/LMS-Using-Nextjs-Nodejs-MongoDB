@@ -21,7 +21,7 @@ export const DeleteAction: FC<IDeleteAction> = (props) => {
         }
     })
     //! -- Handle Delete User
-    const handleDeleteUser = async (userId: number) => {
+    const handleDeleteCourse = async (userId: number) => {
         await DeleteUserAction(userId)
     }
     return (
@@ -29,24 +29,10 @@ export const DeleteAction: FC<IDeleteAction> = (props) => {
             <IconButton>
                 <AiOutlineDelete size={20} className='dark:text-white text-black' onClick={() => setDeleteConfirmModal(true)} />
             </IconButton>
-            {deleteConfirmModal && <ConfirmModal open={deleteConfirmModal} setOpen={setDeleteConfirmModal} action={() => handleDeleteUser(id)} />
+            {deleteConfirmModal && <ConfirmModal open={deleteConfirmModal} setOpen={setDeleteConfirmModal} action={() => handleDeleteCourse(id)} />
             }
 
         </>
     )
 }
 
-
-interface IMailAction {
-    row?: any
-}
-export const MailAction: FC<IMailAction> = (props) => {
-    const { row } = props
-    return (
-        <a href={`mailto:${row.email}`}>
-            <IconButton>
-                <AiOutlineMail size={20} className='dark:text-white text-black' />
-            </IconButton>
-        </a>
-    )
-}

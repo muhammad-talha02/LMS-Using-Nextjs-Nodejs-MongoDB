@@ -9,7 +9,7 @@ type Props = {
 
 const useMutation = ({ api, successMsg = "Success", successFunc }: Props) => {
     const [actionApi, result] = api()
-
+console.log("Mutation caaling")
     useEffect(() => {
         if (result.isSuccess) {
             toast.success(successMsg)
