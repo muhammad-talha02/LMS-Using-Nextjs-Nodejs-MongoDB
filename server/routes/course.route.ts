@@ -11,6 +11,7 @@ import {
   getAllCoursesByAdmin,
   getCourseByUser,
   getSingleCourse,
+  getSingleCourseAdminOnly,
   uploadCourse,
 } from "../controllers/course.controller";
 import { authrizeRoles, isAuthenticated } from "../middleware/auth";
@@ -24,6 +25,14 @@ courseRouter.post(
   isAuthenticated,
   authrizeRoles("admin"),
   uploadCourse
+);
+
+courseRouter.get(
+  "/get-single-course/:id",
+  updateAcessToken,
+  isAuthenticated,
+  authrizeRoles("admin"),
+  getSingleCourseAdminOnly
 );
 
 courseRouter.put(

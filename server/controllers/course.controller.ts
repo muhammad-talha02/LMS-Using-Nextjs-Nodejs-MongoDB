@@ -119,6 +119,50 @@ export const getSingleCourse = catchAsyncError(
   }
 );
 
+// ? Get single course --for Admin Only
+
+export const getSingleCourseAdminOnly = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const courseId = req.params.id;
+
+      // ChecknID is Valid or Not
+
+      const isValidID = mongoose.isValidObjectId(courseId);
+
+      if (isValidID) {
+        // Check Cache is Exist
+        const isCatchExist = await redis.get(courseId);
+
+        if (isCatchExist) {
+          const course = JSON.parse(isCatchExist);
+          res.status(200).json({
+            success: true,
+            course,
+          });
+        } else {
+          const course = await courseModel
+            .findById(req.params.id)
+         
+          if (!course) {
+            return next(new ErrorHandler("Course not found", 400));
+          }
+
+          await redis.set(courseId, JSON.stringify(course), "EX", 604800);
+          res.status(200).json({
+            success: true,
+            course,
+          });
+        }
+      } else {
+        return next(new ErrorHandler("Invalid Object ID", 400));
+      }
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
 // ? Get All courses --without purchasing
 
 export const getAllCourses = catchAsyncError(

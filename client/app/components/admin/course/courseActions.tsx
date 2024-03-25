@@ -7,29 +7,22 @@ import useMutation from '@/app/_hooks/useMutation'
 import ConfirmModal from '../../Generic/Modals/ConfirmModal'
 
 interface IDeleteAction {
-    id: number
+    action?: () => void
 }
 
 export const DeleteAction: FC<IDeleteAction> = (props) => {
-    const { id } = props
+    const { action } = props
     const [deleteConfirmModal, setDeleteConfirmModal] = useState(false)
-    const { actionApi: DeleteUserAction } = useMutation({
-        api: useDeleteUserMutation,
-        successMsg: "User Delete Successfully",
-        successFunc: () => {
-            setDeleteConfirmModal(false)
-        }
-    })
-    //! -- Handle Delete User
-    const handleDeleteCourse = async (userId: number) => {
-        await DeleteUserAction(userId)
-    }
+
     return (
         <>
             <IconButton>
                 <AiOutlineDelete size={20} className='dark:text-white text-black' onClick={() => setDeleteConfirmModal(true)} />
             </IconButton>
-            {deleteConfirmModal && <ConfirmModal open={deleteConfirmModal} setOpen={setDeleteConfirmModal} action={() => handleDeleteCourse(id)} />
+            {deleteConfirmModal && <ConfirmModal open={deleteConfirmModal} setOpen={setDeleteConfirmModal} action={() => {
+                action?.()
+                setDeleteConfirmModal(false)
+            }} />
             }
 
         </>

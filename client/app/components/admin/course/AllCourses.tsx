@@ -6,16 +6,28 @@ import React from 'react'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { FiEdit2 } from 'react-icons/fi'
 import TableWrapper from '../TableWrapper'
-import { useGetAllCoursesQuery } from '@/redux/features/courses/coursesApi'
+import { useDeleteCourseMutation, useGetAllCoursesQuery } from '@/redux/features/courses/coursesApi'
 import {format} from "timeago.js"
 import ConfirmModal from '../../Generic/Modals/ConfirmModal'
 import { DeleteAction } from './courseActions'
+import useMutation from '@/app/_hooks/useMutation'
+import Link from 'next/link'
 type Props = {}
 
 const AllCourses = (props: Props) => {
   const { theme, setTheme } = useTheme()
   const { data: AllCourses, isSuccess, isLoading } = useGetAllCoursesQuery({})
 
+
+  //? --API Delete Course Mutation
+  const { actionApi: DeleteCourseAction } = useMutation({
+    api: useDeleteCourseMutation,
+    successMsg: "Course Delete Successfully",
+    })
+//! -- Handle Delete Course
+const handleDeleteCourse = async (userId: number) => {
+    await DeleteCourseAction(userId)
+}
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "title", headerName: "Course title", flex: 1 },
@@ -29,9 +41,9 @@ const AllCourses = (props: Props) => {
       renderCell: (param: any) => {
         return (
           <>
-            <IconButton>
+            <Link href={{pathname:`/dashboard/courses/edit-course/${param.row.id}`}}>
               <FiEdit2 size={20} className='dark:text-white text-black' />
-            </IconButton>
+            </Link>
           </>
         )
       }
@@ -43,7 +55,7 @@ const AllCourses = (props: Props) => {
       renderCell: (param: any) => {
         return (
           <>
-            <DeleteAction id={param.row.id}/>
+            <DeleteAction action={()=> handleDeleteCourse(param.row.id)}/>
         </>
         )
       }
