@@ -6,7 +6,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_SERVER_URL,
   }),
-  tagTypes: ["geUser",'GetAllUsers'],
+  tagTypes: ["geUser",'GetAllUsers', 'GetAllCourses'],
   endpoints: (builder) => ({
     refreshToken: builder.query({
       query: () => ({

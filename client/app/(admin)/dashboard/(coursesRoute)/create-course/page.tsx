@@ -1,4 +1,4 @@
-import { CreateCourse } from '../../../components/admin/course'
+import { CreateCourse } from '../../../../components/admin/course'
 import React from 'react'
 
 type Props = {}
