@@ -167,7 +167,7 @@ const CourseInformation: FC<Props> = (props) => {
 
                             {
                                 courseInfo.thumbnail ? (
-                                    <Image src={courseInfo.thumbnail} alt="thumbnail" className='max-h-[500px] w-full object-cover' width={500} height={200} />
+                                    <Image src={courseInfo.thumbnail?.url || courseInfo?.thumbnail} alt="thumbnail" className='max-h-[500px] w-full object-cover' width={500} height={200} />
                                 ) : (
                                     <span>Drag and Drop Your thumbnail or click to browse</span>
                                 )

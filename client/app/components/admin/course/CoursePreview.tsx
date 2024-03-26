@@ -11,14 +11,15 @@ type Props = {
     active: number,
     setActive: (active: number) => void,
     courseData: any,
-    handleCourseCreate: any
+    handleCourseCreate: any,
+    isUpdate?:boolean
 }
 
 
 
 const CoursePreview: FC<Props> = (props) => {
 
-    const { active, setActive, courseData, handleCourseCreate } = props
+    const { active, setActive, courseData, handleCourseCreate, isUpdate } = props
 
     const discountPercentage = ((courseData?.estimatedPrice - courseData?.price) / courseData?.estimatedPrice) * 100
     const disocuntPercentagePrice = discountPercentage.toFixed(0)
@@ -128,7 +129,7 @@ const CoursePreview: FC<Props> = (props) => {
                     <p>{courseData?.description}</p>
                 </div>
             </div>
-            <NextButton prevTitle='Previous' handlePrev={() => setActive(active - 1)} handleNext={createCourse} nextTitle='Publish' />
+            <NextButton prevTitle='Previous' handlePrev={() => setActive(active - 1)} handleNext={createCourse} nextTitle={isUpdate ? "Update" : 'Publish' }/>
         </div>
     )
 }

@@ -43,7 +43,7 @@ export const editCourse = catchAsyncError(
       const data = req.body;
       const thumbnail = data.thumbnail;
       if (thumbnail) {
-        await cloudinary.v2.uploader.destroy(thumbnail.public_id);
+        // await cloudinary.v2.uploader.destroy(thumbnail.public_id);
         const myCloud = await cloudinary.v2.uploader.upload(thumbnail, {
           folder: "courses",
         });
@@ -61,7 +61,7 @@ export const editCourse = catchAsyncError(
         { $set: data },
         { new: true }
       );
-
+      await redis.set(courseId, JSON.stringify(course));
       res.status(201).json({
         success: true,
         course,
@@ -141,9 +141,8 @@ export const getSingleCourseAdminOnly = catchAsyncError(
             course,
           });
         } else {
-          const course = await courseModel
-            .findById(req.params.id)
-         
+          const course = await courseModel.findById(req.params.id);
+
           if (!course) {
             return next(new ErrorHandler("Course not found", 400));
           }
@@ -523,27 +522,26 @@ export const deleteCourse = catchAsyncError(
   }
 );
 
-
 // Generate Video URL
 
-export const generateVideoUrl = catchAsyncError(async (req:Request, res:Response, next:NextFunction)=>{
-  try {
-    
-    const {videoId} = req.body
-    const response =  await axios.post(
-      `https://dev.vdocipher.com/api/videos/${videoId}/otp`,
-      {ttl:300},
-      {
-        headers:{
-          Accept:"application/json",
-          'Content-Type':"application/json",
-          Authorization:`Apisecret ${process.env.VDOCIPHER_SECRET_API}`
-
+export const generateVideoUrl = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { videoId } = req.body;
+      const response = await axios.post(
+        `https://dev.vdocipher.com/api/videos/${videoId}/otp`,
+        { ttl: 300 },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Apisecret ${process.env.VDOCIPHER_SECRET_API}`,
+          },
         }
-      }
-    )
-    res.json(response.data)
-  } catch (error:any) {
-    return new ErrorHandler(error.message, 400)
+      );
+      res.json(response.data);
+    } catch (error: any) {
+      return new ErrorHandler(error.message, 400);
+    }
   }
-})
+);
