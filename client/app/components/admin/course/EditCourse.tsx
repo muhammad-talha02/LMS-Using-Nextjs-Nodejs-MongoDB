@@ -1,14 +1,14 @@
-import React, { FC, useEffect, useState } from 'react'
+import { useGetSingleCourseAdminQuery, useUpdateCourseMutation } from '@/redux/features/courses/coursesApi'
+import { FC, useEffect, useState } from 'react'
 import { CourseContent, CourseData, CourseInformation, CourseOptions, CoursePreview } from '.'
 import useMutation from '../../../_hooks/useMutation'
-import { useCreateCourseMutation, useGetSingleCourseAdminQuery, useUpdateCourseMutation } from '@/redux/features/courses/coursesApi'
-
+import { useRouter } from 'next/navigation'
 type Props = {
     courseId: string
 }
 
 const EditCourse: FC<Props> = (props) => {
-
+const router = useRouter()
     const { courseId } = props
 
     //? -- Get Single Course API
@@ -17,7 +17,10 @@ const EditCourse: FC<Props> = (props) => {
     //? -- Update Course Mutation
     const { actionApi: UpdateCourse, result } = useMutation({
         api: useUpdateCourseMutation,
-        successMsg: "Course Updated Successfully"
+        successMsg: "Course Updated Successfully",
+        successFunc:()=>{
+            router.push("/dashboard/courses")
+        }
     })
 
 console.log("data", singleCourseData)
@@ -25,7 +28,7 @@ console.log("data", singleCourseData)
 
     const [active, setActive] = useState(0)
     const [benefits, setBenefits] = useState([{ title: "Problem" }])
-    const [prerequisites, setPrerequisites] = useState([{ title: "JavaScript" }])
+    const [prerequisites, setPrerequisites] = useState([{ title: "JavaScipt" }])
     const [courseData, setCourseData] = useState({})
     const [courseContentData, setCourseContentData] = useState([{
         videoUrl: "28cc1a193de242e2ab56471d0cb51aa4",
@@ -112,10 +115,11 @@ if(isSuccess && singleCourseData){
         tags: singleCourseData?.course?.tags,
         levels: singleCourseData?.course?.level,
         demoUrl: singleCourseData?.course?.demourl,
-        thumbnail: singleCourseData?.course?.url
+        thumbnail: singleCourseData?.course?.thumbnail
     })
     setBenefits(singleCourseData?.course?.benefits)
     setPrerequisites(singleCourseData?.course?.prequesities)
+    setCourseContentData(singleCourseData?.course?.courseData)
 }
     }, [isSuccess, singleCourseData])
     if (isLoading) return "Loading...."
@@ -156,6 +160,7 @@ if(isSuccess && singleCourseData){
                         setActive={setActive}
                         courseData={courseData}
                         handleCourseCreate={handleCourseCreate}
+                        isUpdate={true}
                     />
                 }
             </div>

@@ -47,6 +47,8 @@ export const coursesApi = apiSlice.injectEndpoints({
         body: data,
         credentials: "include" as const,
       }),
+      invalidatesTags: ["GetAllCourses"],
+
     }),
   }),
 });
