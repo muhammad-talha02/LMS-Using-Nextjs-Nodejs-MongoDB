@@ -119,7 +119,11 @@ if(isSuccess && singleCourseData){
     })
     setBenefits(singleCourseData?.course?.benefits)
     setPrerequisites(singleCourseData?.course?.prequesities)
-    setCourseContentData(singleCourseData?.course?.courseData)
+    const courseData = singleCourseData?.course?.courseData?.map((item:any)=>{
+        const {_id, ...obj} = item
+        return item
+    })
+    setCourseContentData(courseData)
 }
     }, [isSuccess, singleCourseData])
     if (isLoading) return "Loading...."
