@@ -87,7 +87,7 @@ console.log("data", singleCourseData)
             level: courseInfo.levels,
             demoUrl: courseInfo.demoUrl,
             thumbnail: courseInfo.thumbnail,
-            totalVideos: courseContentData.length,
+            // totalVideos: courseContentData.length,
             benefits: fomatBenefits,
             prequesities: fomatPrequisities,
             courseData: formatCourseContentData
@@ -121,9 +121,9 @@ if(isSuccess && singleCourseData){
     setPrerequisites(singleCourseData?.course?.prequesities)
     const courseData = singleCourseData?.course?.courseData?.map((item:any)=>{
         const {_id, ...obj} = item
-        return item
+        return obj
     })
-    setCourseContentData(courseData)
+    // setCourseContentData(courseData)
 }
     }, [isSuccess, singleCourseData])
     if (isLoading) return "Loading...."
