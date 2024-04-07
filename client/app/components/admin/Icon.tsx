@@ -81,7 +81,7 @@ const MenuItems = [
             {
                 title: "Hero",
                 Icon: WebIcon ,
-                to: "/"
+                to: "/dashboard/hero"
             },
             {
                 title: "FAQ",
