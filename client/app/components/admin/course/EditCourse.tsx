@@ -12,7 +12,7 @@ const router = useRouter()
     const { courseId } = props
 
     //? -- Get Single Course API
-    const { data: singleCourseData, isLoading, isSuccess } = useGetSingleCourseAdminQuery(courseId)
+    const { data: singleCourseData, isLoading, isSuccess } = useGetSingleCourseAdminQuery(courseId, {refetchOnMountOrArgChange:true})
 
     //? -- Update Course Mutation
     const { actionApi: UpdateCourse, result } = useMutation({
@@ -96,7 +96,7 @@ console.log("data", singleCourseData)
         setCourseData(data)
     }
 
-    const handleCourseCreate = async () => {
+    const handleCourseUpdate = async () => {
         const data = courseData
         if (!result.isLoading) {
             await UpdateCourse({ data, id: courseId })
@@ -119,7 +119,11 @@ if(isSuccess && singleCourseData){
     })
     setBenefits(singleCourseData?.course?.benefits)
     setPrerequisites(singleCourseData?.course?.prequesities)
-    setCourseContentData(singleCourseData?.course?.courseData)
+    const courseData = singleCourseData?.course?.courseData?.map((item:any)=>{
+        const {_id, ...obj} = item
+        return obj
+    })
+    setCourseContentData(courseData)
 }
     }, [isSuccess, singleCourseData])
     if (isLoading) return "Loading...."
@@ -159,7 +163,7 @@ if(isSuccess && singleCourseData){
                         active={active}
                         setActive={setActive}
                         courseData={courseData}
-                        handleCourseCreate={handleCourseCreate}
+                        handleCourseCreate={handleCourseUpdate}
                         isUpdate={true}
                     />
                 }

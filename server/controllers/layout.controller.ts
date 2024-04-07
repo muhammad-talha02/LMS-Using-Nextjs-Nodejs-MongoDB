@@ -29,7 +29,7 @@ export const createLayout = catchAsyncError(
           title,
           subTitle,
         };
-        await LayoutModel.create(banner);
+        await LayoutModel.create({type ,banner});
       }
 
       if (type === "FAQ") {

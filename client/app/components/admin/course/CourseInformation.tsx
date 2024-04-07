@@ -135,8 +135,8 @@ const CourseInformation: FC<Props> = (props) => {
                     <InputField
                         style={{ md: 12, lg: 6 }}
                         type="text"
-                        name='level'
-                        id='level'
+                        name='levels'
+                        id='levels'
                         placeholder="Beginner/Intermediate/Expert"
                         label={"Level"}
                         value={courseInfo.levels}

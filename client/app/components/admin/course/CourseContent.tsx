@@ -15,24 +15,24 @@ type Props = {
     setCourseContentData: (courseContentData: any) => void;
     active: number;
     setActive: (active: number) => void;
-    handleSubmit:any
+    handleSubmit: any
 };
 
 const CourseContent: FC<Props> = (props) => {
-    const { courseContentData, setCourseContentData, active, setActive, handleSubmit:handleCourseSubmit } = props;
+    const { courseContentData, setCourseContentData, active, setActive, handleSubmit: handleCourseSubmit } = props;
     const [isCollapsed, setIsCollapsed] = useState(
         Array(courseContentData.length).fill(false)
-        );
-        const [activeSection, setActiveSection] = useState(1);
-        
-        const handleSubmit = (e: any) => {
-            e.preventDefault();
-            handleCourseSubmit()
-        };
-        
-        const handleCollapsesToggle = (index: number) => {
-            const updatedCollpased = [...isCollapsed];
-            console.log("Collapsed", updatedCollpased);
+    );
+    const [activeSection, setActiveSection] = useState(1);
+
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        handleCourseSubmit()
+    };
+
+    const handleCollapsesToggle = (index: number) => {
+        const updatedCollpased = [...isCollapsed];
+        console.log("Collapsed", updatedCollpased);
         updatedCollpased[index] = !updatedCollpased[index];
         setIsCollapsed(updatedCollpased);
     };
@@ -73,7 +73,7 @@ const CourseContent: FC<Props> = (props) => {
         if (checkLastisFilled) {
             toast.error("Please fill all above fields!")
         }
-        else{
+        else {
             setActiveSection(activeSection + 1)
             const newContent = {
                 videoUrl: '',
@@ -87,17 +87,17 @@ const CourseContent: FC<Props> = (props) => {
 
     }
 
-const handleNext = ()=>{
-    const lastCourseContentData = courseContentData[courseContentData.length - 1]
-    const checkLastisFilled = new Set(Object.values(lastCourseContentData)).has("") || lastCourseContentData.links.some((link: any) => new Set(Object.values(link)).has(""))
-    if (checkLastisFilled) {
-        toast.error("Section Can't be Empty!")
+    const handleNext = () => {
+        const lastCourseContentData = courseContentData[courseContentData.length - 1]
+        const checkLastisFilled = new Set(Object.values(lastCourseContentData)).has("") || lastCourseContentData.links.some((link: any) => new Set(Object.values(link)).has(""))
+        if (checkLastisFilled) {
+            toast.error("Section Can't be Empty!")
+        }
+        else {
+            handleCourseSubmit()
+            setActive(active + 1)
+        }
     }
-    else{
-        handleCourseSubmit()
-        setActive(active  + 1)
-    }
-}
 
     return (
         <div className="w-[80%] mt-12 pt-3 m-auto">
@@ -121,8 +121,8 @@ const handleNext = ()=>{
                                                 } ? "w-[170px]" : "w-min"} font-Poppins cursor-pointer bg-transparent text-black dark:text-white outline-none`}
                                             onChange={(e: any) => {
                                                 const updatedCourseContentData = [...courseContentData];
-                                                updatedCourseContentData[index].videoSection =
-                                                    e.target.value;
+                                                console.log(e.target.value)
+                                                updatedCourseContentData[index].videoSection = e.target.value;
                                                 setCourseContentData(updatedCourseContentData);
                                             }}
                                         />
@@ -131,15 +131,15 @@ const handleNext = ()=>{
                                 )}
                                 <div className="flex w-full items-center justify-between my-0">
                                     {/* {isCollapsed[index] ? ( */}
-                                        <div>
-                                            {item?.title ? (
-                                                <p className="font-Poppins dark:text-white text-black">
-                                                    {index + 1}. {item.title}
-                                                </p>
-                                            ) : (
-                                                <></>
-                                            )}
-                                        </div>
+                                    <div>
+                                        {item?.title ? (
+                                            <p className="font-Poppins dark:text-white text-black">
+                                                {index + 1}. {item.title}
+                                            </p>
+                                        ) : (
+                                            <></>
+                                        )}
+                                    </div>
                                     {/* ) : (
                                         <div></div>
                                     )} */}
@@ -230,6 +230,7 @@ const handleNext = ()=>{
                                                     const updatedCourseContentData = [
                                                         ...courseContentData,
                                                     ];
+                                                    console.log("ggg", updatedCourseContentData)
                                                     updatedCourseContentData[index].description =
                                                         e.target.value;
                                                     setCourseContentData(updatedCourseContentData);
@@ -354,10 +355,10 @@ const handleNext = ()=>{
                 <br />
                 {/* Add New Section  */}
                 <div className="flex items-center cursor-pointer text-[20px]" onClick={addNewSection}>
-                 <AiOutlinePlusCircle className="mr-2"/>   Add new Section
+                    <AiOutlinePlusCircle className="mr-2" />   Add new Section
                 </div>
             </form>
-            <NextButton prevTitle="Previous" nextTitle="Next" handlePrev={()=> setActive(active - 1)} handleNext={handleNext}/>
+            <NextButton prevTitle="Previous" nextTitle="Next" handlePrev={() => setActive(active - 1)} handleNext={handleNext} />
         </div>
     );
 };
