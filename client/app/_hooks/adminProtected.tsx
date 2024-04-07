@@ -10,7 +10,7 @@ const AdminProtected = ({ children }: Props) => {
   const { user } = useSelector((state: any) => state.auth);
 
   const isAdmin = user?.role === "admin";
-  return isAdmin ? children : redirect("/");
+  return isAdmin ? children : redirect("/dashboard");
 };
 
 export default AdminProtected;

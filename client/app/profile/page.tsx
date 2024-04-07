@@ -13,12 +13,12 @@ const Page = (props: Props) => {
     const [open, setOpen] = useState(false)
     const [activeItem, setActiveItem] = useState(0)
     const [route, setRoute] = useState("Login")
-
+console.log("Profile")
 
     const {user} = useSelector((state:any)=> state.auth)
     return (
 
-        <div>
+        <>
             <Protected>
 
                 <Heading
@@ -31,7 +31,7 @@ const Page = (props: Props) => {
                 <Profile user={user}/>
             </Protected>
 
-        </div>
+        </>
     )
 }
 
