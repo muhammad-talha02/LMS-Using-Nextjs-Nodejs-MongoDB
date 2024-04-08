@@ -17,7 +17,7 @@ const EditHero: FC<Props> = (props) => {
 
     //? -- Get Layout API
 
-    const { data: getBannerData, isLoading, isSuccess , refetch } = useGetLayoutQuery("Banner", { refetchOnMountOrArgChange: true })
+    const { data: getBannerData, isLoading, isSuccess, refetch } = useGetLayoutQuery("Banner", { refetchOnMountOrArgChange: true })
     console.log("banner", getBannerData)
 
 
@@ -25,7 +25,7 @@ const EditHero: FC<Props> = (props) => {
     const { actionApi: updateBannerAction, result } = useMutation({
         api: useUpdateLayoutMutation,
         successMsg: "Banner Data Updated",
-        successFunc:()=>{
+        successFunc: () => {
             refetch()
         }
     })
@@ -86,11 +86,11 @@ const EditHero: FC<Props> = (props) => {
 
     return (
         <>
-            <div className='w-full flex items-center justify-center gap-10 mt-10'>
+            <div className='w-full flex flex-col 800px:flex-row items-center justify-center gap-10 mt-10'>
                 <div className="profileImg">
                     <div className="imgBox relative">
                         <label htmlFor='profileImg'>
-                            <Image src={imgUrl} width={150} height={150} alt='profile-img' className='md:w-[350px] md:h-[350px] w-[150px] h-[150px] rounded-full border-[3px] border-[#37a39a]' />
+                            <Image src={imgUrl} width={150} height={150} alt='profile-img' className='800px:w-[300px] 800px:h-[300px] w-[150px] h-[150px] rounded-full border-[3px] border-[#37a39a]' />
                             <div className='dark:bg-[#0b0f19] bg-white  w-[35px] border-[3px] border-[#37a39a] h-[35px] flex justify-center items-center rounded-full absolute bottom-[0px] right-[100px]'>
                                 <AiOutlineCamera size={20} className='dark:text-white text-black' />
 
@@ -104,14 +104,14 @@ const EditHero: FC<Props> = (props) => {
                     <textarea className='text-[40px] leading-tight bg-transparent resize-none' rows={5} value={title} onChange={(e) => setTitle(e.target.value)}></textarea>
 
                     <textarea className='text-[14px] bg-transparent resize-none' rows={3} value={subTitle} onChange={(e) => setSubTitle(e.target.value)} ></textarea>
-
+                    <div className='flex justify-center'>
+                <button className='text-white bg-[--t-blue] rounded mt-8 cursor-pointer w-full 400px:w-[150px] h-[40px] disabled:cursor-not-allowed' disabled={result.isLoading || isDisableUpdate()} onClick={handleUpdateLayout}>Update</button>
+            </div>
 
                 </div>
 
             </div>
-            <div className='flex justify-center'>
-                <button className='text-white bg-[--t-blue] rounded mt-8 cursor-pointer w-full 400px:w-[150px] h-[40px] disabled:cursor-not-allowed' disabled={result.isLoading || isDisableUpdate()} onClick={handleUpdateLayout}>Update</button>
-            </div>
+           
         </>
     )
 }
