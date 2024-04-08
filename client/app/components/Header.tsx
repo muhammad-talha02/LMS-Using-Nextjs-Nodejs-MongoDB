@@ -96,8 +96,8 @@ const Header: FC<Props> = (props) => {
         <div className="w-full relative">
             <div
                 className={`${active
-                    ? "dark:bg-opacity-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-black fixed top-0 left-0 w-full h-[80px] z-[80] border-b dark:border-[#ffffff1c] shadow-xl transition duration-500"
-                    : "w-full border-b dark:border-[#ffffff1c] h-[80px] z-[80] dark:shadow"
+                    ? "dark:bg-opacity-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-black fixed top-0 left-0 w-full h-[80px] z-[90] border-b dark:border-[#ffffff1c] shadow-xl transition duration-500"
+                    : "w-full border-b dark:border-[#ffffff1c] h-[80px] z-[90] dark:shadow"
                     }`}
             >
                 <div className="w-[95%] 800px:w-[92%] max-w-[1200px] m-auto py-0 h-full">
@@ -139,9 +139,9 @@ const Header: FC<Props> = (props) => {
 
                 {/* Sidebar for mobile */}
 
-                {openSidebar && <div className="w-full h-screen fixed top-0 left-0 z-[9999] dark:bg-unset bg-[#00000024]" onClick={handleSidebar}>
+                {openSidebar && <div className="w-full h-screen fixed top-0 left-0 z-[99] dark:bg-unset bg-[#00000024]" onClick={handleSidebar}>
 
-                    <div className="fixed w-[70%] z-[999999] h-screen bg-white dark:bg-slate-900 dark:bg-opacity-90 top-0 right-0">
+                    <div className="fixed w-[70%] z-[99] h-screen bg-white dark:bg-slate-900 dark:bg-opacity-90 top-0 right-0">
 
 
                         <NavItems activeItem={activeItem} isMobile={true} />

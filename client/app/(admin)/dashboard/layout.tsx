@@ -17,17 +17,17 @@ const Layout = ({ children }: Props) => {
     return (
         <AdminProtected>
 
-<Heading title='Admin | Compile Academy'         description="Compile academy is a platform for students to learn and enhance skills."
-        keywords="Programming,MERN,Machine Learning"/>
+            <Heading title='Admin | Compile Academy' description="Compile academy is a platform for students to learn and enhance skills."
+                keywords="Programming,MERN,Machine Learning" />
             <div className="">
                 <div>
                     {/* <div className={`${collapsed ? "w-[80px]" :"w-[280px]"}`}> */}
                     <AdminSidebar collapsed={collapsed} setCollapsed={setCollapsed} />
                 </div>
-                <div className={`${collapsed ? "ml-[60px]" : "ml-[280px]"} min-h-[100vh]`}>
+                <div className={`${collapsed ? "800px:ml-[60px] ml-[60px]" : "800px:ml-[280px] ml-[60px]"} min-h-[100vh]`}>
                     <DashboardHeader />
-                    <div className='px-3'>
-                            {children}
+                    <div className='px-3 z-0'>
+                        {children}
                     </div>
                 </div>
             </div>
