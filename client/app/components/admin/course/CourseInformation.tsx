@@ -1,10 +1,11 @@
 "use client"
-import React, { ChangeEvent, FC, useState } from 'react'
+import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import InputField from '../../form/InputField'
 import { Box, Grid } from '@mui/material'
 import { styles } from '@/app/styles/style'
 import Image from 'next/image'
 import { NextButton } from '.'
+import { useGetLayoutQuery } from '@/redux/features/layout/layoutApi'
 
 type Props = {
     active: number,
@@ -15,9 +16,25 @@ type Props = {
 
 const CourseInformation: FC<Props> = (props) => {
     const [dargging, setDraggging] = useState(false)
+    const [courseCategories, setCourseCategories] = useState([])
     const { active, setActive, courseInfo, setCourseInfo } = props
 
-    // Submit
+    //? GET Categories Data API
+    const {
+        data: getCategoriesData,
+        isLoading,
+        isSuccess,
+        refetch,
+    } = useGetLayoutQuery("Categories", { refetchOnMountOrArgChange: true });
+
+
+    useEffect(() => {
+        if (getCategoriesData) {
+            setCourseCategories(getCategoriesData.layout.categories)
+        }
+    }, [getCategoriesData])
+
+    //* Submit to go Next Step
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
@@ -93,7 +110,7 @@ const CourseInformation: FC<Props> = (props) => {
                         onChange={handleChange}
                     />
                     <InputField
-                        style={{ lg: 12 ,md:12 }}
+                        style={{ lg: 12, md: 12 }}
                         name='description'
                         label={"Course Description:"}
                     >
@@ -123,7 +140,7 @@ const CourseInformation: FC<Props> = (props) => {
                         onChange={handleChange}
                     />
                     <InputField
-                        style={{ md: 12, lg: 12 }}
+                        style={{ md: 12, lg: 6 }}
                         type="text"
                         name='tags'
                         id='tags'
@@ -132,6 +149,30 @@ const CourseInformation: FC<Props> = (props) => {
                         value={courseInfo.tags}
                         onChange={handleChange}
                     />
+                    <Grid item xs={12} lg={6}>
+                        <label htmlFor="category" className={`${styles.label}`}>Course Category</label>
+                        <select name="category" value={courseInfo.category} onChange={(e) => {
+                            setCourseInfo({ ...courseInfo, category: e.target.value })
+                        }} id="category" className={`${styles.input}`}>
+                            <option value="" selected disabled className='dark:text-white dark:bg-black'>Select Category</option>
+                            {
+                                courseCategories.map((category: any) => (
+                                    <option value={category.title} key={category._id} className='dark:text-white dark:bg-black'>{category.title}</option>
+
+                                ))
+                            }
+                        </select>
+                    </Grid>
+                    {/* <InputField
+                        style={{ md: 12, lg: 12 }}
+                        type="text"
+                        name='categories'
+                        id='categories'
+                        placeholder="Next 13, MERN Stack, JavaScript ..."
+                        label={"Course Category"}
+                        value={courseInfo.categories}
+                        onChange={handleChange}
+                    /> */}
                     <InputField
                         style={{ md: 12, lg: 6 }}
                         type="text"

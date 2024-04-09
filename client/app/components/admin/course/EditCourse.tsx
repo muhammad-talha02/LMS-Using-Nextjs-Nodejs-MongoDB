@@ -8,22 +8,22 @@ type Props = {
 }
 
 const EditCourse: FC<Props> = (props) => {
-const router = useRouter()
+    const router = useRouter()
     const { courseId } = props
 
     //? -- Get Single Course API
-    const { data: singleCourseData, isLoading, isSuccess } = useGetSingleCourseAdminQuery(courseId, {refetchOnMountOrArgChange:true})
+    const { data: singleCourseData, isLoading, isSuccess } = useGetSingleCourseAdminQuery(courseId, { refetchOnMountOrArgChange: true })
 
     //? -- Update Course Mutation
     const { actionApi: UpdateCourse, result } = useMutation({
         api: useUpdateCourseMutation,
         successMsg: "Course Updated Successfully",
-        successFunc:()=>{
+        successFunc: () => {
             router.push("/dashboard/courses")
         }
     })
 
-console.log("data", singleCourseData)
+    console.log("data", singleCourseData)
 
 
     const [active, setActive] = useState(0)
@@ -35,6 +35,7 @@ console.log("data", singleCourseData)
         title: "Introduction",
         description: "dd",
         videoSection: "Untitled Section",
+        videoLength: "",
         links: [
             {
                 title: "MyGitHub",
@@ -48,6 +49,7 @@ console.log("data", singleCourseData)
         name: "MERN Stack Advanced Course",
         description: "Hey, DO you want to Enhance your skills in Full Stack Development",
         price: 1500,
+        category: "Programg",
         estimatedPrice: 2000,
         tags: "react",
         levels: "Advanced",
@@ -71,6 +73,7 @@ console.log("data", singleCourseData)
             title: courseContent.title,
             description: courseContent.description,
             videoSection: courseContent.videoSection,
+            videoLength: courseContent.videoLength,
             links: courseContent.links.map((link: any) => ({
                 title: link.title,
                 url: link.url,
@@ -84,6 +87,7 @@ console.log("data", singleCourseData)
             price: courseInfo.price,
             estimatedPrice: courseInfo.estimatedPrice,
             tags: courseInfo.tags,
+            categories: courseInfo.category,
             level: courseInfo.levels,
             demoUrl: courseInfo.demoUrl,
             thumbnail: courseInfo.thumbnail,
@@ -105,26 +109,27 @@ console.log("data", singleCourseData)
     }
 
 
-    useEffect(()=>{
-if(isSuccess && singleCourseData){
-    setCourseInfo({
-        name: singleCourseData?.course?.name,
-        description: singleCourseData?.course?.description,
-        price: singleCourseData?.course?.price,
-        estimatedPrice: singleCourseData?.course?.estimatedPrice,
-        tags: singleCourseData?.course?.tags,
-        levels: singleCourseData?.course?.level,
-        demoUrl: singleCourseData?.course?.demourl,
-        thumbnail: singleCourseData?.course?.thumbnail
-    })
-    setBenefits(singleCourseData?.course?.benefits)
-    setPrerequisites(singleCourseData?.course?.prequesities)
-    const courseData = singleCourseData?.course?.courseData?.map((item:any)=>{
-        const {_id, ...obj} = item
-        return obj
-    })
-    setCourseContentData(courseData)
-}
+    useEffect(() => {
+        if (isSuccess && singleCourseData) {
+            setCourseInfo({
+                name: singleCourseData?.course?.name,
+                description: singleCourseData?.course?.description,
+                price: singleCourseData?.course?.price,
+                estimatedPrice: singleCourseData?.course?.estimatedPrice,
+                tags: singleCourseData?.course?.tags,
+                levels: singleCourseData?.course?.level,
+                demoUrl: singleCourseData?.course?.demourl,
+                thumbnail: singleCourseData?.course?.thumbnail,
+                category: singleCourseData?.course?.categories,
+            })
+            setBenefits(singleCourseData?.course?.benefits)
+            setPrerequisites(singleCourseData?.course?.prequesities)
+            const courseData = singleCourseData?.course?.courseData?.map((item: any) => {
+                const { _id, ...obj } = item
+                return obj
+            })
+            setCourseContentData(courseData)
+        }
     }, [isSuccess, singleCourseData])
     if (isLoading) return "Loading...."
 

@@ -14,7 +14,7 @@ type Props = {};
 
 const EditCategories: FC<Props> = (props) => {
     const [categories, setCategories] = useState<any[]>([]);
-    //? GET FAQ Data API
+    //? GET Categories Data API
     const {
         data: getCategoriesData,
         isLoading,
@@ -83,7 +83,7 @@ const EditCategories: FC<Props> = (props) => {
     //* Handle Update Data
     const handleUpdateLayout = async () => {
         if (areCategoriesEmpty()) {
-            toast.error("Question Cannot be Empty")
+            toast.error("Please fill empty fields")
         }
         else {
             const newCategory = categories.map((cat: any) => ({ title: cat.title }))
@@ -100,7 +100,7 @@ const EditCategories: FC<Props> = (props) => {
             <Grid container lg={8} xs={11} m={"auto"}>
                 {categories?.map((category: any, index: number) => (
                     <Grid item xs={12} key={index} display={"flex"} justifyContent={"center"} my={1} gap={2}>
-                        <input type="text" className="bg-transparent w-full max-w-[250px] px-1" value={category.title} onChange={(e: any) => handleCategoryChange(e.target.value, index)} />
+                        <input type="text" className="bg-transparent w-full max-w-[250px] px-1" value={category.title} onChange={(e: any) => handleCategoryChange(e.target.value, index)} placeholder="Enter Category Title"/>
                         <IconButton className="text-black dark:text-white" onClick={() => handleRemoveFaq(index)}>
                             <AiOutlineDelete size={18} />
                         </IconButton>
@@ -110,7 +110,7 @@ const EditCategories: FC<Props> = (props) => {
                     <AddCircle className='cursor-pointer' onClick={handleAddCategory} />
                 </Grid>
                 <Grid item sm={12} mt={3} display={"flex"} justifyContent={"flex-end"}>
-                    <button className='text-white bg-[--t-blue] rounded mt-8 cursor-pointer w-full 400px:w-[150px] h-[40px] disabled:cursor-not-allowed' disabled={result.isLoading || areCategoriesUnchanged()} onClick={handleUpdateLayout}>Update</button>
+                    <button className='text-white bg-[--t-blue] rounded mt-8 cursor-pointer w-full 400px:w-[150px] h-[40px] disabled:cursor-not-allowed' disabled={result.isLoading || areCategoriesUnchanged()} onClick={handleUpdateLayout}>{result.isLoading ? "Updating" : "Update"}</button>
                 </Grid>
             </Grid>
         </div>
