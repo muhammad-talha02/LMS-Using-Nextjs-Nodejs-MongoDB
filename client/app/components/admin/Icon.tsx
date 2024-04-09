@@ -111,28 +111,28 @@ const MenuItems = [
             {
                 title: "Course Analytics",
                 Icon: BarChartOutlinedIcon ,
-                to: "/"
+                to: "/dashboard/courses-analytics"
             },
             {
                 title: "Orders Analytics",
                 Icon: MapOutlinedIcon ,
-                to: "/"
+                to: "/dashboard/orders-analytics"
             },
             {
                 title: "Users Analytics",
                 Icon: ManageHistoryIcon ,
-                to: "/"
+                to: "/dashboard/users-analytics"
             },
                     ]
     },
     {
         label: "Extras",
         subMenu: [
-            {
-                title: "Settings",
-                Icon: SettingsIcon ,
-                to: "/"
-            },
+            // {
+            //     title: "Settings",
+            //     Icon: SettingsIcon ,
+            //     to: "/"
+            // },
             {
                 title: "Logout",
                 Icon: ExitToAppIcon ,
