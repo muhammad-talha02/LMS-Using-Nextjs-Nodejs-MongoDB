@@ -29,7 +29,7 @@ export const createLayout = catchAsyncError(
           title,
           subTitle,
         };
-        await LayoutModel.create({type ,banner});
+        await LayoutModel.create({ type, banner });
       }
 
       if (type === "FAQ") {
@@ -69,15 +69,23 @@ export const updateLayout = catchAsyncError(
       if (type === "Banner") {
         const bannerData: any = await LayoutModel.findOne({ type: "Banner" });
         const { image, title, subTitle } = req.body;
-        if (bannerData) {
+
+        //? To check we need to update image or not
+        const isImageUpdate = image.startsWith("https") ? false : true;
+        let myCloud;
+
+        if (isImageUpdate) {
+          //? If True it will remove the old one and upload new on cloudinary
           await cloudinary.v2.uploader.destroy(
             bannerData?.banner.image.public_id
           );
+          myCloud = await cloudinary.v2.uploader.upload(image, {
+            folder: "layout",
+          });
+        } else {
+          //? Otherwise it keeps the old data
+          myCloud = bannerData?.banner.image;
         }
-        const myCloud = await cloudinary.v2.uploader.upload(image, {
-          folder: "layout",
-        });
-
         const banner = {
           image: {
             public_id: myCloud.public_id,

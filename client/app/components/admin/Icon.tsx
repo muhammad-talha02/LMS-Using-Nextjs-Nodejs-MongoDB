@@ -86,12 +86,12 @@ const MenuItems = [
             {
                 title: "FAQ",
                 Icon: QuizIcon ,
-                to: "/"
+                to: "/dashboard/faq"
             },
             {
                 title: "Categories",
                 Icon: WysiwygIcon ,
-                to: "/"
+                to: "/dashboard/categories"
             },
         ]
     },

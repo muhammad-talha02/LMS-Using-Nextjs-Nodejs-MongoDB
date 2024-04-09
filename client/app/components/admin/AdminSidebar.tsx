@@ -24,10 +24,10 @@ interface ItemProps {
 }
 
 const Item: FC<ItemProps> = (props) => {
-    const { selected, menu, collapsed,label, setSelected } = props;
+    const { selected, menu, collapsed, label, setSelected } = props;
     return (
         <div className="MenuItem">
-           {!collapsed && <Typography className="py-2 px-5">{label}</Typography>}
+            {!collapsed && <Typography className="py-2 px-5">{label}</Typography>}
             <div className="subMenu my-2">
 
                 {
@@ -46,11 +46,11 @@ const Item: FC<ItemProps> = (props) => {
 
 
 interface SidebarProps {
-collapsed:boolean,
-setCollapsed:(collapsed:boolean) => void
+    collapsed: boolean,
+    setCollapsed: (collapsed: boolean) => void
 }
 const AdminSidebar: FC<SidebarProps> = (props) => {
-    const {collapsed, setCollapsed} = props
+    const { collapsed, setCollapsed } = props
     const { user } = useSelector((state: any) => state.auth);
     const [logout, setLogout] = useState(false);
     const [selected, setSelected] = useState("Dashboard");
@@ -64,18 +64,18 @@ const AdminSidebar: FC<SidebarProps> = (props) => {
         return;
     }
     return (
-        <div className={`sidebar fixed left-0 top-0 h-full transition-[width] duration-900 ${collapsed ? "w-[60px]" : "w-[280px]"}`}>
-   {   !collapsed ? <>      <div className="sidebarHeader mb-3">
+        <div className={`sidebar z-[999] bg-[#f7f7f7] dark:bg-black fixed left-0 top-0 h-full transition-[width] duration-900 ${collapsed ? "w-[60px]" : "w-[280px]"}`}>
+            {!collapsed ? <>      <div className="sidebarHeader mb-3">
                 <div className="flex justify-between py-3 px-5 items-center gap-8">
                     <Typography component="h1" className="">
                         Compiler Academy
                     </Typography>
-                    <GiCrossedSabres size={20} className="cursor-pointer hover:scale-x-110" onClick={()=> setCollapsed(true)}/>
+                    <GiCrossedSabres size={20} className="cursor-pointer hover:scale-x-110" onClick={() => setCollapsed(true)} />
                 </div>
                 <div className="flex py-2 gap-5 jus items-center px-5">
                     <div className="flex justify-center flex-col items-center gap-1">
                         <Image
-                            src={user.avatar.url || noAvatar}
+                            src={user?.avatar?.url || noAvatar}
                             width={150}
                             height={150}
                             alt="profile-img"
@@ -90,9 +90,9 @@ const AdminSidebar: FC<SidebarProps> = (props) => {
                     </Typography>
                 </div>
             </div>
-            </> :  <FaHamburger onClick={()=> setCollapsed(false)} className="cursor-pointer hover:scale-x-110 hover:text-[--t-blue] mx-5 my-5" size={20}/>
-                }
-                <hr />
+            </> : <FaHamburger onClick={() => setCollapsed(false)} className="cursor-pointer hover:scale-x-110 hover:text-[--t-blue] mx-5 my-5" size={20} />
+            }
+            <hr />
             <div className="sidebarMenu">
                 {
                     MenuItems.map((item: any) => {

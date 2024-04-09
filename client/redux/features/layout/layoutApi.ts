@@ -1,7 +1,9 @@
 import { apiSlice } from "../api/apiSlice";
 
-export const layoutApi = apiSlice.injectEndpoints({
+export const layoutApi:any = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+
+    //? Get Layout
     getLayout: builder.query({
       query(type) {
         return {
@@ -11,7 +13,19 @@ export const layoutApi = apiSlice.injectEndpoints({
         };
       },
     }),
+
+    //? Update Layout
+    updateLayout: builder.mutation({
+      query(data) {
+        return {
+          url: `update-layout`,
+          method: "PUT",
+          body:data,
+          credentials: "include" as const,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetLayoutQuery } = layoutApi;
+export const { useGetLayoutQuery, useUpdateLayoutMutation } = layoutApi;
