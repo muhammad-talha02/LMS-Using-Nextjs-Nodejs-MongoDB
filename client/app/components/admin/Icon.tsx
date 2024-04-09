@@ -91,7 +91,7 @@ const MenuItems = [
             {
                 title: "Categories",
                 Icon: WysiwygIcon ,
-                to: "/"
+                to: "/dashboard/categories"
             },
         ]
     },

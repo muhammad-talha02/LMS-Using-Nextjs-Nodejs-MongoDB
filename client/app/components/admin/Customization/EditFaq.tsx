@@ -22,7 +22,7 @@ const FAQ: FC<FAQProps> = (props) => {
     const [toggleFaq, setToggleFaq] = useState(item.isActive || false)
     return (
         <>
-            <div className="faqContent flex flex-col border-b-2 border-white">
+            <div className="faqContent flex flex-col border-b-2 dark:border-white border-black">
                 <div className="question flex justify-between mb-3">
                     <input type='text' name='question' onChange={(e) => handleQuestionFaq(e, index)} className={`${styles.input} max-w-[93%] border-none`} value={item.question} placeholder='Question' />
 
