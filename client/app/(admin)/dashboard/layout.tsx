@@ -15,8 +15,8 @@ const Layout = ({ children }: Props) => {
     const [loading, setLoading] = useState(true)
 
     return (
-        <AdminProtected>
-
+<>
+        {/*  <AdminProtected> */}
             <Heading title='Admin | Compile Academy' description="Compile academy is a platform for students to learn and enhance skills."
                 keywords="Programming,MERN,Machine Learning" />
             <div className="">
@@ -31,7 +31,8 @@ const Layout = ({ children }: Props) => {
                     </div>
                 </div>
             </div>
-        </AdminProtected>
+         {/* </AdminProtected> */}
+                </>
     )
 }
 

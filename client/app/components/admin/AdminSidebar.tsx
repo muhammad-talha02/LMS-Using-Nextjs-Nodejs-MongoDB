@@ -75,7 +75,7 @@ const AdminSidebar: FC<SidebarProps> = (props) => {
                 <div className="flex py-2 gap-5 jus items-center px-5">
                     <div className="flex justify-center flex-col items-center gap-1">
                         <Image
-                            src={user.avatar.url || noAvatar}
+                            src={user?.avatar?.url || noAvatar}
                             width={150}
                             height={150}
                             alt="profile-img"

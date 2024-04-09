@@ -86,7 +86,7 @@ const MenuItems = [
             {
                 title: "FAQ",
                 Icon: QuizIcon ,
-                to: "/"
+                to: "/dashboard/faq"
             },
             {
                 title: "Categories",

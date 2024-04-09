@@ -34,7 +34,7 @@ const Login: FC<Props> = ({ setRoute, setOpen }: Props) => {
         if (result.error) {
             const errorData = result.error as any
             console.log(result)
-            toast.error(`Error: ${errorData?.data.message}`)
+            toast.error(`Error: ${errorData?.data?.message}`)
 
         }
 
