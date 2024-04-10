@@ -12,7 +12,33 @@ export const analyticsApi = apiSlice.injectEndpoints({
         };
       },
     }),
+
+    //? Get Orders Analytics
+    getOrdersAnalytics: builder.query({
+      query() {
+        return {
+          url: "get-orders-analytics",
+          method: "GET",
+          credentials: "include" as const,
+        };
+      },
+    }),
+
+    //? Get Users Analytics
+    getUsersAnalytics: builder.query({
+      query() {
+        return {
+          url: "get-users-analytics",
+          method: "GET",
+          credentials: "include" as const,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetCourseAnalyticsQuery } = analyticsApi;
+export const {
+  useGetCourseAnalyticsQuery,
+  useGetOrdersAnalyticsQuery,
+  useGetUsersAnalyticsQuery,
+} = analyticsApi;

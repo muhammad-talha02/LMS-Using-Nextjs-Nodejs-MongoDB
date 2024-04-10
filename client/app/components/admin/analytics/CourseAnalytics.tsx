@@ -9,26 +9,7 @@ const CourseAnalytics = (props: Props) => {
 
     const { data: courseAnalytics, isLoading } = useGetCourseAnalyticsQuery({})
 
-    const analyticsData:any = []
-    const graphData = [
-        {
-            name: "June", uv: 5,
-        },
-        {
-            name: "July", uv: 6,
-        },
-        {
-            name: "Aug", uv: 2,
-        },
-        {
-            name: "Sep", uv: 2,
-        },
-        {
-            name: "October", uv: 2,
-        },
-    ]
-
-
+    const analyticsData: any = []
     courseAnalytics && courseAnalytics?.AnalyticsData?.last12Months?.forEach((element: any) => {
         analyticsData.push({ name: element.month, uv: element.count })
     });
