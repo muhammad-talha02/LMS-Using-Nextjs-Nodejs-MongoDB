@@ -1,12 +1,17 @@
 import React from 'react'
 import DashboardHeader from './DashboardHeader/Header'
+import DashboardWidgets from './Widgets/DashboardWidgets'
 
-type Props = {}
+type Props = {
+  isDashboard:boolean
+}
 
-const DashboardHero = (props: Props) => {
+const DashboardHero = ({isDashboard}: Props) => {
   return (
     <div className='px-3'>
-      sddsf
+      {
+        isDashboard && <DashboardWidgets/>
+      }
       {/* <DashboardHeader/> */}
     </div>
   )

@@ -216,6 +216,27 @@ const CourseContent: FC<Props> = (props) => {
                                             />
                                         </div>
                                         <div className="my-3">
+                                            {/* <label htmlFor="" className={styles.label}>Video Title</label> */}
+                                            <InputField
+                                                type={"text"}
+                                                style={{ lg: 12, md: 12 }}
+                                                labelStyle={styles.label}
+                                                label="Video Length"
+                                                value={courseContentData[index].videoLength}
+                                                placeholder="20.."
+                                                name="videourl"
+                                                id="videourl"
+                                                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                                    const updatedCourseContentData = [
+                                                        ...courseContentData,
+                                                    ];
+                                                    updatedCourseContentData[index].videoLength =
+                                                        e.target.value;
+                                                    setCourseContentData(updatedCourseContentData);
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="my-3">
                                             <label htmlFor="description" className={styles.label}>
                                                 Video Description
                                             </label>

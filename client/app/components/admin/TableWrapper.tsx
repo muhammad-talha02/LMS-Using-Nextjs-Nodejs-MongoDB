@@ -3,15 +3,16 @@ import { useTheme } from 'next-themes'
 import React, { FC, ReactNode } from 'react'
 
 type Props = {
-    children?: ReactNode
+    children?: ReactNode,
+    height?: string
 }
 
-const TableWrapper: FC<Props> = ({ children }) => {
+const TableWrapper: FC<Props> = ({ children, height }) => {
     const { theme, setTheme } = useTheme()
 
     return (
-        <Box m={"40px 0 0 0"}
-            height={"80vh"}
+        <Box m={"20px 0 0 0"}
+            height={height || "80vh"}
             sx={{
                 "& .MuiDataGrid-root": {
                     border: "none",

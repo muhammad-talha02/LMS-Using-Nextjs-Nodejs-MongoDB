@@ -21,6 +21,7 @@ const CreateCourse = (props: Props) => {
         title: "Introduction",
         description: "dd",
         videoSection: "Untitled Section",
+        videoLength:"",
         links: [
             {
                 title: "MyGitHub",
@@ -33,6 +34,7 @@ const CreateCourse = (props: Props) => {
     const [courseInfo, setCourseInfo] = useState({
         name: "MERN Stack Advanced Course",
         description: "Hey, DO you want to Enhance your skills in Full Stack Development",
+        category: "Programming",
         price: 1500,
         estimatedPrice: 2000,
         tags: "react",
@@ -41,7 +43,7 @@ const CreateCourse = (props: Props) => {
         thumbnail: ""
     })
 
-
+console.log("info", courseContentData)
     const handleSubmit = () => {
         // Format Benefits Array
 
@@ -57,6 +59,7 @@ const CreateCourse = (props: Props) => {
             title: courseContent.title,
             description: courseContent.description,
             videoSection: courseContent.videoSection,
+            videoLength: courseContent.videoLength,
             links: courseContent.links.map((link: any) => ({
                 title: link.title,
                 url: link.url,
@@ -71,6 +74,7 @@ const CreateCourse = (props: Props) => {
             estimatedPrice: courseInfo.estimatedPrice,
             tags: courseInfo.tags,
             level: courseInfo.levels,
+            categories: courseInfo.category,
             demoUrl: courseInfo.demoUrl,
             thumbnail: courseInfo.thumbnail,
             totalVideos: courseContentData.length,

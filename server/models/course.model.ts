@@ -40,6 +40,7 @@ export interface ICourse extends Document {
   thumbnail: object;
   tags: string;
   level: string;
+  categories: string;
   demoUrl: string;
   benefits: { title: string }[];
   prequesities: { title: string }[];
@@ -90,6 +91,10 @@ const courseScheme = new Schema<ICourse>({
     required: true,
   },
   description: {
+    type: String,
+    required: true,
+  },
+  categories: {
     type: String,
     required: true,
   },

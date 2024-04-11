@@ -12,6 +12,7 @@ import ConfirmModal from '../../Generic/Modals/ConfirmModal'
 import { DeleteAction } from './courseActions'
 import useMutation from '@/app/_hooks/useMutation'
 import Link from 'next/link'
+import Loader, { DataLoader } from '../../Loader/Loader'
 type Props = {}
 
 const AllCourses = (props: Props) => {
@@ -79,9 +80,9 @@ const handleDeleteCourse = async (userId: number) => {
     })
   }
   return (
-    <div className='mt-20'>
+    <div className=''>
       <Box m="20px">
-        {isLoading ? "loading" : <TableWrapper>
+        {isLoading ? <DataLoader/> : <TableWrapper>
           <DataGrid checkboxSelection columns={columns} rows={rows} />
 
         </TableWrapper>}

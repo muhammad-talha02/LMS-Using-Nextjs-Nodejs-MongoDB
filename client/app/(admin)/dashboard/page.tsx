@@ -5,7 +5,7 @@ type Props = {}
 
 const Page = (props: Props) => {
     return (
-        <DashboardHero />
+        <DashboardHero isDashboard={true}/>
     )
 }
 
