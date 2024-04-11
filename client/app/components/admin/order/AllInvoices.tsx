@@ -1,16 +1,17 @@
 import { useGetAllOrdersQuery } from '@/redux/features/orders/orderApi'
 import { Box, IconButton } from '@mui/material'
-import { DataGrid } from '@mui/x-data-grid'
+import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 import React from 'react'
 import TableWrapper from '../TableWrapper'
 import { format } from 'timeago.js'
 import { AiOutlineMail } from 'react-icons/ai'
+import { DataLoader } from '../../Loader/Loader'
 
 type Props = {
-  isDashboard?:boolean
+  isDashboard?: boolean
 }
 
-const AllInvoices = ({isDashboard}: Props) => {
+const AllInvoices = ({ isDashboard }: Props) => {
 
   const { data: getAllOrders, isLoading } = useGetAllOrdersQuery({})
 
@@ -19,23 +20,23 @@ const AllInvoices = ({isDashboard}: Props) => {
     { field: "userName", headerName: "User Name", flex: 0.4 },
     { field: "price", headerName: "Price", flex: 0.2 },
     ...(isDashboard ? [] :
-      
-      [  { field: "title", headerName: "Course title", flex: 0.7 },
+
+      [{ field: "title", headerName: "Course title", flex: 0.7 },
       { field: "userEmail", headerName: "Email", flex: 0.6 },
       {
         field: "toMail", headerName: "Email to", flex: 0.2,
         renderCell: (params: any) => {
           return (
             <a href={`mailto:${params.row.userEmail}`}>
-            <IconButton>
-              <AiOutlineMail size={20} className='dark:text-white text-black' />
-            </IconButton>
-          </a>
-        )
-      }
-    }]
-  ),
-  { field: "created_at", headerName: "Created At", flex: 0.4 },
+              <IconButton>
+                <AiOutlineMail size={20} className='dark:text-white text-black' />
+              </IconButton>
+            </a>
+          )
+        }
+      }]
+    ),
+    { field: "created_at", headerName: "Created At", flex: 0.4 },
   ]
 
   const rows: any = []
@@ -53,8 +54,10 @@ const AllInvoices = ({isDashboard}: Props) => {
   }
   return (
     <div>
-      {isLoading ? "loading" : <TableWrapper>
-        <DataGrid checkboxSelection columns={columns} rows={rows} />
+      {isLoading ? <DataLoader /> : <TableWrapper height={isDashboard ? "50vh" : ""}>
+        <DataGrid checkboxSelection={isDashboard ? false : true} columns={columns} rows={rows}
+          components={isDashboard ? {} : { Toolbar: GridToolbar }}
+        />
 
       </TableWrapper>}
     </div>

@@ -9,6 +9,7 @@ import { FC, useState } from 'react'
 import { styles } from '@/app/styles/style'
 import { PopUp } from '../../Generic'
 import { DeleteAction, MailAction } from './userActions'
+import { DataLoader } from '../../Loader/Loader'
 type Props = {
     isTeam?: boolean
 }
@@ -82,10 +83,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
         <>
             <div className='mt-8'>
                 <Box m="15px">
-                    {isLoading ? "loading" : <Box>
-                        {/* <div className="flex w-full justify-end">
-                            <button className={`${styles.button} !w-[220px] rounded-lg`} onClick={() => setAddUserModal(true)}>Add New Member</button>
-                        </div> */}
+                    {isLoading ? <DataLoader /> : <Box>
                         <TableWrapper>
                             <DataGrid checkboxSelection columns={columns} rows={rows} />
                         </TableWrapper>

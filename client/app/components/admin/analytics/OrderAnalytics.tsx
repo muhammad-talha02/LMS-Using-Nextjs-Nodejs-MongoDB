@@ -2,6 +2,7 @@ import { styles } from '@/app/styles/style'
 import { useGetOrdersAnalyticsQuery } from '@/redux/features/analytics/analyticsApi'
 import React, { FC } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { DataLoader } from '../../Loader/Loader'
 type Props = {
     isDashboard?: boolean
 }
@@ -23,23 +24,25 @@ const OrderAnalytics: FC<Props> = ({ isDashboard }) => {
                 {!isDashboard && <p className='text-center'>Last 12 Months analytics data</p>}
             </div>
             <div className={`w-full mt-5 ${isDashboard ? "h-[30vh]" : "h-screen"}`}>
+                {
+                    isLoading ? <DataLoader /> :
+                        <ResponsiveContainer width={"90%"} height={isDashboard ? 225 : 500}>
+                            <LineChart width={500} height={300} data={analyticsData} margin={{
+                                top: 5,
+                                left: 20,
+                                right: 30,
+                                bottom: 5
+                            }}>
+                                <CartesianGrid strokeDasharray={"3 3"} />
+                                <XAxis dataKey={"name"} />
+                                <YAxis />
+                                <Tooltip />
+                                {!isDashboard && <Legend />}
+                                <Line dataKey={"count"} type={"monotone"} stroke='#82ca9d' />
 
-                <ResponsiveContainer width={ "90%"} height={isDashboard ? 225 : 500}>
-                    <LineChart width={500} height={300} data={analyticsData} margin={{
-                        top: 5,
-                        left: 20,
-                        right: 30,
-                        bottom: 5
-                    }}>
-                        <CartesianGrid strokeDasharray={"3 3"} />
-                        <XAxis dataKey={"name"} />
-                        <YAxis />
-                        <Tooltip />
-                        {!isDashboard && <Legend />}
-                        <Line dataKey={"count"} type={"monotone"} stroke='#82ca9d' />
-
-                    </LineChart>
-                </ResponsiveContainer>
+                            </LineChart>
+                        </ResponsiveContainer>
+                }
             </div>
         </div>
     )
