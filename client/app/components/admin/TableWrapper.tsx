@@ -10,7 +10,7 @@ const TableWrapper: FC<Props> = ({ children }) => {
     const { theme, setTheme } = useTheme()
 
     return (
-        <Box m={"40px 0 0 0"}
+        <Box m={"20px 0 0 0"}
             height={"80vh"}
             sx={{
                 "& .MuiDataGrid-root": {

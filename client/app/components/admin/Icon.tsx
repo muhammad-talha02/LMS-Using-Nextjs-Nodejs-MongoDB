@@ -56,7 +56,7 @@ const MenuItems = [
             {
                 title: "Invoices",
                 Icon: ReceiptOutlinedIcon ,
-                to: "/"
+                to: "/dashboard/invoices"
             },
         ]
     },

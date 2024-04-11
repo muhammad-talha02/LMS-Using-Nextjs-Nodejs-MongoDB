@@ -79,7 +79,7 @@ const handleDeleteCourse = async (userId: number) => {
     })
   }
   return (
-    <div className='mt-20'>
+    <div className=''>
       <Box m="20px">
         {isLoading ? "loading" : <TableWrapper>
           <DataGrid checkboxSelection columns={columns} rows={rows} />

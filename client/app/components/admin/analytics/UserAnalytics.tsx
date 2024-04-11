@@ -20,9 +20,9 @@ const UserAnalytics: FC<Props> = ({ isDashboard }) => {
                 <h1 className={`${styles.title} ${isDashboard && "!text-[20px] !text-start"}`}>Users Analytics</h1>
                 {!isDashboard && <p className='text-center'>Last 12 Months analytics data</p>}
             </div>
-            <div className={`w-full mt-5 ${isDashboard ? "h-screen" : "h-[30vh]"}`}>
+            <div className={`w-full mt-5 ${isDashboard ? "h-[30vh]" : "h-screen"}`}>
 
-                <ResponsiveContainer width={isDashboard ? "50%" : "90%"} height={isDashboard ? 225 : 500}>
+                <ResponsiveContainer width={"90%"} height={isDashboard ? 225 : 500}>
                     <AreaChart width={150} height={300} data={analyticsData}>
                         <XAxis dataKey={"name"} />
                         <YAxis />
