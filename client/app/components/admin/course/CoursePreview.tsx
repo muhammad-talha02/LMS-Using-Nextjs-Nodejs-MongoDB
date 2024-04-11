@@ -11,15 +11,14 @@ type Props = {
     active: number,
     setActive: (active: number) => void,
     courseData: any,
+    isLoading?: boolean,
     handleCourseCreate: any,
-    isUpdate?:boolean
+    isUpdate?: boolean
 }
-
-
 
 const CoursePreview: FC<Props> = (props) => {
 
-    const { active, setActive, courseData, handleCourseCreate, isUpdate } = props
+    const { active, setActive, courseData, handleCourseCreate, isUpdate, isLoading } = props
 
     const discountPercentage = ((courseData?.estimatedPrice - courseData?.price) / courseData?.estimatedPrice) * 100
     const disocuntPercentagePrice = discountPercentage.toFixed(0)
@@ -80,7 +79,7 @@ const CoursePreview: FC<Props> = (props) => {
                     <MdVerified />
                     <p className=''> Premium Support</p>
                 </div>
-    
+
                 <div className="w-full">
                     <div className="w-full 800px:pr-5">
                         <h1 className='text-[25px] font-Poppins font-[600]'>
@@ -111,12 +110,12 @@ const CoursePreview: FC<Props> = (props) => {
                 }
                 <h1 className='text-[22px] font-Poppins font-semibold mt-3'>What are the prerequsities to start this course?</h1>
                 {
-                    courseData?.prerequisites?.map((benefit: any) => (
-                        <div className="w-full flex items-center py-2" key={benefit.title}>
+                    courseData?.prequesities?.map((prerequisite: any) => (
+                        <div className="w-full flex items-center py-2" key={prerequisite.title}>
                             <div className="w-[15px] mr-3">
                                 <IoCheckmarkDoneOutline size={20} />
                             </div>
-                            <p className='pl-1'>{benefit.title}</p>
+                            <p className='pl-1'>{prerequisite.title}</p>
                         </div>
                     )
 
@@ -129,7 +128,7 @@ const CoursePreview: FC<Props> = (props) => {
                     <p>{courseData?.description}</p>
                 </div>
             </div>
-            <NextButton prevTitle='Previous' handlePrev={() => setActive(active - 1)} handleNext={createCourse} nextTitle={isUpdate ? "Update" : 'Publish' }/>
+            <NextButton prevTitle='Previous' handlePrev={() => setActive(active - 1)} isLoading={isLoading} handleNext={createCourse} nextTitle={isUpdate ? "Update" : 'Publish'} />
         </div>
     )
 }

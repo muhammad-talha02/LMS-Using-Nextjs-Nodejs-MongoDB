@@ -3,13 +3,17 @@ import React, { useState } from 'react'
 import { CourseContent, CourseData, CourseInformation, CourseOptions, CoursePreview } from '.'
 import useMutation from '../../../_hooks/useMutation'
 import { useCreateCourseMutation } from '@/redux/features/courses/coursesApi'
+import { redirect } from 'next/navigation'
 
 type Props = {}
 
 const CreateCourse = (props: Props) => {
     const { actionApi: createCourse, result } = useMutation({
         api: useCreateCourseMutation,
-        successMsg: "Course Created Successfully"
+        successMsg: "Course Created Successfully",
+        successFunc:()=>{
+            redirect("/dashboard/courses")
+        }
     })
 
     const [active, setActive] = useState(0)
@@ -91,8 +95,8 @@ const data = courseData
         if (!result.isLoading) {
             await createCourse(data)
         }
-        console.log("Course Data", courseData)
     }
+    console.log("Course Data", courseData)
 
     return (
         <div className='w-full'>
@@ -129,6 +133,7 @@ const data = courseData
                         active={active}
                         setActive={setActive}
                         courseData={courseData}
+                        isLoading={result.isLoading}
                         handleCourseCreate={handleCourseCreate}
                     />
                 }

@@ -10,15 +10,16 @@ export { default as AllCourses } from "./AllCourses"
 type Props = {
     nextTitle?: string,
     prevTitle?: string,
-    handleNext?: any
+    handleNext?: any,
+    isLoading?: boolean,
     handlePrev?: () => void
 }
 
 export const NextButton = (props: Props) => {
-    const { nextTitle, prevTitle, handleNext, handlePrev } = props
+    const { nextTitle, prevTitle, handleNext, handlePrev, isLoading } = props
     return <div className={`w-full flex ${prevTitle && nextTitle ? "justify-between" : "justify-end"} mb-10`}>
 
-        {prevTitle && <button onClick={() => handlePrev?.()} className='text-white bg-[--t-blue] rounded mt-8 cursor-pointer w-full 800px:w-[150px] h-[40px]' >{prevTitle}</button>}
-        {nextTitle && <button onClick={() => handleNext?.()} className='text-white bg-[--t-blue] rounded mt-8 cursor-pointer w-full 800px:w-[150px] h-[40px]' >{nextTitle}</button>}
+        {prevTitle && <button onClick={() => handlePrev?.()} className='text-white bg-[--t-blue] rounded mt-8 cursor-pointer w-full 800px:w-[150px] h-[40px] disabled:cursor-not-allowed' disabled={isLoading}>{prevTitle}</button>}
+        {nextTitle && <button onClick={() => handleNext?.()} className='text-white bg-[--t-blue] rounded mt-8 cursor-pointer w-full 800px:w-[150px] h-[40px] disabled:cursor-not-allowed' disabled={isLoading}>{nextTitle}</button>}
     </div>
 }

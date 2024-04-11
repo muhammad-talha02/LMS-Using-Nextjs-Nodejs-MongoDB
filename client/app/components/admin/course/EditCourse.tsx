@@ -168,6 +168,7 @@ const EditCourse: FC<Props> = (props) => {
                         active={active}
                         setActive={setActive}
                         courseData={courseData}
+                        isLoading={result.isLoading}
                         handleCourseCreate={handleCourseUpdate}
                         isUpdate={true}
                     />

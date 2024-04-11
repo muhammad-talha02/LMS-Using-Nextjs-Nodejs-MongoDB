@@ -8,7 +8,9 @@ type Props = {}
 const CoursesAnalyticsPage = (props: Props) => {
     return (
         <>
+        <div>
             <CourseAnalytics />
+        </div>
         </>
     )
 }

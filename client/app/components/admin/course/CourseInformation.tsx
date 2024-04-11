@@ -86,9 +86,9 @@ const CourseInformation: FC<Props> = (props) => {
             const reader = new FileReader()
 
             reader.onload = (e: any) => {
-                // if (reader.readyState === 2) {
+                if (reader.readyState === 2) {
                 setCourseInfo({ ...courseInfo, thumbnail: reader.result })
-                // }
+                }
             }
             reader.readAsDataURL(file)
         }
