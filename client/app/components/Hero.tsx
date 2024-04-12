@@ -1,12 +1,24 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { H1 } from '../TailwindComponents/Headings'
 import { BiSearch } from 'react-icons/bi'
 import Link from 'next/link'
+import { useGetLayoutQuery } from '@/redux/features/layout/layoutApi'
 
 type Props = {}
 
 const Hero = (props: Props) => {
+  const [bannerData, setBannerData] = useState<any>()
+
+  //? Get Banner Data Api
+  const { data, isLoading } = useGetLayoutQuery("Banner", { refetchOnMountOrArgChange: true })
+  useEffect(() => {
+    if (data) {
+      setBannerData(data?.layout?.banner)
+    }
+  }, [data])
+
+
   return (
     <div className='m-auto'>
       <div className="flex flex-col md:flex-row gap-5 justify-center items-center my-14">
@@ -14,12 +26,12 @@ const Hero = (props: Props) => {
         <div className="heroImg w-full max-w-[500px] flex justify-center items-center">
           {/* <Image src={"/"}/> */}
           <div className='w-[350px] h-[350px]'>
-            <Image src="https://images.unsplash.com/photo-1558021212-51b6ecfa0db9?q=80&w=1783&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" width={500} height={500} alt="" className="rounded-full object-cover w-full h-full hero_animation" />
+            <Image src={`${bannerData?.image ? bannerData?.image?.url : ""}`} width={500} height={500} alt="" className="rounded-full object-cover w-full h-full hero_animation" />
           </div>
         </div>
         <div className="heroContent p-2 800px:p-1 flex flex-col gap-2 dark:text-white text-black max-w-[430px] w-full">
-          <H1 classes='text-[40px] leading-tight'>Improve Your Online Learning Experience Better Instantly</H1>
-          <p className='text-[14px]'>We have 400+ courses & 500k+ online registered stduents. Find your desired courses from them.</p>
+          <H1 classes='text-[40px] leading-tight'>{bannerData?.title}</H1>
+          <p className='text-[14px]'>{bannerData?.subTitle}</p>
           <div className='w-full flex'>
             <input type='text' placeholder='Search Courses...' className='w-full text-black dark:bg-white bg-[#d5d5d5] outline-none border-solid border-black p-1' />
             <button className='dark:bg-[--t-blue] bg-[crimson] text-white px-3 py-2'><BiSearch /></button>

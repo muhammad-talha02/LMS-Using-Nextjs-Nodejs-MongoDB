@@ -89,7 +89,7 @@ export const updateLayout = catchAsyncError(
         const banner = {
           image: {
             public_id: myCloud.public_id,
-            url: myCloud.secure_url,
+            url: myCloud.secure_url || myCloud.url,
           },
           title,
           subTitle,
