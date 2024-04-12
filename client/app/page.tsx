@@ -4,6 +4,7 @@ import { FC, useState } from "react"
 import Heading from "./utils/Heading"
 import Header from "./components/Header"
 import { Hero } from "./components"
+import Courses from "./components/courses/Courses"
 
 
 interface Props {
@@ -24,6 +25,7 @@ const Page: FC<Props> = (props) => {
       <div className="w-full max-w-[1200px] m-auto">
 
       <Hero/>
+      <Courses/>
       </div>
     </>
   )

@@ -7,7 +7,9 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --t-blue: #37a39a;
-  --t-dark-bg: #0f1522;
+  --t-red: crimson;
+  --t-dark: #0f1522;
+  --t-light-blue: #cbc8c817;
 }
 
 @media (prefers-color-scheme: dark) {

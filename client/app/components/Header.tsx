@@ -96,8 +96,8 @@ const Header: FC<Props> = (props) => {
         <div className="w-full relative">
             <div
                 className={`${active
-                    ? "dark:bg-opacity-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-black fixed top-0 left-0 w-full h-[80px] z-[90] border-b dark:border-[#ffffff1c] shadow-xl transition duration-500"
-                    : "w-full border-b dark:border-[#ffffff1c] h-[80px] z-[90] dark:shadow"
+                    ? "dark:bg-opacity-50 bg-white dark:bg-gradient-to-b dark:from-gray-900 dark:to-black fixed top-0 left-0 w-full h-[80px] z-[90] border-b dark:border-[#ffffff1c] shadow-xl transition duration-300"
+                    : "w-full border-b dark:border-[#ffffff1c] h-[80px] z-[99] dark:shadow"
                     }`}
             >
                 <div className="w-[95%] 800px:w-[92%] max-w-[1200px] m-auto py-0 h-full">

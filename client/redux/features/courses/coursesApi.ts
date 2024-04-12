@@ -2,6 +2,7 @@ import { apiSlice } from "../api/apiSlice";
 
 export const coursesApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    //? Create Course By Admin
     createCourse: builder.mutation({
       query: (data) => ({
         url: "create-course",
@@ -11,6 +12,7 @@ export const coursesApi = apiSlice.injectEndpoints({
       }),
     }),
 
+    //? Get All Coursws By Admin
     getAllCourses: builder.query({
       query: () => ({
         url: "get-all-courses",
@@ -21,6 +23,7 @@ export const coursesApi = apiSlice.injectEndpoints({
       providesTags: ["GetAllCourses"],
     }),
 
+    //? Delete Course By Admin
     deleteCourse: builder.mutation({
       query: (id) => ({
         url: `delete-course/${id}`,
@@ -31,6 +34,7 @@ export const coursesApi = apiSlice.injectEndpoints({
       invalidatesTags: ["GetAllCourses"],
     }),
 
+    //? Get Single Course By Admin
     getSingleCourseAdmin: builder.query({
       query: (id) => ({
         url: `get-single-course/${id}`,
@@ -40,6 +44,7 @@ export const coursesApi = apiSlice.injectEndpoints({
       }),
     }),
 
+    //? Update Course By Admin
     updateCourse: builder.mutation({
       query: ({ data, id }) => ({
         url: `update-course/${id}`,
@@ -48,7 +53,15 @@ export const coursesApi = apiSlice.injectEndpoints({
         credentials: "include" as const,
       }),
       invalidatesTags: ["GetAllCourses"],
+    }),
 
+    //? Get All Courses For Non-Register Users
+    getAllCoursesForWebiste: builder.query({
+      query: () => ({
+        url: `get-courses`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
     }),
   }),
 });
@@ -58,5 +71,6 @@ export const {
   useGetAllCoursesQuery,
   useDeleteCourseMutation,
   useGetSingleCourseAdminQuery,
-  useUpdateCourseMutation
+  useUpdateCourseMutation,
+  useGetAllCoursesForWebisteQuery
 } = coursesApi;

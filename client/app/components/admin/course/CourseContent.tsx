@@ -109,7 +109,7 @@ const CourseContent: FC<Props> = (props) => {
                     return (
                         <>
                             <div
-                                className={`w-full bg-[#cbc8c817] p-4 ${showSectionInput ? "mt-10" : "mb-0"
+                                className={`w-full bg-[--t-light-blue] p-4 ${showSectionInput ? "mt-10" : "mb-0"
                                     }`}
                             >
                                 {showSectionInput && (

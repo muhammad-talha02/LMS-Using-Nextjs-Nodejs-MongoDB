@@ -34,7 +34,7 @@ const Hero = (props: Props) => {
           <p className='text-[14px]'>{bannerData?.subTitle}</p>
           <div className='w-full flex'>
             <input type='text' placeholder='Search Courses...' className='w-full text-black dark:bg-white bg-[#d5d5d5] outline-none border-solid border-black p-1' />
-            <button className='dark:bg-[--t-blue] bg-[crimson] text-white px-3 py-2'><BiSearch /></button>
+            <button className='dark:bg-[--t-blue] bg-[--t-red] text-white px-3 py-2'><BiSearch /></button>
           </div>
           <div className="contentBottom items-center flex gap-2 my-2">
             <div className='flex'>
@@ -42,7 +42,7 @@ const Hero = (props: Props) => {
               <Image src={"https://raw.githubusercontent.com/muhammad-talha02/Facebook-Api/main/public/images/person/2.jpeg"} className='ml-[-10px] border-2 border-solid border-white rounded-full w-[35px] h-[35px] object-cover' width={25} height={25} alt='' />
               <Image src={"https://raw.githubusercontent.com/muhammad-talha02/Facebook-Api/main/public/images/person/4.jpeg"} className='ml-[-10px] border-2 border-solid border-white rounded-full w-[35px] h-[35px] object-cover' width={25} height={25} alt='' />
             </div>
-            <p className='text-[14px]'>500k+ Poeple already trusted on us. <Link href={"/"} className='dark:text-[--t-blue] text-[crimson] font-bold'>View Courses</Link></p>
+            <p className='text-[14px]'>500k+ Poeple already trusted on us. <Link href={"/"} className='dark:text-[--t-blue] text-[--t-red] font-bold'>View Courses</Link></p>
           </div>
         </div>
       </div>
