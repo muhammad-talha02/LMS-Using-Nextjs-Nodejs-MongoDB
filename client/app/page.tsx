@@ -7,6 +7,7 @@ import { Hero } from "./components"
 import Courses from "./components/courses/Courses"
 import Reviews from "./components/home/Reviews"
 import FAQs from "./components/home/FAQ"
+import Footer from "./components/Footer"
 
 
 interface Props {
@@ -31,6 +32,7 @@ const Page: FC<Props> = (props) => {
         <Reviews />
         <FAQs />
       </div>
+        <Footer/>
     </>
   )
 }

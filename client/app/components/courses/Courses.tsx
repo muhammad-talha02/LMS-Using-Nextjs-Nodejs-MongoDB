@@ -23,7 +23,7 @@ const Courses = (props: Props) => {
                     <span className='text-[--t-red] dark:text-[--t-blue]'> Opportunity</span> <br />
                     with our <span className='text-[--t-red] dark:text-[--t-blue]'>Courses</span>
                 </h1>
-                <div className='grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 1500px:grid-cols-3 1500px:gap-[30px]'>
+                <div className='grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 1500px:grid-cols-3 1500px:gap-[30px] mt-10'>
                     {
                         courses?.map((course: any, index: number) => (
                         <>

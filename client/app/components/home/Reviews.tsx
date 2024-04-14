@@ -37,7 +37,7 @@ const data = [
 ];
 const Reviews = (props: Props) => {
   return (
-    <div className="w-[90%] 800px:w-[90%] m-auto mt-8">
+    <div className="w-[90%] 800px:w-[90%] m-auto my-10">
       <div className="w-full 800px:flex items-center">
         <div className="w-full 800px:w-[50%]">
           <Image
@@ -66,7 +66,7 @@ const Reviews = (props: Props) => {
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-[25px] md:grid-cols-2 md:gap-[25px] xl:gap-[35px] mb-12 border-0 mt-8">
+      <div className="grid grid-cols-1 gap-[25px] md:grid-cols-2 md:gap-[25px] xl:gap-[35px] border-0 my-20">
         {data.map((review: any, index: number) => (
           <ReviewCard item={review} key={index} />
         ))}

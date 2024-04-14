@@ -15,11 +15,10 @@ import Loader from "../Loader/Loader";
 
 type FAQProps = {
   item: any;
-  index: number;
 };
 
 const SingleFaq: FC<FAQProps> = (props) => {
-  const { item, index } = props;
+  const { item } = props;
   const [toggleFaq, setToggleFaq] = useState(item.isActive || false);
   return (
     <>
@@ -38,7 +37,7 @@ const SingleFaq: FC<FAQProps> = (props) => {
             toggleFaq ? "block opacity-100" : "hidden opacity-0"
           }`}
         >
-          <p className={`${styles.label} mb-4 opacity-80`}>{item.answer}</p>
+          <p className={`${styles.label} mb-4 opacity-65`}>{item.answer}</p>
         </div>
       </div>
     </>
@@ -60,7 +59,7 @@ const FAQs = () => {
     if (getFaqData) {
       const faqs = getFaqData?.layout?.faq.map((item: any) => {
         const { _id, ...obj } = item;
-        return { ...obj, isActive: false };
+        return item;
       });
       setQuestions(faqs);
     }
@@ -68,13 +67,13 @@ const FAQs = () => {
 
   if (isLoading) return <Loader />;
   return (
-    <div className="mt-8 mb-10">
+    <div className=" px-2 my-20">
       <H1 classes="text-center my-5 text-[25px]">FAQs</H1>
-      <Grid container lg={10} m={"auto"}>
-        <Grid item sm={12}>
+      <Grid container sm={10} m={"auto"}>
+        <Grid item sm={12} m={"auto"}>
           <div className="faqs space-y-4">
             {questions?.map((item: any, index: number) => (
-              <SingleFaq key={index} item={item} index={index} />
+              <SingleFaq key={item?._id} item={item} />
             ))}
           </div>
         </Grid>
