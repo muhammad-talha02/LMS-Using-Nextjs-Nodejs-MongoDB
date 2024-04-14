@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { H1 } from '../TailwindComponents/Headings'
+import { H1 } from '../../TailwindComponents/Headings'
 import { BiSearch } from 'react-icons/bi'
 import Link from 'next/link'
 import { useGetLayoutQuery } from '@/redux/features/layout/layoutApi'
