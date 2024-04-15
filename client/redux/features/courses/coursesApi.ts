@@ -12,7 +12,7 @@ export const coursesApi = apiSlice.injectEndpoints({
       }),
     }),
 
-    //? Get All Coursws By Admin
+    //? Get All Courses By Admin
     getAllCourses: builder.query({
       query: () => ({
         url: "get-all-courses",
@@ -63,6 +63,15 @@ export const coursesApi = apiSlice.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
+
+    //? Get Course Details
+    getCourseDetail: builder.query({
+      query: (id) => ({
+        url: `get-course/${id}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
   }),
 });
 
@@ -72,5 +81,6 @@ export const {
   useDeleteCourseMutation,
   useGetSingleCourseAdminQuery,
   useUpdateCourseMutation,
-  useGetAllCoursesForWebisteQuery
+  useGetAllCoursesForWebisteQuery,
+  useGetCourseDetailQuery
 } = coursesApi;

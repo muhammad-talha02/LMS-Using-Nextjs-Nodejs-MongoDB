@@ -30,7 +30,6 @@ const NavLinksData = [
 ];
 
 const NavLinks = ({ links }: any) => {
-  console.log("links", links);
   return (
     <>
       <ul className="flex flex-col gap-2">
