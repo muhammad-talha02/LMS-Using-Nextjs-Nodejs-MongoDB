@@ -88,7 +88,6 @@ const Header: FC<Props> = (props) => {
                 } else {
                     setActive(false);
                 }
-                console.log("Scroll -->", window.scrollY)
             });
         }
     }, [])
