@@ -10,6 +10,7 @@ type Props = {
 
 //? Course Benefits Component
 const CourseBenefits = ({ data, title }: any) => {
+
   return (
     <>
       <h1 className="text-[25px] font-Poppins font-[600]">{title}</h1>
@@ -30,6 +31,9 @@ const CourseBenefits = ({ data, title }: any) => {
 
 const CourseDetail: FC<Props> = ({ course }) => {
   const { user } = useSelector((state: any) => state.auth);
+  const ratings = Number(course?.ratings)
+  const courseRating = Number.isInteger(ratings) ? ratings.toFixed(1) : ratings.toFixed(2)
+
   const discountPercentage =
     ((course?.estimatedPrice - course?.price) / course?.estimatedPrice) * 100;
   const discountPercentagePrice = discountPercentage.toFixed(0);
@@ -73,8 +77,26 @@ const CourseDetail: FC<Props> = ({ course }) => {
             </div>
             <h1 className="text-[28px] font-semibold">Couse Overview</h1>
             <div className="w-full">
+              {/* Course Rating * {course?.reviews?.length} Reviews */}
               <h1 className="text-[25px] font-semibold">Couse Details</h1>
-              <p className="mt-5 text-[18px] w-full overflow-hidden whitespace-pre-line">{course?.description}</p>
+              <p className="mt-5 text-[18px] w-full overflow-hidden whitespace-pre-line">
+                {course?.description}
+              </p>
+            </div>
+            <div className="w-full">
+              <div className="800px:flex item-center gap-2">
+                <Rating
+                  value={3.5}
+                  precision={0.5}
+                  emptyIcon={<StarBorder className="text-[orange]" />}
+                />
+                <h5 className="text-[20px] font-Poppins">
+                  {
+                    courseRating
+                  }
+                  {' '}  Course Rating + {course?.reviews?.length} Reviews
+                </h5>
+              </div>
             </div>
           </div>
         </div>
