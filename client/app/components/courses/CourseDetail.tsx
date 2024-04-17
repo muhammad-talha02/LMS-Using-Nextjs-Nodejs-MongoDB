@@ -73,8 +73,8 @@ const CourseDetail: FC<Props> = ({ course }) => {
             </div>
             <h1 className="text-[28px] font-semibold">Couse Overview</h1>
             <div className="w-full">
-            <h1 className="text-[25px] font-semibold">Couse Details</h1>
-<p className="mt-5 text-[18px] w-full overflow-hidden whitespace-pre-line">{course.description}</p>
+              <h1 className="text-[25px] font-semibold">Couse Details</h1>
+              <p className="mt-5 text-[18px] w-full overflow-hidden whitespace-pre-line">{course?.description}</p>
             </div>
           </div>
         </div>
