@@ -94,9 +94,17 @@ const CourseDetail: FC<Props> = ({ course }) => {
                   {
                     courseRating
                   }
-                  {' '}  Course Rating + {course?.reviews?.length} Reviews
+                  {' '}  Course Rating - {course?.reviews?.length} Reviews
                 </h5>
               </div>
+               {/* Reviews  */}
+               {
+                course.reviews.map((item:any, index:any)=>(
+                  <div className="w-full pb-4" key={index}>
+jjj
+                  </div>
+                ))
+               }
             </div>
           </div>
         </div>
