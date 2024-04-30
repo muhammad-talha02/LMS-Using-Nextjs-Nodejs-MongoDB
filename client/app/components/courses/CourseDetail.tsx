@@ -41,6 +41,8 @@ const CourseDetail: FC<Props> = ({ course }) => {
 
   const isPurchased =
     user && user?.courses.find((item: any) => item?._id === course?._id);
+
+  const reviews = course?.reviews.reverse()
   return (
     <div>
       <div className="w-[90%] m-auto py-5">
@@ -57,7 +59,7 @@ const CourseDetail: FC<Props> = ({ course }) => {
                   emptyIcon={<StarBorder className="text-[orange]" />}
                   readOnly
                 />
-                <h5>{course?.reviews?.length} Reviews</h5>
+                <h5>{reviews?.length} Reviews</h5>
               </div>
               <h5>{course?.purchased} Students</h5>
             </div>
@@ -83,6 +85,7 @@ const CourseDetail: FC<Props> = ({ course }) => {
                 {course?.description}
               </p>
             </div>
+            {/* Reviews Section  */}
             <div className="w-full">
               <div className="800px:flex item-center gap-2">
                 <Rating
@@ -94,8 +97,13 @@ const CourseDetail: FC<Props> = ({ course }) => {
                   {
                     courseRating
                   }
-                  {' '}  Course Rating - {course?.reviews?.length} Reviews
+                  {' '}  Course Rating + {reviews?.length || 0} Reviews
                 </h5>
+                {
+                  reviews?.map((review: any, index: number) => (
+<h1 key={index}></h1>
+))
+                }
               </div>
                {/* Reviews  */}
                {
@@ -106,6 +114,7 @@ jjj
                 ))
                }
             </div>
+            <br />
           </div>
         </div>
       </div>
