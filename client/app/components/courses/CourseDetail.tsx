@@ -3,31 +3,14 @@ import { Rating } from "@mui/material";
 import React, { FC } from "react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
+import { format } from "timeago.js";
+import { CourseBenefits, CourseReviews } from "./CourseViewComponents";
+import { CoursePlayer } from "../admin/course";
 
 type Props = {
   course: any;
 };
 
-//? Course Benefits Component
-const CourseBenefits = ({ data, title }: any) => {
-
-  return (
-    <>
-      <h1 className="text-[25px] font-Poppins font-[600]">{title}</h1>
-      {data?.map((benefit: any) => (
-        <div
-          className="w-full flex 800px:items-center py-2"
-          key={benefit.title}
-        >
-          <div className="mr-1 w-[15px]">
-            <IoCheckmarkDoneOutline size={20} />
-          </div>
-          <p className="pl-2">{benefit.title}</p>
-        </div>
-      ))}
-    </>
-  );
-};
 
 const CourseDetail: FC<Props> = ({ course }) => {
   const { user } = useSelector((state: any) => state.auth);
@@ -87,7 +70,7 @@ const CourseDetail: FC<Props> = ({ course }) => {
             </div>
             {/* Reviews Section  */}
             <div className="w-full">
-              <div className="800px:flex item-center gap-2">
+              <div className="800px:flex block item-center gap-2">
                 <Rating
                   value={3.5}
                   precision={0.5}
@@ -99,16 +82,25 @@ const CourseDetail: FC<Props> = ({ course }) => {
                   }
                   {' '}  Course Rating + {reviews?.length || 0} Reviews
                 </h5>
-                {
-                  reviews?.map((review: any, index: number) => (
-
-))
-                }
               </div>
+            </div>
+            <div className="800px:flex">
+              {
+                reviews?.map((review: any, index: number) => (
+                  <CourseReviews key={review._id} review={review} />
+                ))
+              }
+
             </div>
             <br />
           </div>
+          <div className="w-full 800px:w-[35%] relative">
+            <div className="sticky top-[100px] left-0 z-50 w-full">
+              <CoursePlayer videoUrl={course?.demoUrl} />
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   );

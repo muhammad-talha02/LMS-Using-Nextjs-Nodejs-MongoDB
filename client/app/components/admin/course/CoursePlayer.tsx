@@ -4,7 +4,7 @@ import React, { FC, useEffect, useState } from 'react'
 
 type Props = {
     videoUrl: any,
-    title: string
+    title?: string
 }
 
 const CoursePlayer: FC<Props> = ({ videoUrl = "1a92588781a7d1f226c934e795dfba50", title }) => {
