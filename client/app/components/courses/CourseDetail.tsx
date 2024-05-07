@@ -6,6 +6,9 @@ import { useSelector } from "react-redux";
 import { format } from "timeago.js";
 import { CourseBenefits, CourseReviews } from "./CourseViewComponents";
 import { CoursePlayer } from "../admin/course";
+import Link from "next/link";
+import { styles } from "@/app/styles/style";
+import CourseContentList from "./CourseContentList";
 
 type Props = {
   course: any;
@@ -60,7 +63,10 @@ const CourseDetail: FC<Props> = ({ course }) => {
                 title="What are the Prerequesities of this course?"
               />
             </div>
-            <h1 className="text-[28px] font-semibold">Couse Overview</h1>
+            <div>
+              <h1 className="text-[28px] font-semibold">Couse Overview</h1>
+              <CourseContentList courseData={course?.courseData} />
+            </div>
             <div className="w-full">
               {/* Course Rating * {course?.reviews?.length} Reviews */}
               <h1 className="text-[25px] font-semibold">Couse Details</h1>
@@ -96,9 +102,43 @@ const CourseDetail: FC<Props> = ({ course }) => {
             </div>
             <br />
           </div>
+
+          {/* Course Demo Video  */}
           <div className="w-full 800px:w-[35%] relative">
             <div className="sticky top-[100px] left-0 z-50 w-full">
               <CoursePlayer videoUrl={course?.demoUrl} />
+              <div className="flex items-center">
+                <h1 className="pt-5 text-[18px]">
+                  {course?.price === 0 ? "Free" : course.price + '$'}
+                </h1>
+                {
+                  course?.estimatedPrice && course?.estimatedPrice !== course?.price &&
+                  <>
+                    <h4 className="pl-3 text-[17px] line-through">
+                      {course?.estimatedPrice}$
+                    </h4>
+                    <h4 className="pl-5 pt-4 text-[18px]">
+                      {discountPercentagePrice}% off
+                    </h4>
+                  </>
+                }
+              </div>
+              <div className="flex items-center">
+                {
+                  !isPurchased && !(course?.price === 0) ?
+                    <button className={`${styles.button} rounded-xl !w-[180px] !text-white my-3 font-Poppins cursor-pointer !bg-[--t-red] dark:!bg-[--t-blue]`}>
+                      Buy Now {course?.price}$
+                    </button> :
+                    <Link href={`course-access/${course?._id}`} className={`${styles.button} !text-white rounded-xl !w-[180px] my-3 font-Poppins cursor-pointer !bg-[--t-red] dark:!bg-[--t-blue]`}>
+                      Enter to Course
+                    </Link>
+                }
+              </div>
+              <br />
+              <li>Source Code included</li>
+              <li>Full lifetimee access</li>
+              <li>Certificate of Completion</li>
+              <li>Premium Support</li>
             </div>
           </div>
         </div>
