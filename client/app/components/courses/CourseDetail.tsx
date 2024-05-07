@@ -83,6 +83,8 @@ const CourseDetail: FC<Props> = ({ course }) => {
                   {' '}  Course Rating + {reviews?.length || 0} Reviews
                 </h5>
               </div>
+              {/* Reviews  */}
+
             </div>
             <div className="800px:flex">
               {
