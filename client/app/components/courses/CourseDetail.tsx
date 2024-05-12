@@ -1,6 +1,6 @@
 import { StarBorder } from "@mui/icons-material";
 import { Rating } from "@mui/material";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { format } from "timeago.js";
@@ -9,14 +9,20 @@ import { CoursePlayer } from "../admin/course";
 import Link from "next/link";
 import { styles } from "@/app/styles/style";
 import CourseContentList from "./CourseContentList";
+import { PopUp } from "../Generic";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "../orders/CheckoutForm";
 
 type Props = {
   course: any;
+  clientSecret?: any,
+  stripePrmoise?: any
 };
 
 
-const CourseDetail: FC<Props> = ({ course }) => {
+const CourseDetail: FC<Props> = ({ course, stripePrmoise, clientSecret }) => {
   const { user } = useSelector((state: any) => state.auth);
+  const [openPaymentModal, setOpenPaymentModal] = useState(false)
   const ratings = Number(course?.ratings)
   const courseRating = Number.isInteger(ratings) ? ratings.toFixed(1) : ratings.toFixed(2)
 
@@ -29,6 +35,10 @@ const CourseDetail: FC<Props> = ({ course }) => {
     user && user?.courses.find((item: any) => item?._id === course?._id);
 
   const reviews = course?.reviews.reverse()
+
+  const handleOrder = () => {
+    setOpenPaymentModal(true)
+  }
   return (
     <div>
       <div className="w-[90%] m-auto py-5">
@@ -65,7 +75,7 @@ const CourseDetail: FC<Props> = ({ course }) => {
             </div>
             <div>
               <h1 className="text-[28px] font-semibold">Couse Overview</h1>
-              <CourseContentList courseData={course?.courseData} isDemo={true}/>
+              <CourseContentList courseData={course?.courseData} isDemo={true} />
             </div>
             <div className="w-full">
               {/* Course Rating * {course?.reviews?.length} Reviews */}
@@ -126,7 +136,9 @@ const CourseDetail: FC<Props> = ({ course }) => {
               <div className="flex items-center">
                 {
                   !isPurchased && !(course?.price === 0) ?
-                    <button className={`${styles.button} rounded-xl !w-[180px] !text-white my-3 font-Poppins cursor-pointer !bg-[--t-red] dark:!bg-[--t-blue]`}>
+                    <button className={`${styles.button} rounded-xl !w-[180px] !text-white my-3 font-Poppins cursor-pointer !bg-[--t-red] dark:!bg-[--t-blue]`}
+                      onClick={handleOrder}
+                    >
                       Buy Now {course?.price}$
                     </button> :
                     <Link href={`course-access/${course?._id}`} className={`${styles.button} !text-white rounded-xl !w-[180px] my-3 font-Poppins cursor-pointer !bg-[--t-red] dark:!bg-[--t-blue]`}>
@@ -144,6 +156,19 @@ const CourseDetail: FC<Props> = ({ course }) => {
         </div>
 
       </div>
+      <>
+        {
+          openPaymentModal && <PopUp open={openPaymentModal} setOpen={setOpenPaymentModal} customStyle={'!w-[400px] p-2'} title="Payment Gateway" close>
+            {
+              stripePrmoise && clientSecret && <Elements stripe={stripePrmoise} options={{
+                clientSecret
+              }} >
+                <CheckoutForm course={course}/>
+              </Elements>
+            }
+          </PopUp>
+        }
+      </>
     </div>
   );
 };
