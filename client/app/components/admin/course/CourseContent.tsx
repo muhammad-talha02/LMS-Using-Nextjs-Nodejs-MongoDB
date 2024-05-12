@@ -89,7 +89,7 @@ const CourseContent: FC<Props> = (props) => {
 
     const handleNext = () => {
         const lastCourseContentData = courseContentData[courseContentData.length - 1]
-        const checkLastisFilled = new Set(Object.values(lastCourseContentData)).has("") || lastCourseContentData.links.some((link: any) => new Set(Object.values(link)).has(""))
+        const checkLastisFilled = new Set(Object.values(lastCourseContentData)).has("") || lastCourseContentData?.links?.some((link: any) => new Set(Object.values(link)).has(""))
         if (checkLastisFilled) {
             toast.error("Section Can't be Empty!")
         }

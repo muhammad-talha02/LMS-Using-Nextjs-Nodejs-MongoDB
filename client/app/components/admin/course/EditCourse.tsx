@@ -74,7 +74,7 @@ const EditCourse: FC<Props> = (props) => {
             description: courseContent.description,
             videoSection: courseContent.videoSection,
             videoLength: courseContent.videoLength,
-            links: courseContent.links.map((link: any) => ({
+            links: courseContent?.links?.map((link: any) => ({
                 title: link.title,
                 url: link.url,
             })),

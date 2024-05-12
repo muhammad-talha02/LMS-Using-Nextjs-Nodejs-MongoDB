@@ -65,7 +65,7 @@ const CourseDetail: FC<Props> = ({ course }) => {
             </div>
             <div>
               <h1 className="text-[28px] font-semibold">Couse Overview</h1>
-              <CourseContentList courseData={course?.courseData} />
+              <CourseContentList courseData={course?.courseData} isDemo={true}/>
             </div>
             <div className="w-full">
               {/* Course Rating * {course?.reviews?.length} Reviews */}
