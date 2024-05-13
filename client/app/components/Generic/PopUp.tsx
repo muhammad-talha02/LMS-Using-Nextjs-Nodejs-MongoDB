@@ -9,11 +9,12 @@ type Props = {
     setOpen: (open: boolean) => void,
     size?: string | any,
     children?: ReactNode,
-    title?: string
+    title?: string,
+    customStyle?:any
 }
 
 const PopUp: FC<Props> = (props) => {
-    const { open, setOpen, close = false, title, children, size = "md" } = props;
+    const { open, setOpen, close = false, title, children, size = "md" ,customStyle } = props;
     const { BackDropStyle, ModalStyle, ModalSizes, ModalHeader, ModalBody } = PopUpStyles
     // console.log("Rendered Popup")
     const portalRoot: any = document.getElementById("portal-root")
@@ -22,7 +23,7 @@ const PopUp: FC<Props> = (props) => {
             {open && <div className={BackDropStyle}
                 onClick={() => setOpen(false)}
             >
-                <div className={`${ModalStyle} ${ModalSizes[size]}`} onClick={(e) => e.stopPropagation()}>
+                <div className={`${ModalStyle} ${ModalSizes[size]} ${customStyle}`} onClick={(e) => e.stopPropagation()}>
                     <div className={ModalHeader}>
                         <h2>{title}</h2>
                         {close && <IconButton color='inherit' onClick={() => setOpen(false)}>
