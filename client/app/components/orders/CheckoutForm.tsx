@@ -49,7 +49,7 @@ const CheckoutForm = ({ course }: Props) => {
         <>
             <h1 className='text-center font-semibold mb-3 text-[22px]'>Compile Academy</h1>
             {
-                !redirecting ? <h2 className='!max-h-[50vh]'>Redirecting....</h2>: 
+                redirecting ? <h2 className='!max-h-[50vh]'>Redirecting....</h2>: 
             <form id='payment-form' onSubmit={handleSubmit}>
                 <LinkAuthenticationElement id='link-authentication-element' />
                 <PaymentElement id='payment-element' />
