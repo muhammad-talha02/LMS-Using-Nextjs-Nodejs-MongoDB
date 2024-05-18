@@ -1,11 +1,11 @@
 'use client'
 import React, { useState } from 'react'
 
-import Heading from '../utils/Heading'
-import { Header } from '../components'
-import Protected from '../_hooks/useProtected'
+import Heading from '../../utils/Heading'
+import { Header } from '../../components'
+import Protected from '../../_hooks/useProtected'
 import { useSelector } from 'react-redux'
-import Profile from '../components/profile/Profile'
+import Profile from '../../components/profile/Profile'
 
 type Props = {}
 
@@ -13,9 +13,9 @@ const Page = (props: Props) => {
     const [open, setOpen] = useState(false)
     const [activeItem, setActiveItem] = useState(0)
     const [route, setRoute] = useState("Login")
-console.log("Profile")
+    console.log("Profile")
 
-    const {user} = useSelector((state:any)=> state.auth)
+    const { user } = useSelector((state: any) => state.auth)
     return (
 
         <>
@@ -28,7 +28,7 @@ console.log("Profile")
                 />
                 <Header open={open} setOpen={setOpen} activeItem={activeItem} setRoute={setRoute} route={route} />
 
-                <Profile user={user}/>
+                <Profile user={user} />
             </Protected>
 
         </>
