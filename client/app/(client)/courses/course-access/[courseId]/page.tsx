@@ -18,7 +18,7 @@ const CourseAccessPage = ({ params }: Props) => {
     if (userData) {
       const isPurchased: any = userData?.user?.courses.find((course: any) => course._id === courseId)
       if (!isPurchased || error) {
-        redirect('/')
+        redirect(`/courses/course/${courseId}`)
       }
     }
   }, [userData, error])

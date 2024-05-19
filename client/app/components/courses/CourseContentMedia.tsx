@@ -21,7 +21,7 @@ const CourseContentMedia: FC<Props> = (props) => {
 
   const [activeTab, setActiveTab] = useState(1);
 
-  const courseResources = courseContentData[activeVideo].links
+  const courseResources = courseContentData[activeVideo].links;
   return (
     <div className="w-[95%] 800px:w-[86%] py-4 m-auto">
       <CoursePlayer videoUrl={courseContentData[activeVideo]?.videoUrl} />
@@ -50,7 +50,7 @@ const CourseContentMedia: FC<Props> = (props) => {
             )
           }
         >
-          <span>Prev Lesson</span>
+          <span>Next Lesson</span>
           <AiOutlineArrowRight className="mr-2" size={20} />
         </button>
       </div>
@@ -75,25 +75,32 @@ const CourseContentMedia: FC<Props> = (props) => {
       </div>
       <br />
 
-       {/* Tab # 1 */}
-       {
-           activeTab === 1 && <p>{courseContentData?.[activeVideo].description}</p>
-        }
-        {/* Tab # 2 */}
-        {
-            activeTab === 2 && <div>
-                {
-                    courseResources?.map((link:any, index:number)=>{
-return <div className="mb-5" key={link.title}>
-<h2 className="800px:text-[20px] 800px:inline-block">
-    {link.title && link.title + ": "}
-</h2>
-    <a href={link.url} className="pl-2 text-[--t-blue]">{link.url}</a>
-</div>
-                    })
-                }
-            </div>
-        }
+      {/* Tab # 1 */}
+      {activeTab === 1 && <p>{courseContentData?.[activeVideo].description}</p>}
+      {/* Tab # 2 */}
+      {activeTab === 2 && (
+        <div>
+          {courseResources?.map((link: any, index: number) => {
+            return (
+              <div className="mb-5" key={link.title}>
+                <h2 className="800px:text-[20px] 800px:inline-block">
+                  {link.title && link.title + ": "}
+                </h2>
+                <a href={link.url} className="pl-2 text-[--t-blue]">
+                  {link.url}
+                </a>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Tab # 3  */}
+      {
+        activeTab === 2 && <>
+        <div className="w-full flex"></div>
+        </>
+      }
     </div>
   );
 };
