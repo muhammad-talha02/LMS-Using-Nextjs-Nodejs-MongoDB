@@ -141,7 +141,7 @@ const CourseDetail: FC<Props> = ({ course, stripePrmoise, clientSecret }) => {
                     >
                       Buy Now {course?.price}$
                     </button> :
-                    <Link href={`course-access/${course?._id}`} className={`${styles.button} !text-white rounded-xl !w-[180px] my-3 font-Poppins cursor-pointer !bg-[--t-red] dark:!bg-[--t-blue]`}>
+                    <Link href={`/courses/course-access/${course?._id}`} className={`${styles.button} !text-white rounded-xl !w-[180px] my-3 font-Poppins cursor-pointer !bg-[--t-red] dark:!bg-[--t-blue]`}>
                       Enter to Course
                     </Link>
                 }

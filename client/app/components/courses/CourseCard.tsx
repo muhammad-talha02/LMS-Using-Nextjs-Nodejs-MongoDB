@@ -14,7 +14,7 @@ const CourseCard: FC<Props> = ({ item, isProfile }) => {
     const { thumbnail, name, price, estimatedPrice, courseData } = item
     const totalLectures = courseData?.length
     return (
-        <Link href={`/course/${item._id}`}>
+        <Link href={`/courses/course/${item._id}`}>
             <div className='w-full min-h-[35vh] dark:bg-slate-900 backdrop-blur border dark:border-[#ffffff1d] border-[#00000015] dark:shadow-[bg-slate-700] rounded-lg p-3 shadow-sm dark:shadow-inner'>
                 <Image src={thumbnail.url} width={500} height={500} alt='Course-thumbnail' objectFit='contain' className='rounded-lg w-full border border-[#00000015]' />
 
