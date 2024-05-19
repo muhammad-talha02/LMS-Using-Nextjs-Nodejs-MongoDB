@@ -9,7 +9,7 @@ type Props = {
   params: any
 }
 
-const page = ({ params }: Props) => {
+const CourseAccessPage = ({ params }: Props) => {
   const courseId = params.courseId;
 
   const { isLoading, error, data: userData } = useLoadUserQuery({})
@@ -33,4 +33,4 @@ const page = ({ params }: Props) => {
   )
 }
 
-export default page
+export default CourseAccessPage

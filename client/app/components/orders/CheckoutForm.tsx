@@ -21,7 +21,7 @@ const CheckoutForm = ({ course }: Props) => {
         api: useCreateOrderMutation,
         successMsg:"Course Purchased Successfully",
         successFunc: () => {
-            redirect(`/course-access/${course?._id}`)
+            redirect(`/courses/course-access/${course?._id}`)
         }
 
     })
