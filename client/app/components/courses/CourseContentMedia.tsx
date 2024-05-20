@@ -4,14 +4,17 @@ import { styles } from "@/app/styles/style";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import Image from "next/image";
 import { noAvatar } from "@/app/utils/constants";
-import QuestionsAnswersTab, { CoureseResources } from "./CourseTabs";
+import QuestionsAnswersTab, {
+  CoureseResources,
+  CourseReviews,
+} from "./CourseTabs";
 
 type Props = {
   courseContentData: any;
   activeVideo: number;
   setActiveVideo: (activeVideo: number) => void;
   courseId: string;
-  user: any
+  user: any;
 };
 const tabsData = [
   { id: 1, label: "Overview" },
@@ -21,18 +24,24 @@ const tabsData = [
 ];
 
 const CourseContentMedia: FC<Props> = (props) => {
-  const { courseContentData, activeVideo, setActiveVideo, courseId, user } = props;
+  const { courseContentData, activeVideo, setActiveVideo, courseId, user } =
+    props;
 
   const [activeTab, setActiveTab] = useState(1);
 
   const courseResources = courseContentData[activeVideo].links;
+
+  // const isReviewsExist = courseContentData?.reviews.find(
+  //   (item: any) => item?._id === user?._id
+  // );
   return (
     <div className="w-[95%] 800px:w-[86%] py-4 m-auto">
       <CoursePlayer videoUrl={courseContentData[activeVideo]?.videoUrl} />
       <div className="w-full flex items-center justify-between my-3">
         <button
-          className={`${styles.button} !w-[unset] !py-[unset] rounded-md ${activeVideo === 0 && "!cursor-not-allowed opacity-[0.8]"
-            }`}
+          className={`${styles.button} !w-[unset] !py-[unset] rounded-md ${
+            activeVideo === 0 && "!cursor-not-allowed opacity-[0.8]"
+          }`}
           onClick={() =>
             setActiveVideo(activeVideo === 0 ? 0 : activeVideo - 1)
           }
@@ -41,9 +50,10 @@ const CourseContentMedia: FC<Props> = (props) => {
           <span>Prev Lesson</span>
         </button>
         <button
-          className={`${styles.button} !w-[unset] !py-[unset] rounded-md ${courseContentData?.length - 1 === activeVideo &&
+          className={`${styles.button} !w-[unset] !py-[unset] rounded-md ${
+            courseContentData?.length - 1 === activeVideo &&
             "!cursor-not-allowed opacity-[0.8]"
-            }`}
+          }`}
           onClick={() =>
             setActiveVideo(
               courseContentData && courseContentData?.length - 1 === activeVideo
@@ -65,8 +75,9 @@ const CourseContentMedia: FC<Props> = (props) => {
           return (
             <h5
               key={tab.id}
-              className={`800px:text-[20px] cursor-pointer ${activeTab === tab.id && "text-[--t-red] dark:text-[--t-blue]"
-                }`}
+              className={`800px:text-[20px] cursor-pointer ${
+                activeTab === tab.id && "text-[--t-red] dark:text-[--t-blue]"
+              }`}
               onClick={() => setActiveTab(tab.id)}
             >
               {tab.label}
@@ -80,15 +91,18 @@ const CourseContentMedia: FC<Props> = (props) => {
       {activeTab === 1 && <p>{courseContentData?.[activeVideo].description}</p>}
       {/* Tab # 2 */}
       {activeTab === 2 && (
-       <CoureseResources courseResources={courseResources}/>
+        <CoureseResources courseResources={courseResources} />
       )}
 
       {/* Tab # 3  */}
-      {
-        activeTab === 3 && <>
-         <QuestionsAnswersTab user={user}/>
+      {activeTab === 3 && (
+        <>
+          <QuestionsAnswersTab user={user} />
         </>
-      }
+      )}
+
+      {/* Tab # 4  */}
+      {activeTab === 4 && <CourseReviews user={user}/>}
     </div>
   );
 };
