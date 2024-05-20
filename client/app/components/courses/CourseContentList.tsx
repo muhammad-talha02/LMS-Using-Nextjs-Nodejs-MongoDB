@@ -34,9 +34,8 @@ const CourseContentList: FC<Props> = (props) => {
 
   return (
     <div
-      className={`w-full mt-4 ${
-        !isDemo && "ml-[-30px] sticky top-24 left-0 z-30"
-      }`}
+      className={`w-full mt-4 ${!isDemo && "ml-[-30px] sticky top-24 left-0 z-30"
+        }`}
     >
       {videoSections.map((section: string, index: number) => {
         const isSectionVisible = visibleSections.has(section);
@@ -44,9 +43,9 @@ const CourseContentList: FC<Props> = (props) => {
         // filter videos by section
 
         const sectionVideos: any[] = courseData.filter((item: any) => {
-         return item.videoSection === section;
+          return item.videoSection === section;
         });
-        console.log("section" , sectionVideos)
+        console.log("section", sectionVideos)
 
         const sectionVideoCount: number = sectionVideos.length;
         const sectionVideoLength: number = sectionVideos.reduce(
@@ -61,7 +60,7 @@ const CourseContentList: FC<Props> = (props) => {
         return (
           <>
             <div
-              className={`${!isDemo && "border-b border-[#fffffe8] pb-2"}`}
+              className={`${!isDemo ? "border-b border-[#fffffe8] py-3" : ""}`}
               key={section}
             >
               <div className="w-full flex">
@@ -87,7 +86,7 @@ const CourseContentList: FC<Props> = (props) => {
                   : sectionContentHours.toFixed(2)}{' '}
                 {sectionVideoLength > 60 ? "Hours" : "minutes"}
               </h5>
-              <br />
+              {/* <br /> */}
               {isSectionVisible && (
                 <div className="w-full">
                   {sectionVideos.map((video: any, index: number) => {
@@ -96,9 +95,8 @@ const CourseContentList: FC<Props> = (props) => {
                     return (
                       <>
                         <div
-                          className={`w-full ${
-                            videoIndex === activeVideo ? "bg-slate-800" : ""
-                          } cursor-pointer transition-all p-2`}
+                          className={`w-full ${videoIndex === activeVideo ? "bg-slate-800" : ""
+                            } cursor-pointer transition-all p-2`}
                           onClick={() => {
                             isDemo ? null : setActiveVideo(videoIndex);
                           }}
