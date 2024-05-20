@@ -2,12 +2,19 @@ import React, { FC, useState } from "react";
 import { CoursePlayer } from "../admin/course";
 import { styles } from "@/app/styles/style";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import Image from "next/image";
+import { noAvatar } from "@/app/utils/constants";
+import QuestionsAnswersTab, {
+  CoureseResources,
+  CourseReviews,
+} from "./CourseTabs";
 
 type Props = {
   courseContentData: any;
   activeVideo: number;
   setActiveVideo: (activeVideo: number) => void;
   courseId: string;
+  user: any;
 };
 const tabsData = [
   { id: 1, label: "Overview" },
@@ -17,11 +24,16 @@ const tabsData = [
 ];
 
 const CourseContentMedia: FC<Props> = (props) => {
-  const { courseContentData, activeVideo, setActiveVideo, courseId } = props;
+  const { courseContentData, activeVideo, setActiveVideo, courseId, user } =
+    props;
 
   const [activeTab, setActiveTab] = useState(1);
 
   const courseResources = courseContentData[activeVideo].links;
+
+  // const isReviewsExist = courseContentData?.reviews.find(
+  //   (item: any) => item?._id === user?._id
+  // );
   return (
     <div className="w-[95%] 800px:w-[86%] py-4 m-auto">
       <CoursePlayer videoUrl={courseContentData[activeVideo]?.videoUrl} />
@@ -79,28 +91,18 @@ const CourseContentMedia: FC<Props> = (props) => {
       {activeTab === 1 && <p>{courseContentData?.[activeVideo].description}</p>}
       {/* Tab # 2 */}
       {activeTab === 2 && (
-        <div>
-          {courseResources?.map((link: any, index: number) => {
-            return (
-              <div className="mb-5" key={link.title}>
-                <h2 className="800px:text-[20px] 800px:inline-block">
-                  {link.title && link.title + ": "}
-                </h2>
-                <a href={link.url} className="pl-2 text-[--t-blue]">
-                  {link.url}
-                </a>
-              </div>
-            );
-          })}
-        </div>
+        <CoureseResources courseResources={courseResources} />
       )}
 
       {/* Tab # 3  */}
-      {
-        activeTab === 2 && <>
-        <div className="w-full flex"></div>
+      {activeTab === 3 && (
+        <>
+          <QuestionsAnswersTab user={user} />
         </>
-      }
+      )}
+
+      {/* Tab # 4  */}
+      {activeTab === 4 && <CourseReviews user={user}/>}
     </div>
   );
 };
