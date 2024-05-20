@@ -8,15 +8,17 @@ import CourseContentList from "./CourseContentList";
 
 type Props = {
   courseId: string;
+  user:any
 };
 
-const CourseContent = ({ courseId }: Props) => {
+const CourseContent = ({ courseId , user }: Props) => {
   const {
     data: courseData,
     isLoading,
     error,
     isSuccess,
   } = useGetCourseContentQuery(courseId);
+  console.log(user, "useddr")
 
   const [route, setRoute] = useState("Login");
   const [open, setOpen] = useState(false);
@@ -48,6 +50,7 @@ const CourseContent = ({ courseId }: Props) => {
                 activeVideo={activeVideo}
                 courseId={courseId}
                 setActiveVideo={setActiveVideo}
+                user={user}
               />
             </div>
             <div className="hidden 800px:block 800px:col-span-3">
