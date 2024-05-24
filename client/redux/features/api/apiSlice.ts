@@ -6,7 +6,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_SERVER_URL,
   }),
-  tagTypes: ["geUser",'GetAllUsers', 'GetAllCourses'],
+  tagTypes: ["geUser", 'GetAllUsers', 'GetAllCourses', "getCourseAccess"],
   endpoints: (builder) => ({
     refreshToken: builder.query({
       query: () => ({
@@ -31,7 +31,7 @@ export const apiSlice = createApi({
               user: result.data.user,
             })
           );
-        } catch (error) {}
+        } catch (error) { }
       },
     }),
   }),
