@@ -1,12 +1,12 @@
 import useMutation from "@/app/_hooks/useMutation";
 import { styles } from "@/app/styles/style";
 import { noAvatar } from "@/app/utils/constants";
-import { useAddNewQuestionMutation } from "@/redux/features/courses/coursesApi";
+import { useAddAnswerMutation, useAddNewQuestionMutation } from "@/redux/features/courses/coursesApi";
 import { StarBorder } from "@mui/icons-material";
 import { Rating } from "@mui/material";
 import Image from "next/image";
-import React, { FC, useState } from "react";
-import toast from "react-hot-toast";
+import React, { ChangeEvent, FC, useState } from "react";
+import toast, { useToasterStore } from "react-hot-toast";
 import { BiMessage } from "react-icons/bi";
 import { format } from "timeago.js";
 
@@ -156,6 +156,7 @@ type QuestionReplyProps = {
 
 export const QuestionReply = (props: QuestionReplyProps) => {
   const { courseContentData, activeVideo, answer, setAnswer, user, setAnswerId, handleAnswerSubmit } = props
+
   return (
     <>
       <div className="w-full my-3">
@@ -238,6 +239,17 @@ const CommentItem = (props: any) => {
               </div>
             ))
           }
+          <div className="w-full flex relative">
+            <input type="text" placeholder="Enter your reply..." className="block 800px:ml-12 mt-2 outline-none border-b border-[#fff] dark:border-gray-500 p-[5px] w-[95%]"
+              value={answer}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                setAnswer(e.target.value)
+              }}
+            />
+            <button type="submit" className="absolte right-0 bottom-1 disabled:cursor-not-allowed" disabled={false}
+              onClick={handleAnswerSubmit}
+            >Submit</button>
+          </div>
         </>
       }
     </div>

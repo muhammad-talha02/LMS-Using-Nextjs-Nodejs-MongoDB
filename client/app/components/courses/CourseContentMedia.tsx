@@ -7,6 +7,9 @@ import QuestionsAnswersTab, {
   CourseReviews,
   QuestionReply
 } from "./CourseTabs";
+import useMutation from "@/app/_hooks/useMutation";
+import { useAddAnswerMutation } from "@/redux/features/courses/coursesApi";
+import toast from "react-hot-toast";
 
 type Props = {
   courseContentData: any;
@@ -35,16 +38,30 @@ const CourseContentMedia: FC<Props> = (props) => {
   // const isReviewsExist = courseContentData?.reviews.find(
   //   (item: any) => item?._id === user?._id
   // );
-
-  const handleAnswerSubmit = () => {};
+  const { actionApi: addAnswerAction, result } = useMutation({
+    api: useAddAnswerMutation,
+    successMsg: "Reply Added Successfully"
+  })
+  const handleAnswerSubmit = async () => {
+    if (answer.length === 0) {
+      toast.error("Question can't be empty ")
+    }
+    else {
+      let obj = {
+        answer,
+        courseId,
+        contentId: courseContentData?.[activeVideo]?._id
+      }
+      await addAnswerAction(obj)
+    }
+  };
   return (
     <div className="w-[95%] 800px:w-[86%] py-4 m-auto">
       <CoursePlayer videoUrl={courseContentData[activeVideo]?.videoUrl} />
       <div className="w-full flex items-center justify-between my-3">
         <button
-          className={`${styles.button} !w-[unset] !py-[unset] rounded-md ${
-            activeVideo === 0 && "!cursor-not-allowed opacity-[0.8]"
-          }`}
+          className={`${styles.button} !w-[unset] !py-[unset] rounded-md ${activeVideo === 0 && "!cursor-not-allowed opacity-[0.8]"
+            }`}
           onClick={() =>
             setActiveVideo(activeVideo === 0 ? 0 : activeVideo - 1)
           }
@@ -53,10 +70,9 @@ const CourseContentMedia: FC<Props> = (props) => {
           <span>Prev Lesson</span>
         </button>
         <button
-          className={`${styles.button} !w-[unset] !py-[unset] rounded-md ${
-            courseContentData?.length - 1 === activeVideo &&
+          className={`${styles.button} !w-[unset] !py-[unset] rounded-md ${courseContentData?.length - 1 === activeVideo &&
             "!cursor-not-allowed opacity-[0.8]"
-          }`}
+            }`}
           onClick={() =>
             setActiveVideo(
               courseContentData && courseContentData?.length - 1 === activeVideo
@@ -78,9 +94,8 @@ const CourseContentMedia: FC<Props> = (props) => {
           return (
             <h5
               key={tab.id}
-              className={`800px:text-[20px] cursor-pointer ${
-                activeTab === tab.id && "text-[--t-red] dark:text-[--t-blue]"
-              }`}
+              className={`800px:text-[20px] cursor-pointer ${activeTab === tab.id && "text-[--t-red] dark:text-[--t-blue]"
+                }`}
               onClick={() => setActiveTab(tab.id)}
             >
               {tab.label}
