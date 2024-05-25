@@ -7,6 +7,8 @@ import { Rating } from "@mui/material";
 import Image from "next/image";
 import React, { FC, useState } from "react";
 import toast from "react-hot-toast";
+import { BiMessage } from "react-icons/bi";
+import { format } from "timeago.js";
 
 export const CourseReviews = ({ user }: any) => {
   const [rating, setRating] = useState(0);
@@ -120,7 +122,7 @@ const QuestionsAnswersTab: FC<QProps> = ({ user, activeVideo, courseId }) => {
           cols={40}
           rows={5}
           placeholder="write your question"
-          className="outline-none bg-transparent ml-3 border border-[#ffffff57] 800px:w-full p-2 rounded w-[90%] 800px:text-[18px] font-Poppins"
+          className="outline-none bg-transparent ml-3 border border-gray-600 dark:border-[#ffffff57] 800px:w-full p-2 rounded w-[90%] 800px:text-[18px] font-Poppins"
         ></textarea>
       </div>
       <div className="flex w-full justify-end">
@@ -153,16 +155,91 @@ type QuestionReplyProps = {
 }
 
 export const QuestionReply = (props: QuestionReplyProps) => {
-  const {courseContentData , activeVideo, answer, setAnswer, user, setAnswerId, handleAnswerSubmit} = props
+  const { courseContentData, activeVideo, answer, setAnswer, user, setAnswerId, handleAnswerSubmit } = props
   return (
-      <>
-        <div className="w-full my-3">
+    <>
+      <div className="w-full my-3">
+        {
+          courseContentData?.[activeVideo]?.questions?.map((question: any, index: number) => (
+            <>
+              <CommentItem key={question?._id}
+                courseContentData={courseContentData}
+                activeVideo={activeVideo}
+                item={question}
+                index={index}
+                answer={answer}
+                setAnswer={setAnswer}
+                handleAnswerSubmit={handleAnswerSubmit}
+              />
+            </>
+          ))
+        }
+      </div>
+    </>
+  )
+}
+
+
+
+const CommentItem = (props: any) => {
+  const { courseContentData, item, activeVideo, answer, setAnswer, handleAnswerSubmit } = props
+  const [isReplyActive, setIsReplyActive] = useState(false)
+  return <>
+    <div className="my-4">
+      <div className="flex mb-2">
+        <div className="w-[50px] h-[50px]">
+          <Image
+            src={item?.user?.avatar ? item?.user?.avatar?.url : noAvatar}
+            width={50}
+            height={50}
+            className="w-[50px] h-[50px] object-cover rounded-full"
+            alt={item?.user?.name}
+          />
+          {/* <div className="w-[50px] h-[50px] bg-slate-600 rounded-[50px] flex items-center justify-center cursor-pointer">
+            <h1 className="uppercase text-[18px]">
+              {item?.user?.name?.slice(0, 2)}
+            </h1>
+          </div> */}
+        </div>
+        <div className="pl-3">
+          <h5 className="text-[20px]">{item?.user?.name}</h5>
+          <p>{item.question}</p>
+          <small className="dark:text-[#ffffff83]">{format(item?.createdAt) || '--'}.</small>
+        </div>
+      </div>
+      <div className="w-full flex">
+        <div className="flex dark:text-[#ffffff83]">
+          <span className="800px:pl-16  cursor-pointer mr-2" onClick={() => setIsReplyActive(!isReplyActive)}>
+            {
+              !isReplyActive ? item?.questionReplies?.length !== 0 ? "All Replies" : "Add Reply" : "Hide Replies"
+            }
+          </span>
+          <BiMessage size={20} className="cursor-pointer" />
+          <span className="pl-1 mt-[-4px]">{item?.questionReplies?.length}</span>
+        </div>
+      </div>
+      {
+        isReplyActive && <>
           {
-            courseContentData?.[activeVideo]?.questions?.map(()=>(
-              
+            item?.questionReplies?.map((reply: any, index: number) => (
+              <div className="w-full flex 800px:ml-16 my-5">
+                <Image
+                  src={reply?.user?.avatar ? reply?.user?.avatar?.url : noAvatar}
+                  width={50}
+                  height={50}
+                  className="w-[50px] h-[50px] object-cover rounded-full"
+                  alt={reply?.user?.name}
+                />
+                <div className="pl-3">
+                  <h5 className="text-[20px]">{reply?.user?.name}</h5>
+                  <p>{reply.answer}</p>
+                  <small className="dark:text-[#ffffff83]">{format(reply?.createdAt) || '--'}.</small>
+                </div>
+              </div>
             ))
           }
-        </div>
-      </>
-  )
+        </>
+      }
+    </div>
+  </>
 }

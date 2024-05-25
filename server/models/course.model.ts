@@ -59,8 +59,8 @@ const reviewSchema = new Schema<IReview>({
     default: 0,
   },
   comment: String,
-  commentReplies:[Object]
-});
+  commentReplies: [Object]
+}, { timestamps: true });
 
 const linkSchema = new Schema<ILink>({
   title: String,
@@ -71,7 +71,7 @@ const commentSchema = new Schema<IComment>({
   user: Object,
   question: String,
   questionReplies: [Object],
-});
+}, { timestamps: true });
 
 const courseDataSchema = new Schema<ICourseData>({
   title: String,
@@ -138,7 +138,7 @@ const courseScheme = new Schema<ICourse>({
     type: Number,
     default: 0,
   },
-}, {timestamps:true});
+}, { timestamps: true });
 
 const courseModel: Model<ICourse> = mongoose.model("Course", courseScheme);
 
