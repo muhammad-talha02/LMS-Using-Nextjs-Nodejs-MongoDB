@@ -153,12 +153,14 @@ type QuestionReplyProps = {
 }
 
 export const QuestionReply = (props: QuestionReplyProps) => {
-  const {courseContentData} = props
+  const {courseContentData , activeVideo, answer, setAnswer, user, setAnswerId, handleAnswerSubmit} = props
   return (
       <>
         <div className="w-full my-3">
           {
-            course
+            courseContentData?.[activeVideo]?.questions?.map(()=>(
+              
+            ))
           }
         </div>
       </>
