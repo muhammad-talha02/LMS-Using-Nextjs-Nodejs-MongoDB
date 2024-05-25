@@ -138,3 +138,29 @@ const QuestionsAnswersTab: FC<QProps> = ({ user, activeVideo, courseId }) => {
 };
 
 export default QuestionsAnswersTab;
+
+
+
+
+type QuestionReplyProps = {
+  courseContentData: any,
+  activeVideo: any,
+  answer: any,
+  setAnswer: (answer: string) => void,
+  user: any,
+  setAnswerId: (answerId: any) => void,
+  handleAnswerSubmit: () => void
+}
+
+export const QuestionReply = (props: QuestionReplyProps) => {
+  const {courseContentData} = props
+  return (
+      <>
+        <div className="w-full my-3">
+          {
+            course
+          }
+        </div>
+      </>
+  )
+}
