@@ -104,6 +104,17 @@ export const coursesApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['getCourseAccess']
     }),
+
+    //? Add Review in Course
+    addCourseReview: builder.mutation({
+      query: ({id, data}) => ({
+        url: `add-review/${id}`,
+        method: "PUT",
+        body: data,
+        credentials: "include" as const,
+      }),
+      // invalidatesTags: ['getCourseAccess']
+    }),
   }),
 });
 
@@ -117,5 +128,6 @@ export const {
   useGetCourseDetailQuery,
   useGetCourseContentQuery,
   useAddNewQuestionMutation,
-  useAddAnswerMutation
+  useAddAnswerMutation,
+  useAddCourseReviewMutation
 } = coursesApi;

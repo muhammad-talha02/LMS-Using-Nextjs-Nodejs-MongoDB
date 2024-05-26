@@ -4,12 +4,17 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { CoursePlayer } from "../admin/course";
 import QuestionsAnswersTab, {
   CoureseResources,
-  CourseReviews,
-  QuestionReply
+  CourseReviewForm,
+  QuestionReply,
 } from "./CourseTabs";
 import useMutation from "@/app/_hooks/useMutation";
-import { useAddAnswerMutation } from "@/redux/features/courses/coursesApi";
+import {
+  useAddAnswerMutation,
+  useAddCourseReviewMutation,
+  useGetCourseDetailQuery,
+} from "@/redux/features/courses/coursesApi";
 import toast from "react-hot-toast";
+import { CourseReviews } from "./CourseViewComponents";
 
 type Props = {
   courseContentData: any;
@@ -17,6 +22,7 @@ type Props = {
   setActiveVideo: (activeVideo: number) => void;
   courseId: string;
   user: any;
+  refetchCourseContent: () => void;
 };
 const tabsData = [
   { id: 1, label: "Overview" },
@@ -26,36 +32,66 @@ const tabsData = [
 ];
 
 const CourseContentMedia: FC<Props> = (props) => {
-  const { courseContentData, activeVideo, setActiveVideo, courseId, user } =
-    props;
+  const {
+    courseContentData,
+    activeVideo,
+    setActiveVideo,
+    courseId,
+    user,
+    refetchCourseContent,
+  } = props;
 
   const [activeTab, setActiveTab] = useState(1);
-  const [answerId, setAnswerId] = useState();
+  const id = courseId
+  //? Get Single Course
+  const { data: courseData, refetch:refetchCourse } = useGetCourseDetailQuery(id)
 
-  const courseResources = courseContentData?.[activeVideo].links;
-
-  // const isReviewsExist = courseContentData?.reviews.find(
-  //   (item: any) => item?._id === user?._id
-  // );
-  const { actionApi: addAnswerAction, result:ResultAnswer } = useMutation({
+  //? Api - add Answer to Question
+  const { actionApi: addAnswerAction, result: ResultAnswer } = useMutation({
     api: useAddAnswerMutation,
-    successMsg: "Answer Added Successfully", 
-    successFunc:()=>{
-      // setAnswer("")
-    }
-  })
-  const handleAnswerSubmit = async (questionId:any ,answer:string) => {
+    successMsg: "Answer Added Successfully",
+  });
+
+  //? Api - add Review in Course
+  const { actionApi: addReviewAction, result: ResultReview } = useMutation({
+    api: useAddCourseReviewMutation,
+    successMsg: "Review Added Successfully",
+    successFunc() {
+      refetchCourse();
+    },
+  });
+  const courseResources = courseContentData?.[activeVideo].links;
+  const isUserReviewExist = courseData && courseData?.course?.reviews?.find(
+    (item: any) => item?.user?._id === user?._id
+  );
+  console.log("review", isUserReviewExist)
+
+  //* handle Answer Submit
+  const handleAnswerSubmit = async (questionId: any, answer: string) => {
     if (answer.length === 0) {
-      toast.error("Question can't be empty ")
-    }
-    else {
+      toast.error("Question can't be empty ");
+    } else {
       let obj = {
         answer,
         courseId,
         questionId,
-        contentId: courseContentData?.[activeVideo]?._id
-      }
-      await addAnswerAction(obj)
+        contentId: courseContentData?.[activeVideo]?._id,
+      };
+      await addAnswerAction(obj);
+    }
+  };
+
+  //* handle Review Submit
+
+  const handleReviewSubmit = async (review: string, rating: number) => {
+    if (review.length === 0) {
+      toast.error("Review can't be empty");
+    } else {
+      const obj = {
+        id: courseId,
+        data: { review, rating },
+      };
+      await addReviewAction(obj);
     }
   };
   return (
@@ -129,7 +165,6 @@ const CourseContentMedia: FC<Props> = (props) => {
             // answer={answer}
             // setAnswer={setAnswer}
             user={user}
-            setAnswerId={setAnswerId}
             handleAnswerSubmit={handleAnswerSubmit}
             ResultAnswer={ResultAnswer}
           />
@@ -137,7 +172,16 @@ const CourseContentMedia: FC<Props> = (props) => {
       )}
 
       {/* Tab # 4  */}
-      {activeTab === 4 && <CourseReviews user={user} />}
+      {activeTab === 4 && <>
+        {!isUserReviewExist && <CourseReviewForm user={user} handleReviewSubmit={handleReviewSubmit} ResultReview={ResultReview} />}
+        <hr className="mt-5"/>
+        {
+          courseData?.course?.reviews?.map((review: any, index: number) => (
+            <CourseReviews key={review._id} review={review} />
+          ))
+        }
+      </>
+      }
     </div>
   );
 };
