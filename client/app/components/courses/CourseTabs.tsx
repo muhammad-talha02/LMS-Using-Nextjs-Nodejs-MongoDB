@@ -14,7 +14,7 @@ import { BiMessage } from "react-icons/bi";
 import { VscVerifiedFilled } from "react-icons/vsc";
 import { format } from "timeago.js";
 
-export const CourseReviews = ({ user }: any) => {
+export const CourseReviewForm = ({ user, handleReviewSubmit, ResultReview }: any) => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   return (
@@ -51,9 +51,10 @@ export const CourseReviews = ({ user }: any) => {
       </div>
       <div className="w-full flex justify-end">
         <button
-          className={`${styles.button} !w-[120px] !h-[40px] mt-5 rounded-full`}
+          className={`${styles.button} !w-[120px] !h-[40px] mt-5 rounded-full ${ResultReview.isLoading && "cursor-not-allowed"}`}
+          onClick={() => handleReviewSubmit(review, rating)}
         >
-          Submit
+          {ResultReview.isLoading ? "Submitting....." : "Submit"}
         </button>
       </div>
     </>
@@ -151,7 +152,6 @@ type QuestionReplyProps = {
   // setAnswer: (answer: string) => void,
   ResultAnswer: any;
   user: any;
-  setAnswerId: (answerId: any) => void;
   handleAnswerSubmit: (questionId: string, answer: string) => void;
 };
 
@@ -161,7 +161,6 @@ export const QuestionReply = (props: QuestionReplyProps) => {
     activeVideo,
     ResultAnswer,
     user,
-    setAnswerId,
     handleAnswerSubmit,
   } = props;
 

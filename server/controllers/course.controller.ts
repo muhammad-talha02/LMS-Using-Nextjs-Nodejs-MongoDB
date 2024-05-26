@@ -324,6 +324,8 @@ export const addAnswer = catchAsyncError(
       const newAnswer: any = {
         user: req.user,
         answer,
+        createAt:new Date().toISOString(),
+        updatedAt:new Date().toISOString()
       };
 
       // add this answer to our course content
@@ -402,12 +404,12 @@ export const addReview = catchAsyncError(
       const course = await courseModel.findById(courseId);
 
       const { review, rating } = req.body as IAddReviewData;
-
       const reviewData: any = {
         user: req.user,
         comment: review,
         rating,
       };
+      await redis.del(course?._id)
 
       course?.reviews.push(reviewData);
 
@@ -467,12 +469,19 @@ export const addReplyToReview = catchAsyncError(
       const replyData: any = {
         user: req.user,
         comment,
+        createAt:new Date().toISOString(),
+        updatedAt:new Date().toISOString()
       };
 
       if (!review.commentReplies) {
         review.commentReplies = [];
       }
       review.commentReplies?.push(replyData);
+      // const before = await redis.get(course?._id)
+      await redis.del(course?._id)
+      // const after = await redis.get(course?._id)
+      // console.log({before, after})
+      // await redis.set(courseId, JSON.stringify(course));
 
       await course.save();
 
