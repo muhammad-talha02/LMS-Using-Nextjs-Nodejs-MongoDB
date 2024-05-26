@@ -1,14 +1,15 @@
-import React, { FC, useState } from "react";
-import { CoursePlayer } from "../admin/course";
 import { styles } from "@/app/styles/style";
+import { FC, useState } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
-import Image from "next/image";
-import { noAvatar } from "@/app/utils/constants";
+import { CoursePlayer } from "../admin/course";
 import QuestionsAnswersTab, {
   CoureseResources,
   CourseReviews,
+  QuestionReply
 } from "./CourseTabs";
-import CommentReply from "./CommentReply";
+import useMutation from "@/app/_hooks/useMutation";
+import { useAddAnswerMutation } from "@/redux/features/courses/coursesApi";
+import toast from "react-hot-toast";
 
 type Props = {
   courseContentData: any;
@@ -29,14 +30,34 @@ const CourseContentMedia: FC<Props> = (props) => {
     props;
 
   const [activeTab, setActiveTab] = useState(1);
-  const [answer, setAnswer] = useState("");
   const [answerId, setAnswerId] = useState();
 
-  const courseResources = courseContentData[activeVideo].links;
+  const courseResources = courseContentData?.[activeVideo].links;
 
   // const isReviewsExist = courseContentData?.reviews.find(
   //   (item: any) => item?._id === user?._id
   // );
+  const { actionApi: addAnswerAction, result:ResultAnswer } = useMutation({
+    api: useAddAnswerMutation,
+    successMsg: "Answer Added Successfully", 
+    successFunc:()=>{
+      // setAnswer("")
+    }
+  })
+  const handleAnswerSubmit = async (questionId:any ,answer:string) => {
+    if (answer.length === 0) {
+      toast.error("Question can't be empty ")
+    }
+    else {
+      let obj = {
+        answer,
+        courseId,
+        questionId,
+        contentId: courseContentData?.[activeVideo]?._id
+      }
+      await addAnswerAction(obj)
+    }
+  };
   return (
     <div className="w-[95%] 800px:w-[86%] py-4 m-auto">
       <CoursePlayer videoUrl={courseContentData[activeVideo]?.videoUrl} />
@@ -97,8 +118,21 @@ const CourseContentMedia: FC<Props> = (props) => {
       {/* Tab # 3  */}
       {activeTab === 3 && (
         <>
-          <QuestionsAnswersTab user={user} courseId={courseId} activeVideo={courseContentData?.[activeVideo]} />
-          <CommentReply courseContentData={courseContentData} activeVideo={activeVideo} answer={answer} setAnswer={setAnswer} user={user} setAnswerId={setAnswerId} />
+          <QuestionsAnswersTab
+            user={user}
+            courseId={courseId}
+            activeVideo={courseContentData?.[activeVideo]}
+          />
+          <QuestionReply
+            courseContentData={courseContentData}
+            activeVideo={activeVideo}
+            // answer={answer}
+            // setAnswer={setAnswer}
+            user={user}
+            setAnswerId={setAnswerId}
+            handleAnswerSubmit={handleAnswerSubmit}
+            ResultAnswer={ResultAnswer}
+          />
         </>
       )}
 

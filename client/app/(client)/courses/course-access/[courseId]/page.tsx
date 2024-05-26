@@ -26,9 +26,9 @@ const CourseAccessPage = ({ params }: Props) => {
   return (
     <>
       {
-        isLoading ? <Loader /> : <div>
-          <CourseContent courseId={courseId} user={userData?.user}/>
-        </div>
+        isLoading ? <Loader /> : <>
+          <CourseContent courseId={courseId} user={userData?.user} />
+        </>
       }
     </>
   )
