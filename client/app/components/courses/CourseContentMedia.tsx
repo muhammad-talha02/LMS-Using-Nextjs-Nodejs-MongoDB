@@ -30,7 +30,6 @@ const CourseContentMedia: FC<Props> = (props) => {
     props;
 
   const [activeTab, setActiveTab] = useState(1);
-  const [answer, setAnswer] = useState("");
   const [answerId, setAnswerId] = useState();
 
   const courseResources = courseContentData?.[activeVideo].links;
@@ -38,11 +37,14 @@ const CourseContentMedia: FC<Props> = (props) => {
   // const isReviewsExist = courseContentData?.reviews.find(
   //   (item: any) => item?._id === user?._id
   // );
-  const { actionApi: addAnswerAction, result } = useMutation({
+  const { actionApi: addAnswerAction, result:ResultAnswer } = useMutation({
     api: useAddAnswerMutation,
-    successMsg: "Reply Added Successfully"
+    successMsg: "Answer Added Successfully", 
+    successFunc:()=>{
+      // setAnswer("")
+    }
   })
-  const handleAnswerSubmit = async () => {
+  const handleAnswerSubmit = async (questionId:any ,answer:string) => {
     if (answer.length === 0) {
       toast.error("Question can't be empty ")
     }
@@ -50,6 +52,7 @@ const CourseContentMedia: FC<Props> = (props) => {
       let obj = {
         answer,
         courseId,
+        questionId,
         contentId: courseContentData?.[activeVideo]?._id
       }
       await addAnswerAction(obj)
@@ -123,11 +126,12 @@ const CourseContentMedia: FC<Props> = (props) => {
           <QuestionReply
             courseContentData={courseContentData}
             activeVideo={activeVideo}
-            answer={answer}
-            setAnswer={setAnswer}
+            // answer={answer}
+            // setAnswer={setAnswer}
             user={user}
             setAnswerId={setAnswerId}
             handleAnswerSubmit={handleAnswerSubmit}
+            ResultAnswer={ResultAnswer}
           />
         </>
       )}
