@@ -1,6 +1,12 @@
+import { styles } from "@/app/styles/style";
+import { noAvatar } from "@/app/utils/constants";
 import { StarBorder } from "@mui/icons-material";
 import { Rating } from "@mui/material";
+import Image from "next/image";
+import { ChangeEvent, useState } from "react";
+import { BiMessage } from "react-icons/bi";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
+import { VscVerifiedFilled } from "react-icons/vsc";
 import { format } from "timeago.js";
 
 //? Course Benefits Component
@@ -24,8 +30,14 @@ export const CourseBenefits = ({ data, title }: any) => {
     );
 };
 
-
-export const CourseReviews = ({ review }: any) => {
+type ReviewProps = {
+    review: any,
+    handleReviewReply?: any,
+    canReplyReview?: boolean
+}
+export const CourseReviews = ({ review, canReplyReview = false, handleReviewReply }: any) => {
+    const [isReviewReplyActive, setIsReviewReplyActive] = useState(false)
+    const [reviewReply, setReviewReply] = useState('')
     return (
         <>
             <div className="w-full flex py-4">
@@ -48,6 +60,72 @@ export const CourseReviews = ({ review }: any) => {
                     <small>{format(review.createdAt)}</small>
                 </div>
             </div>
+            <div className="w-full flex">
+                <div className="flex dark:text-[#ffffff83]">
+                    <span
+                        className="800px:pl-16  cursor-pointer mr-2"
+                        onClick={() => setIsReviewReplyActive(!isReviewReplyActive)}
+                    >
+                        {!isReviewReplyActive
+                            ? review?.commentReplies?.length !== 0
+                                ? "All Replies"
+                                : "Add Reply"
+                            : "Hide Replies"}
+                    </span>
+                    <BiMessage size={20} className="cursor-pointer" />
+                    <span className="pl-1 mt-[-4px]">
+                        {review?.commentReplies?.length}
+                    </span>
+                </div>
+            </div>
+            {/* <>
+                {!isReviewReplyActive && (
+                    <>
+                        {review?.commentReplies?.map((reply: any, index: number) => (
+                            <div className="w-full flex 800px:ml-16 my-5" key={reply?._id}>
+                                <Image
+                                    src={
+                                        reply?.user?.avatar ? reply?.user?.avatar?.url : noAvatar
+                                    }
+                                    width={50}
+                                    height={50}
+                                    className="w-[50px] h-[50px] object-cover rounded-full"
+                                    alt={reply?.user?.name}
+                                />
+                                <div className="pl-3">
+                                    <div className="flex items-center gap-1">
+                                        <h5 className="text-[20px]">{reply?.user?.name}</h5>
+                                        {reply?.user?.role === "admin" && <VscVerifiedFilled size={15} className="text-green-600" />}
+                                    </div>
+                                    <p>{reply.answer}</p>
+                                    <small className="dark:text-[#ffffff83]">
+                                        {format(reply?.createdAt) || "--"}.
+                                    </small>
+                                </div>
+                            </div>
+                        ))}
+                        <div className="w-full flex relative gap-2">
+                            <input
+                                type="text"
+                                placeholder="Enter your reply..."
+                                className="block 800px:ml-12 mt-2 outline-none border-b border-[#0000027] dark:border-gray-500 p-[5px] w-[95%]"
+                                value={setReviewReply}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                    setReviewReply(e.target.value);
+                                }}
+                            />
+                            <button
+                                type="submit"
+                                className={`${styles.button} !w-[80px] !min-h-[35px] !h-[35px] !py-1 text-white mt-2 rounded-md text-[14px] absolte right-0 bottom-1 disabled:cursor-not-allowed`}
+                                disabled={reviewReply === "" || ResultAnswer.isLoading}
+                                onClick={() => handleAnswerSubmit(reviewReply, review?._id)}
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </>
+                )}
+            </> */}
         </>
     )
 }

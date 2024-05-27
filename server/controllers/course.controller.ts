@@ -41,14 +41,14 @@ export const editCourse = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = req.body;
-      console.log("backend",data)
+      console.log("backend", data)
       const thumbnail = data.thumbnail;
       if (!thumbnail?.public_id) {
         // await cloudinary.v2.uploader.destroy(thumbnail.public_id);
         const myCloud = await cloudinary.v2.uploader.upload(thumbnail, {
           folder: "courses",
         });
-        
+
         data.thumbnail = {
           public_id: myCloud.public_id,
           url: myCloud.secure_url,
@@ -324,8 +324,8 @@ export const addAnswer = catchAsyncError(
       const newAnswer: any = {
         user: req.user,
         answer,
-        createAt:new Date().toISOString(),
-        updatedAt:new Date().toISOString()
+        createAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       };
 
       // add this answer to our course content
@@ -425,12 +425,13 @@ export const addReview = catchAsyncError(
 
       await course?.save();
 
-      const notification = {
+      // create notification
+
+      await NotificationModel.create({
+        userId: req.user?._id,
         title: "New Review Recieved",
         message: `${req.user?.name} has given a review on ${course?.name}`,
-      };
-
-      // create notification
+      });
 
       res.status(200).json({
         success: true,
@@ -469,8 +470,8 @@ export const addReplyToReview = catchAsyncError(
       const replyData: any = {
         user: req.user,
         comment,
-        createAt:new Date().toISOString(),
-        updatedAt:new Date().toISOString()
+        createAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       };
 
       if (!review.commentReplies) {

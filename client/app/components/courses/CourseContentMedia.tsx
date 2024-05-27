@@ -44,7 +44,7 @@ const CourseContentMedia: FC<Props> = (props) => {
   const [activeTab, setActiveTab] = useState(1);
   const id = courseId
   //? Get Single Course
-  const { data: courseData, refetch:refetchCourse } = useGetCourseDetailQuery(id)
+  const { data: courseData, refetch: refetchCourse } = useGetCourseDetailQuery(id)
 
   //? Api - add Answer to Question
   const { actionApi: addAnswerAction, result: ResultAnswer } = useMutation({
@@ -94,9 +94,23 @@ const CourseContentMedia: FC<Props> = (props) => {
       await addReviewAction(obj);
     }
   };
+
+  //* handle Review Reply
+
+  const handleReviewReply = async (reviewReply: string, reviewId: string) => {
+    if (reviewReply.length === 0) {
+      toast.error("Review can't be empty");
+    } else {
+      const obj = {
+        id: courseId,
+        data: { reviewReply, reviewId },
+      };
+      await addReviewAction(obj);
+    }
+  };
   return (
     <div className="w-[95%] 800px:w-[86%] py-4 m-auto">
-      <CoursePlayer videoUrl={courseContentData[activeVideo]?.videoUrl} />
+      <CoursePlayer videoUrl={courseContentData?.[activeVideo]?.videoUrl} />
       <div className="w-full flex items-center justify-between my-3">
         <button
           className={`${styles.button} !w-[unset] !py-[unset] rounded-md ${activeVideo === 0 && "!cursor-not-allowed opacity-[0.8]"
@@ -125,7 +139,7 @@ const CourseContentMedia: FC<Props> = (props) => {
         </button>
       </div>
       <h1 className="pt-2 text-[25px] font-[600]">
-        {courseContentData[activeVideo]?.title}
+        {courseContentData?.[activeVideo]?.title}
       </h1>
       {/* Tabs Data of Course  */}
       <div className="w-full p-4 flex items-center justify-between bg-slate-500 bg-opacity-20 backdrop-blur shadow-[bg-slate-700] rounded shadow-inner">
@@ -174,10 +188,10 @@ const CourseContentMedia: FC<Props> = (props) => {
       {/* Tab # 4  */}
       {activeTab === 4 && <>
         {!isUserReviewExist && <CourseReviewForm user={user} handleReviewSubmit={handleReviewSubmit} ResultReview={ResultReview} />}
-        <hr className="mt-5"/>
+        <hr className="mt-5" />
         {
           courseData?.course?.reviews?.map((review: any, index: number) => (
-            <CourseReviews key={review._id} review={review} />
+            <CourseReviews key={review._id} review={review} handleReviewReply={handleReviewReply} />
           ))
         }
       </>
