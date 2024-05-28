@@ -11,6 +11,7 @@ import useMutation from "@/app/_hooks/useMutation";
 import {
   useAddAnswerMutation,
   useAddCourseReviewMutation,
+  useAddReviewReplyMutation,
   useGetCourseDetailQuery,
 } from "@/redux/features/courses/coursesApi";
 import toast from "react-hot-toast";
@@ -60,6 +61,15 @@ const CourseContentMedia: FC<Props> = (props) => {
       refetchCourse();
     },
   });
+
+  //? Api - add Reply in Review Of Course
+  const { actionApi: addReviewReplyAction, result: ResultReviewReply } = useMutation({
+    api: useAddReviewReplyMutation,
+    successMsg: "Reply Added Successfully",
+    successFunc() {
+      refetchCourse();
+    },
+  });
   const courseResources = courseContentData?.[activeVideo].links;
   const isUserReviewExist = courseData && courseData?.course?.reviews?.find(
     (item: any) => item?.user?._id === user?._id
@@ -102,10 +112,11 @@ const CourseContentMedia: FC<Props> = (props) => {
       toast.error("Review can't be empty");
     } else {
       const obj = {
-        id: courseId,
-        data: { reviewReply, reviewId },
+        reviewId,
+        courseId,
+        comment: reviewReply
       };
-      await addReviewAction(obj);
+      await addReviewReplyAction(obj);
     }
   };
   return (
@@ -191,7 +202,8 @@ const CourseContentMedia: FC<Props> = (props) => {
         <hr className="mt-5" />
         {
           courseData?.course?.reviews?.map((review: any, index: number) => (
-            <CourseReviews key={review._id} review={review} handleReviewReply={handleReviewReply} />
+            <CourseReviews key={review._id} review={review} user={user}
+              canReplyReview={true} handleReviewReply={handleReviewReply} ResultReviewReply={ResultReviewReply}/>
           ))
         }
       </>
