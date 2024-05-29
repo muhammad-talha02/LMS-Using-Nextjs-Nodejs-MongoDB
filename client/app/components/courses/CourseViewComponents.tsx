@@ -69,7 +69,7 @@ export const CourseReviews = ({ review, user, canReplyReview = false, handleRevi
                     <small>{format(review.createdAt)}</small>
                 </div>
             </div>
-            {/* {canReplyReview &&
+            {canReplyReview &&
                 <div className="w-full flex">
                     <div className="flex dark:text-[#ffffff83]">
                         {
@@ -151,7 +151,7 @@ export const CourseReviews = ({ review, user, canReplyReview = false, handleRevi
                         }
                     </>
                 )}
-            </> */}
+            </>
 
         </>
     )

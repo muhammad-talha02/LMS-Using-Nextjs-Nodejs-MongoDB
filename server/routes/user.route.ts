@@ -23,19 +23,19 @@ userRouter.post("/activation-user", activateUser);
 
 userRouter.post("/login", loginUser);
 
-userRouter.get("/logout",updateAcessToken, isAuthenticated, logoutUser);
+userRouter.get("/logout", isAuthenticated, logoutUser);
 
 userRouter.get("/refresh", updateAcessToken);
 
-userRouter.get("/me",updateAcessToken, isAuthenticated, getUserInfo);
+userRouter.get("/me", updateAcessToken, isAuthenticated, getUserInfo);
 
 userRouter.post("/social-auth", socialAuth);
 
-userRouter.put("/updateUser", updateAcessToken,isAuthenticated, updateUserInfo);
+userRouter.put("/updateUser", updateAcessToken, isAuthenticated, updateUserInfo);
 
-userRouter.put("/updatePassword",updateAcessToken, isAuthenticated, updatePassword);
+userRouter.put("/updatePassword", updateAcessToken, isAuthenticated, updatePassword);
 
-userRouter.put("/updateAvatar",updateAcessToken, isAuthenticated, updateProfilePicture);
+userRouter.put("/updateAvatar", updateAcessToken, isAuthenticated, updateProfilePicture);
 
 userRouter.get(
   "/get-all-users",
