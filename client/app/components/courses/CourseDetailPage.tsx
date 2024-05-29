@@ -39,6 +39,7 @@ const CourseDetailPage: FC<Props> = ({ courseId }) => {
       const amount = Math.round(data.course.price * 100)
       newPaymentAction({amount})
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyConfig, data])
 
 

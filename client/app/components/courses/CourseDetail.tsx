@@ -34,7 +34,8 @@ const CourseDetail: FC<Props> = ({ course, stripePrmoise, clientSecret }) => {
   const isPurchased =
     user && user?.courses.find((item: any) => item?._id === course?._id);
 
-  const reviews = course?.reviews.reverse()
+  const courseReview = course?.reviews
+  const reviews = courseReview
 
   const handleOrder = () => {
     setOpenPaymentModal(true)
@@ -102,7 +103,7 @@ const CourseDetail: FC<Props> = ({ course, stripePrmoise, clientSecret }) => {
               {/* Reviews  */}
 
             </div>
-            <div className="800px:flex">
+            <div className="">
               {
                 reviews?.map((review: any, index: number) => (
                   <CourseReviews key={review._id} review={review} />
@@ -163,7 +164,7 @@ const CourseDetail: FC<Props> = ({ course, stripePrmoise, clientSecret }) => {
               stripePrmoise && clientSecret && <Elements stripe={stripePrmoise} options={{
                 clientSecret
               }} >
-                <CheckoutForm course={course}/>
+                <CheckoutForm course={course} />
               </Elements>
             }
           </PopUp>
