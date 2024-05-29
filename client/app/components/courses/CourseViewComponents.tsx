@@ -93,10 +93,13 @@ export const CourseReviews = ({ review, user, canReplyReview = false, handleRevi
                                     : "Hide Replies"}
                             </span>
                         }
+                       {review?.commentReplies?.length !== 0 && <>
                         <BiMessage size={20} className="cursor-pointer" />
                         <span className="pl-1 mt-[-4px]">
                             {review?.commentReplies?.length}
                         </span>
+                       </>
+                        }
                     </div>
                 </div>
             }
