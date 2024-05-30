@@ -29,7 +29,7 @@ export const uploadCourse = catchAsyncError(
           url: myCloud.secure_url,
         };
       }
-
+      await redis.del("getAllCourses");
       createCourse(data, res, next);
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
@@ -41,7 +41,7 @@ export const editCourse = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = req.body;
-      console.log("backend", data)
+      console.log("backend", data);
       const thumbnail = data.thumbnail;
       if (!thumbnail?.public_id) {
         // await cloudinary.v2.uploader.destroy(thumbnail.public_id);
@@ -54,7 +54,7 @@ export const editCourse = catchAsyncError(
           url: myCloud.secure_url,
         };
       }
-      console.log("hey i am")
+      console.log("hey i am");
       const courseId = req.params.id;
 
       const course = await courseModel.findByIdAndUpdate(
@@ -325,7 +325,7 @@ export const addAnswer = catchAsyncError(
         user: req.user,
         answer,
         createAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
       };
 
       // add this answer to our course content
@@ -409,7 +409,7 @@ export const addReview = catchAsyncError(
         comment: review,
         rating,
       };
-      await redis.del(course?._id)
+      await redis.del(course?._id);
 
       course?.reviews.push(reviewData);
 
@@ -471,7 +471,7 @@ export const addReplyToReview = catchAsyncError(
         user: req.user,
         comment,
         createAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
       };
 
       if (!review.commentReplies) {
@@ -479,7 +479,7 @@ export const addReplyToReview = catchAsyncError(
       }
       review.commentReplies?.push(replyData);
       // const before = await redis.get(course?._id)
-      await redis.del(course?._id)
+      await redis.del(course?._id);
       // const after = await redis.get(course?._id)
       // console.log({before, after})
       // await redis.set(courseId, JSON.stringify(course));
