@@ -62,7 +62,8 @@ const CourseDetailPage: FC<Props> = ({ courseId }) => {
         setRoute={setRoute}
         route={route}
       />
-      {isLoading ? <Loader /> : <CourseDetail course={data?.course} stripePrmoise={stripePromise} clientSecret={clientSecret} />}
+      {isLoading ? <Loader /> : <CourseDetail setRoute={setRoute} setOpen={setOpen}
+ course={data?.course} stripePrmoise={stripePromise} clientSecret={clientSecret} />}
       <Footer />
     </>
   );

@@ -16,11 +16,13 @@ import CheckoutForm from "../orders/CheckoutForm";
 type Props = {
   course: any;
   clientSecret?: any,
-  stripePrmoise?: any
+  stripePrmoise?: any,
+  setRoute?:any,
+  setOpen?:any,
 };
 
 
-const CourseDetail: FC<Props> = ({ course, stripePrmoise, clientSecret }) => {
+const CourseDetail: FC<Props> = ({ course, stripePrmoise, clientSecret ,setRoute , setOpen }) => {
   const { user } = useSelector((state: any) => state.auth);
   const [openPaymentModal, setOpenPaymentModal] = useState(false)
   const ratings = Number(course?.ratings)
@@ -38,7 +40,13 @@ const CourseDetail: FC<Props> = ({ course, stripePrmoise, clientSecret }) => {
   const reviews = courseReview
 
   const handleOrder = () => {
-    setOpenPaymentModal(true)
+    if(user){
+      setOpenPaymentModal(true)
+    }
+    else{
+      setRoute('Login')
+      setOpen(true)
+    }
   }
   return (
     <div>
