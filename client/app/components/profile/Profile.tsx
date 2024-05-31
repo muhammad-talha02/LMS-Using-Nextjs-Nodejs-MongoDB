@@ -4,7 +4,7 @@ import React, { FC, useState } from 'react'
 import SidebarProfile from './SidebarProfile'
 import { useLogoutQuery } from '@/redux/features/auth/authApi'
 import { signOut, useSession } from 'next-auth/react'
-import { redirect } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import ProfileInfo from './ProfileInfo'
 import ChangePassword from './ChangePassword'
@@ -14,7 +14,7 @@ type Props = {
 }
 
 const Profile: FC<Props> = ({ user }) => {
-
+const router = useRouter()
   const [scroll, setScroll] = useState(false)
   const [active, setActive] = useState(1)
   const [avatar, setAvatar] = useState(null)
@@ -33,6 +33,7 @@ const Profile: FC<Props> = ({ user }) => {
     if (data !== null) {
       await signOut()
     }
+    router.push('/')
     // toast.success("Logout Sucessfully")
   }
 
