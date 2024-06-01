@@ -340,7 +340,7 @@ export const addAnswer = catchAsyncError(
         await NotificationModel.create({
           userId: req.user?._id,
           title: "Answer on a Question",
-          message: `You have a new Order for ${courseContent?.title}`,
+          message: `${req.user?.name} reply on a question in ${courseContent?.title}`,
         });
       } else {
         const data = {

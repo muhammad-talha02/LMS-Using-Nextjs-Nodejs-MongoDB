@@ -1,26 +1,34 @@
 import useMutation from '@/app/_hooks/useMutation'
 import { styles } from '@/app/styles/style'
+import { socketId } from '@/app/utils/socket'
 import { useCreateOrderMutation } from '@/redux/features/orders/orderApi'
 import { LinkAuthenticationElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { redirect } from 'next/navigation'
-import React, { useState } from 'react'
-import Loader from '../Loader/Loader'
+import { useState } from 'react'
+
 
 type Props = {
-    course: any
+    course: any,
+    user:any
 }
 
-const CheckoutForm = ({ course }: Props) => {
+const CheckoutForm = ({ course , user }: Props) => {
 
     const stripe = useStripe()
     const elements = useElements()
     const [message, setMessage] = useState<any>()
     const [isLoading, setIsLoading] = useState(false)
     const [redirecting, setRedirecting] = useState(false)
+    // const {data:user} = useLoadUserQuery({})
     const { actionApi: createOrder, result } = useMutation({
         api: useCreateOrderMutation,
         successMsg:"Course Purchased Successfully",
         successFunc: () => {
+            socketId.emit("notification", {
+                title:"New Order 😍",
+                message: `You have a new Order from ${course?.name}`,
+                userId:user?._id
+            })
             redirect(`/courses/course-access/${course?._id}`)
         }
 

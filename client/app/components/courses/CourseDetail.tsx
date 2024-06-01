@@ -172,7 +172,7 @@ const CourseDetail: FC<Props> = ({ course, stripePrmoise, clientSecret ,setRoute
               stripePrmoise && clientSecret && <Elements stripe={stripePrmoise} options={{
                 clientSecret
               }} >
-                <CheckoutForm course={course} />
+                <CheckoutForm course={course} user={user}/>
               </Elements>
             }
           </PopUp>

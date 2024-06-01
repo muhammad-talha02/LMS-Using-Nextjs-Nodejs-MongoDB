@@ -3,7 +3,7 @@ import toast from 'react-hot-toast'
 
 type Props = {
     api: any,
-    successMsg?: string,
+    successMsg?: any,
     successFunc?: () => void
 }
 
@@ -12,7 +12,9 @@ const useMutation = ({ api, successMsg = "Success", successFunc }: Props) => {
 console.log("Mutation caaling")
     useEffect(() => {
         if (result.isSuccess) {
-            toast.success(successMsg)
+            if(successMsg){
+                toast.success(successMsg)
+            }
             if (successFunc) {
                 successFunc()
             }

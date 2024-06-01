@@ -16,6 +16,7 @@ import {
 } from "@/redux/features/courses/coursesApi";
 import toast from "react-hot-toast";
 import { CourseReviews } from "./CourseViewComponents";
+import { socketId } from "@/app/utils/socket";
 
 type Props = {
   courseContentData: any;
@@ -51,6 +52,15 @@ const CourseContentMedia: FC<Props> = (props) => {
   const { actionApi: addAnswerAction, result: ResultAnswer } = useMutation({
     api: useAddAnswerMutation,
     successMsg: "Answer Added Successfully",
+    successFunc:()=>{
+      if(user?.role !== 'admin'){
+        socketId.emit("notification", {
+          title:"New Reply Recieved",
+          message: `${user?.name} Reply on a question in ${courseContentData?.[activeVideo].title}`,
+          userId:user?._id
+        })
+      }
+    }
   });
 
   //? Api - add Review in Course
@@ -59,6 +69,11 @@ const CourseContentMedia: FC<Props> = (props) => {
     successMsg: "Review Added Successfully",
     successFunc() {
       refetchCourse();
+      socketId.emit("notification", {
+        title:"New Review Recieved",
+        message: `You have a new Review in Course ${courseContentData?.[activeVideo].title}`,
+        userId:user?._id
+      })
     },
   });
 
@@ -68,6 +83,13 @@ const CourseContentMedia: FC<Props> = (props) => {
     successMsg: "Reply Added Successfully",
     successFunc() {
       refetchCourse();
+      // if(user?.role !== 'admin'){
+      //   socketId.emit("notification", {
+      //     title:"New Reply Recieved",
+      //     message: `${user?.name} Reply on a question in ${courseContentData?.[activeVideo].title}`,
+      //     userId:user?._id
+      //   })
+      // }
     },
   });
   const courseResources = courseContentData?.[activeVideo].links;
