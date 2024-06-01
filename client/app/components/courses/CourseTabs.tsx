@@ -1,6 +1,7 @@
 import useMutation from "@/app/_hooks/useMutation";
 import { styles } from "@/app/styles/style";
 import { noAvatar } from "@/app/utils/constants";
+import { socketId } from "@/app/utils/socket";
 import {
   useAddAnswerMutation,
   useAddNewQuestionMutation,
@@ -92,6 +93,11 @@ const QuestionsAnswersTab: FC<QProps> = ({ user, activeVideo, courseId }) => {
     successMsg: "Question Added Successfully",
     successFunc: () => {
       setQuestion("");
+      socketId.emit("notification", {
+        title:"New Question Recieved",
+        message: `You have a new Question in ${activeVideo?.title}`,
+        userId:user?._id
+      })
     },
   });
   console.log("vd", activeVideo);
