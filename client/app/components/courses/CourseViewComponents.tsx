@@ -130,7 +130,7 @@ export const CourseReviews = ({ review, user, canReplyReview = false, handleRevi
                             </div>
                         ))}
                         {
-                            user?.role === "admin" &&
+                            user?.role === "admin" && review?.commentReplies?.length === 0 &&
 
                             <div className="w-full flex relative gap-2">
                                 <input

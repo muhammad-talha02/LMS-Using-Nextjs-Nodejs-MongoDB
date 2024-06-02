@@ -11,6 +11,9 @@ import MenuItems from "./Icon";
 import { FaHamburger } from "react-icons/fa";
 
 import "./admin.css"
+import { useLogoutQuery } from "@/redux/features/auth/authApi";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 interface ItemProps {
     menu: {
         title: string;
@@ -21,10 +24,13 @@ interface ItemProps {
     collapsed?: boolean,
     selected: string;
     setSelected: (selected: string) => void;
+    handleLogout:any
 }
 
+
+
 const Item: FC<ItemProps> = (props) => {
-    const { selected, menu, collapsed, label, setSelected } = props;
+    const { selected, menu, collapsed, label, setSelected ,handleLogout} = props;
     return (
         <div className="MenuItem">
             {!collapsed && <Typography className="py-2 px-5">{label}</Typography>}
@@ -32,7 +38,13 @@ const Item: FC<ItemProps> = (props) => {
 
                 {
                     menu?.map(({ title, Icon, to }) => (
-                        <Link key={title} href={to} onClick={() => setSelected(title)} className={`px-5 my-2 text-[12px] mt-4 flex gap-3 hover:text-[--t-blue] hover:scale-y-105 ${selected === title && "text-[--t-blue]"}`}>
+                        <Link key={title} href={to} onClick={() => {
+                            setSelected(title)
+                            if(title === "Logout"){
+                                handleLogout()
+                            }
+                        }}
+                         className={`px-5 my-2 text-[12px] mt-4 flex gap-3 hover:text-[--t-blue] hover:scale-y-105 ${selected === title && "text-[--t-blue]"}`}>
                             <Icon />
                             {!collapsed && <span className="text-[16px]">{title}</span>}
                         </Link>
@@ -51,17 +63,31 @@ interface SidebarProps {
 }
 const AdminSidebar: FC<SidebarProps> = (props) => {
     const { collapsed, setCollapsed } = props
+    const router = useRouter()
     const { user } = useSelector((state: any) => state.auth);
-    const [logout, setLogout] = useState(false);
     const [selected, setSelected] = useState("Dashboard");
+    const [logout, setLogout] = useState(false);
     const [mounted, setMounted] = useState(false);
     const { theme } = useTheme();
+    const { data } = useSession();
+
+    const {} = useLogoutQuery(undefined, {
+        skip: !logout,
+      });
 
     useEffect(() => {
         setMounted(true);
     }, []);
     if (!mounted) {
         return;
+    }
+
+    const handleLogout =async ()=>{
+        setLogout(true);
+    if (data !== null) {
+      await signOut();
+    }
+    router.push("/");
     }
     return (
         <div className={`sidebar z-[999] bg-[#f7f7f7] dark:bg-black fixed left-0 top-0 h-full transition-[width] duration-900 ${collapsed ? "w-[60px]" : "w-[280px]"}`}>
@@ -97,7 +123,7 @@ const AdminSidebar: FC<SidebarProps> = (props) => {
                 {
                     MenuItems.map((item: any) => {
                         return <>
-                            <Item key={item.label} collapsed={collapsed} label={item.label} menu={item.subMenu} selected={selected} setSelected={setSelected} />
+                            <Item key={item.label} collapsed={collapsed} label={item.label} menu={item.subMenu} selected={selected} setSelected={setSelected} handleLogout={handleLogout} />
                         </>
                     })
                 }

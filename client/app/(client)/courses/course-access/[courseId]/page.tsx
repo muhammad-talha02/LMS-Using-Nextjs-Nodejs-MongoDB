@@ -22,7 +22,7 @@ const CourseAccessPage = ({ params }: Props) => {
         redirect(`/courses/course/${courseId}`)
       }
     }
-  }, [userData, error])
+  }, [userData, error, courseId])
   return (
     <>
       {
