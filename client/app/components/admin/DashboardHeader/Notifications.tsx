@@ -16,7 +16,7 @@ const Notifications: FC<NotificationsProps> = (props) => {
   const notificationsRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
-  const [audio, setAudio] = useState<any>(
+  const [audio] = useState<any>(
     new Audio(
       "https://res.cloudinary.com/dv5idxfb9/video/upload/v1717277830/notification-9-158194_vedanz.mp3"
     )

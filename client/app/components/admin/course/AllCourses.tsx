@@ -7,7 +7,7 @@ import { AiOutlineDelete } from 'react-icons/ai'
 import { FiEdit2 } from 'react-icons/fi'
 import TableWrapper from '../TableWrapper'
 import { useDeleteCourseMutation, useGetAllCoursesQuery } from '@/redux/features/courses/coursesApi'
-import {format} from "timeago.js"
+import { format } from "timeago.js"
 import ConfirmModal from '../../Generic/Modals/ConfirmModal'
 import { DeleteAction } from './courseActions'
 import useMutation from '@/app/_hooks/useMutation'
@@ -24,11 +24,11 @@ const AllCourses = (props: Props) => {
   const { actionApi: DeleteCourseAction } = useMutation({
     api: useDeleteCourseMutation,
     successMsg: "Course Delete Successfully",
-    })
-//! -- Handle Delete Course
-const handleDeleteCourse = async (userId: number) => {
+  })
+  //! -- Handle Delete Course
+  const handleDeleteCourse = async (userId: number) => {
     await DeleteCourseAction(userId)
-}
+  }
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "title", headerName: "Course title", flex: 1 },
@@ -42,7 +42,7 @@ const handleDeleteCourse = async (userId: number) => {
       renderCell: (param: any) => {
         return (
           <>
-            <Link href={{pathname:`/dashboard/courses/edit-course/${param.row.id}`}}>
+            <Link href={{ pathname: `/dashboard/courses/edit-course/${param.row.id}` }}>
               <FiEdit2 size={20} className='dark:text-white text-black' />
             </Link>
           </>
@@ -56,8 +56,8 @@ const handleDeleteCourse = async (userId: number) => {
       renderCell: (param: any) => {
         return (
           <>
-            <DeleteAction action={()=> handleDeleteCourse(param.row.id)}/>
-        </>
+            <DeleteAction action={() => handleDeleteCourse(param.row.id)} />
+          </>
         )
       }
     }
@@ -73,7 +73,7 @@ const handleDeleteCourse = async (userId: number) => {
       rows.push({
         id: item?._id,
         title: item.name,
-        ratings: item.ratings,
+        ratings: Number.isInteger(item.ratings) ? Number(item.ratings)?.toFixed(1) : Number(item.ratings)?.toFixed(2) || '',
         purchased: item.purchased,
         created_at: format(item.createdAt)
       })
@@ -82,7 +82,7 @@ const handleDeleteCourse = async (userId: number) => {
   return (
     <div className=''>
       <Box m="20px">
-        {isLoading ? <DataLoader/> : <TableWrapper>
+        {isLoading ? <DataLoader /> : <TableWrapper>
           <DataGrid checkboxSelection columns={columns} rows={rows} />
 
         </TableWrapper>}
