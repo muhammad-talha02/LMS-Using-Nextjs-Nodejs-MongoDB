@@ -12,7 +12,7 @@ const FAQPage = () => {
   return (
     <>
       <Heading
-        title={"Privacy Policy - Compile Academy"}
+        title={"Faqs - Compile Academy"}
         description="Compile academy is a platform for students to learn and enhance skills."
         keywords={"Compile Academy about"}
       />
@@ -23,7 +23,7 @@ const FAQPage = () => {
         setRoute={setRoute}
         route={route}
       />
-      <div className="min-h-[90vh]">
+      <div className="min-h-screen">
       <FAQs />
 
       </div>
