@@ -29,21 +29,21 @@ const RouteLoader = ({ children, loading, setLoading }: Props) => {
     console.log("Old Path -->", currentPath.current)
     console.log("State -->", loading)
 
-    useEffect(() => {
-        // setLoading(true)
-        // const url = pathname + params.toString()
-        console.log("Use effect-->")
-        if (currentPath.current !== pathname) {
-            console.log("etting pah")
-            setLoading(true)
-            currentPath.current = pathname
-        }
-        if (currentPath.current === pathname) {
-            console.log("CLosing...")
-            setLoading(false)
-        }
+    // useEffect(() => {
+    //     // setLoading(true)
+    //     // const url = pathname + params.toString()
+    //     console.log("Use effect-->")
+    //     if (currentPath.current !== pathname) {
+    //         console.log("etting pah")
+    //         setLoading(true)
+    //         currentPath.current = pathname
+    //     }
+    //     if (currentPath.current === pathname) {
+    //         console.log("CLosing...")
+    //         setLoading(false)
+    //     }
 
-    }, [currentPath.current])
+    // }, [currentPath.current])
 
 
 

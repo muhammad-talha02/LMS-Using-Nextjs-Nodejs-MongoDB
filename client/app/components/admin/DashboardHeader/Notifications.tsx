@@ -16,11 +16,7 @@ const Notifications: FC<NotificationsProps> = (props) => {
   const notificationsRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
-  const [audio] = useState<any>(
-    new Audio(
-      "https://res.cloudinary.com/dv5idxfb9/video/upload/v1717277830/notification-9-158194_vedanz.mp3"
-    )
-  );
+  const [audio, setAudio] = useState<any>();
 
   //? APi - Get All Notifications
   const { data, refetch } = useGetAllNotificationsQuery(
@@ -33,9 +29,9 @@ const Notifications: FC<NotificationsProps> = (props) => {
   const { actionApi: updateNotificationStatus } = useMutation({
     api: useUpdateNotificationsMutation,
     successMsg: false,
-    successFunc:()=>{
-      refetch()
-    }
+    successFunc: () => {
+      refetch();
+    },
   });
 
   const TotalUnreadNotifications = data?.notifications?.filter(
@@ -52,13 +48,22 @@ const Notifications: FC<NotificationsProps> = (props) => {
   };
 
   useEffect(() => {
+    setAudio(
+      new Audio(
+        "https://res.cloudinary.com/dv5idxfb9/video/upload/v1717277830/notification-9-158194_vedanz.mp3"
+      )
+    );
+  }, []);
+
+  useEffect(() => {
     if (data) {
       setNotifications(
         data?.notifications?.filter((item: any) => item.status === "unread")
       );
     }
-
-    audio.load();
+    if (audio) {
+      audio.load();
+    }
   }, [data, audio]);
 
   useEffect(() => {
@@ -66,7 +71,7 @@ const Notifications: FC<NotificationsProps> = (props) => {
       refetch();
       playNotificationSound();
     });
-  }, []);
+  }, [refetch]);
 
   //! Effect to Hide Notification Box on Outside click
   useEffect(() => {
@@ -109,14 +114,22 @@ const Notifications: FC<NotificationsProps> = (props) => {
             Notifications
           </Typography>
           <div className="w-full">
-            {notifications && notifications?.length > 0 ?
+            {notifications && notifications?.length > 0 ? (
               notifications?.map((notification: any) => {
                 return (
                   <>
-                    <NotifyBox notification={notification} handleUpdateNotifications={handleUpdateNotifications} />
+                    <NotifyBox
+                      notification={notification}
+                      handleUpdateNotifications={handleUpdateNotifications}
+                    />
                   </>
                 );
-              }) : <p className="text-center mt-1 text-[12px]">No new notification</p>}
+              })
+            ) : (
+              <p className="text-center mt-1 text-[12px]">
+                No new notification
+              </p>
+            )}
           </div>
         </Paper>
       )}
@@ -145,8 +158,7 @@ const NotifyBox = ({ notification, handleUpdateNotifications }: any) => {
           {notification?.message}
           {/* Hi, I want to buy a course from your side so please update me about how can i know about more about your features. */}
         </Typography>
-        <small>            {format(notification.createdAt)}
-</small>
+        <small> {format(notification.createdAt)}</small>
       </div>
     </>
   );

@@ -13,7 +13,7 @@ const Protected = ({ children }: Props) => {
     const { data, isLoading } = useLoadUserQuery({})
     // console.log("User")
     // alert("hey")
-console.log("object", data)
+// console.log("object", data)
     if (isLoading) return <Loader />
     return data?.user ? children : redirect('/')
 }
