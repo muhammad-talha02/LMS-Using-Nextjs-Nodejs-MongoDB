@@ -76,18 +76,18 @@ const Header: FC<Props> = (props) => {
         }
     };
 
-    useEffect(() => {
+    // useEffect(() => {
 
         if (typeof window !== undefined) {
             window.addEventListener("scroll", () => {
-                if (window.scrollY > 80) {
+                if (window.scrollY > 90) {
                     setActive(true);
                 } else {
                     setActive(false);
                 }
             });
         }
-    }, [])
+    // }, [])
     return (
         <div className="w-full relative">
             <div

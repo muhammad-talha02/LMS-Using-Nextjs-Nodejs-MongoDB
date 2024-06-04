@@ -25,7 +25,7 @@ const Page = (props: Props) => {
                     description="Compile academy is a platform for students to learn and enhance skills."
                     keywords="Programming,MERN,Machine Learning"
                 />
-                <Header open={open} setOpen={setOpen} activeItem={activeItem} setRoute={setRoute} route={route} />
+                <Header open={open} setOpen={setOpen} activeItem={6} setRoute={setRoute} route={route} />
 
                 <Profile user={user} />
             </Protected>
