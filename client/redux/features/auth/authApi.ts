@@ -29,7 +29,6 @@ export const authApi = apiSlice.injectEndpoints({
             })
           );
         } catch (error: any) {
-          console.log("REsgitration error", error);
         }
       },
     }),

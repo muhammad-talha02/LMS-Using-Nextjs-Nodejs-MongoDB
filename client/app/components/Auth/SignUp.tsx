@@ -31,7 +31,6 @@ const SignUp: FC<Props> = ({ setRoute }: Props) => {
         }
         if (result.error) {
             const errorData = result.error as any
-            console.log(result)
             toast.error(`Error: ${errorData?.data.message}`)
 
         }
@@ -43,7 +42,6 @@ const SignUp: FC<Props> = ({ setRoute }: Props) => {
         initialValues: { name: "", email: "", password: '' },
         validationSchema: validationSchema,
         onSubmit: async (values) => {
-            // console.log("Values -->", values)
             const data = {
                 name: values.name,
                 email: values.email,

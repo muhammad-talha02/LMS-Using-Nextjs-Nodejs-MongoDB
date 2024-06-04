@@ -13,7 +13,6 @@ const CourseAccessPage = ({ params }: Props) => {
   const courseId = params.courseId;
 
   const { isLoading, error, data: userData } = useLoadUserQuery({})
-  console.log(userData?.user, "user")
 
   useEffect(() => {
     if (userData) {

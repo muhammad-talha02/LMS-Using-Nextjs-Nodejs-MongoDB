@@ -19,11 +19,12 @@ const DashboardWidgets = (props: Props) => {
     const {data:AllUsersData } = useGetAllUsersQuery({}, { refetchOnMountOrArgChange: true })
     const usersCount = AllUsersData?.users ? AllUsersData?.users?.length + "+" : "..."
     const ordersCount = AllOrdersData?.orders ? AllOrdersData?.orders?.length + "+" : "..."
+    const earningsCount = AllOrdersData?.orders ?  "25500$" : "..."
     return (
         <div className='w-full mt-5'>
             <Grid container xs={12} display={"flex"} justifyContent={"space-around"} rowGap={2}>
                 <Grid item lg={4} md={6} xs={12} px={2}>
-                    <WidgetCard Icon={<LocalAtmIcon fontSize={"large"} color='warning' />} label='Earnings' value="5500$" circleColor='warning' />
+                    <WidgetCard Icon={<LocalAtmIcon fontSize={"large"} color='warning' />} label='Earnings' value={earningsCount}circleColor='warning' />
                 </Grid>
                 <Grid item lg={4} md={6} xs={12} px={2}>
                     <WidgetCard Icon={<GroupIcon fontSize={"large"} color='info' />} label='Users' value={usersCount} circleColor='info' />

@@ -11,9 +11,7 @@ type Props = {
 const Protected = ({ children }: Props) => {
     const isAuthenticated = useAuth()
     const { data, isLoading } = useLoadUserQuery({})
-    // console.log("User")
-    // alert("hey")
-// console.log("object", data)
+ 
     if (isLoading) return <Loader />
     return data?.user ? children : redirect('/')
 }

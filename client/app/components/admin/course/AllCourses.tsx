@@ -62,7 +62,6 @@ const AllCourses = (props: Props) => {
       }
     }
   ]
-  console.log(AllCourses)
 
   const rows: any = [
 
