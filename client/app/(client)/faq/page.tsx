@@ -19,7 +19,7 @@ const FAQPage = () => {
       <Header
         open={open}
         setOpen={setOpen}
-        activeItem={2}
+        activeItem={4}
         setRoute={setRoute}
         route={route}
       />

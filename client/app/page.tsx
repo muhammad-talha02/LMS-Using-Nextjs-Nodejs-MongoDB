@@ -1,5 +1,4 @@
 "use client"
-
 import { FC, useState } from "react"
 import Heading from "./utils/Heading"
 import Header from "./components/Header"
@@ -10,10 +9,7 @@ import FAQs from "./components/home/FAQ"
 import Footer from "./components/Footer"
 
 
-interface Props {
-
-}
-const Page: FC<Props> = (props) => {
+const Page = () => {
   const [open, setOpen] = useState(false)
   const [activeItem, setActiveItem] = useState(0)
   const [route, setRoute] = useState("Login")
@@ -26,13 +22,12 @@ const Page: FC<Props> = (props) => {
       />
       <Header open={open} setOpen={setOpen} activeItem={activeItem} setRoute={setRoute} route={route} />
       <div className="w-full max-w-[1200px] m-auto">
-
         <Hero />
         <Courses />
         <Reviews />
         <FAQs />
       </div>
-        <Footer/>
+      <Footer />
     </>
   )
 }

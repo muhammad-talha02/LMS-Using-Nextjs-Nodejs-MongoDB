@@ -18,7 +18,7 @@ const PrivacyPage = () => {
       <Header
         open={open}
         setOpen={setOpen}
-        activeItem={2}
+        activeItem={3}
         setRoute={setRoute}
         route={route}
       />
