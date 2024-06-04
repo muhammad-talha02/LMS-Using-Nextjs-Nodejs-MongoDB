@@ -61,5 +61,4 @@ cron.schedule("0 0 0 * * *", async function () {
     status: "read",
     createdAt: { $lt: thirtyDaysAgo },
   });
-  console.log("Deleted read notifications")
 });

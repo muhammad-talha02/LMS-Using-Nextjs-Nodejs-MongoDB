@@ -96,7 +96,6 @@ const CourseContentMedia: FC<Props> = (props) => {
   const isUserReviewExist = courseData && courseData?.course?.reviews?.find(
     (item: any) => item?.user?._id === user?._id
   );
-  console.log("review", isUserReviewExist)
 
   //* handle Answer Submit
   const handleAnswerSubmit = async (questionId: any, answer: string) => {

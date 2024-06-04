@@ -25,9 +25,6 @@ const RouteLoader = ({ children, loading, setLoading }: Props) => {
     const pathname = usePathname();
     const params = useSearchParams();
     const currentPath = useRef(pathname)
-    console.log("CurrentPath Path -->", pathname)
-    console.log("Old Path -->", currentPath.current)
-    console.log("State -->", loading)
 
     // useEffect(() => {
     //     // setLoading(true)

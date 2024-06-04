@@ -23,8 +23,6 @@ const EditCourse: FC<Props> = (props) => {
         }
     })
 
-    console.log("data", singleCourseData)
-
 
     const [active, setActive] = useState(0)
     const [benefits, setBenefits] = useState([{ title: "Problem" }])
@@ -105,7 +103,6 @@ const EditCourse: FC<Props> = (props) => {
         if (!result.isLoading) {
             await UpdateCourse({ data, id: courseId })
         }
-        console.log("Course Data", courseData)
     }
 
 

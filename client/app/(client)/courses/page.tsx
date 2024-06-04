@@ -50,8 +50,7 @@ const CoursesPage = (props: Props) => {
 
   const handleCategory = (category: string) => {
       const params:any = new URLSearchParams(searchParams?.toString());
-      console.log("courses", pathname)
-      
+    
       params?.delete("title")
       replace(`${pathname}`)
       setCategories(category)

@@ -45,7 +45,6 @@ const CourseContentList: FC<Props> = (props) => {
         const sectionVideos: any[] = courseData.filter((item: any) => {
           return item.videoSection === section;
         });
-        console.log("section", sectionVideos)
 
         const sectionVideoCount: number = sectionVideos.length;
         const sectionVideoLength: number = sectionVideos.reduce(
@@ -95,7 +94,7 @@ const CourseContentList: FC<Props> = (props) => {
                     return (
                       <>
                         <div
-                          className={`w-full ${videoIndex === activeVideo ? "bg-slate-800" : ""
+                          className={`w-full ${videoIndex === activeVideo ? "dark:bg-slate-800 bg-slate-200" : ""
                             } cursor-pointer transition-all p-2`}
                           onClick={() => {
                             isDemo ? null : setActiveVideo(videoIndex);

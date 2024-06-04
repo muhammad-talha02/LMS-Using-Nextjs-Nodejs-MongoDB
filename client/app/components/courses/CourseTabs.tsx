@@ -46,8 +46,8 @@ export const CourseReviewForm = ({ user, handleReviewSubmit, ResultReview }: any
             cols={40}
             rows={5}
             placeholder="write your review"
-            className="outline-none bg-transparent ml-3 border border-[#ffffff57] 800px:w-full p-2 rounded w-[90%] 800px:text-[18px] font-Poppins"
-          ></textarea>
+            className="bg-transparent ml-3 border border-gray-600 dark:border-[#ffffff57] 800px:w-full p-2 rounded w-[90%] 800px:text-[18px] font-Poppins"
+            ></textarea>
         </div>
       </div>
       <div className="w-full flex justify-end">
@@ -100,7 +100,6 @@ const QuestionsAnswersTab: FC<QProps> = ({ user, activeVideo, courseId }) => {
       })
     },
   });
-  console.log("vd", activeVideo);
   const handleCreateQuestion = async () => {
     if (question.length === 0) {
       toast.error("Question can't be empty ");

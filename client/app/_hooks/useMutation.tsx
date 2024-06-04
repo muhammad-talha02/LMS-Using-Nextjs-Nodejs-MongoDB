@@ -9,7 +9,6 @@ type Props = {
 
 const useMutation = ({ api, successMsg = "Success", successFunc }: Props) => {
     const [actionApi, result] = api()
-console.log("Mutation caaling")
     useEffect(() => {
         if (result.isSuccess) {
             if(successMsg){
@@ -21,7 +20,6 @@ console.log("Mutation caaling")
 
         }
         if (result.isError) {
-            console.log("Error ->", result.error.message)
             toast.error(result.error.data.message || "Error")
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

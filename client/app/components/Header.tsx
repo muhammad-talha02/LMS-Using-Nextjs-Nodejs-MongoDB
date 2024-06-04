@@ -42,8 +42,6 @@ const Header: FC<Props> = (props) => {
     })
 
     const [socialLogin, result] = useSocialAuthMutation()
-    console.log("d", data)
-
 
     // Success or Error Message
     useEffect(() => {
@@ -54,7 +52,6 @@ const Header: FC<Props> = (props) => {
                     name: data?.user?.name,
                     avatar: data?.user?.image,
                 })
-                console.log("Loginsndnn")
             }
         }
         if (result.isSuccess) {

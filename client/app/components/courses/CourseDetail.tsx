@@ -38,7 +38,6 @@ const CourseDetail: FC<Props> = ({
   const discountPercentage =
     ((course?.estimatedPrice - course?.price) / course?.estimatedPrice) * 100;
   const discountPercentagePrice = discountPercentage.toFixed(0);
-  console.log(discountPercentage, "user");
 
   const isPurchased =
     user && user?.courses.find((item: any) => item?._id === course?._id);

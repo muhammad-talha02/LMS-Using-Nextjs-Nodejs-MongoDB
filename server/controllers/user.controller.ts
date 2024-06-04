@@ -233,7 +233,6 @@ export const updateAcessToken = catchAsyncError(
       //   success: true,
       //   accessToken,
       // });
-      console.log("User is commign")
       next()
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
