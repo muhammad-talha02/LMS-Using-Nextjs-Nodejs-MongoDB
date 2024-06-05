@@ -34,10 +34,8 @@ const ProfileInfo: FC<Props> = ({ user, avatar }) => {
     const imageHandler = (e: any) => {
 
         const fileReader = new FileReader()
-        console.log(fileReader)
         fileReader.onload = () => {
             if (fileReader.readyState === 2) {
-                console.log(fileReader)
                 UpdateAvatar({
                     avatar: fileReader.result
                 })

@@ -15,39 +15,44 @@ import CheckoutForm from "../orders/CheckoutForm";
 
 type Props = {
   course: any;
-  clientSecret?: any,
-  stripePrmoise?: any,
-  setRoute?:any,
-  setOpen?:any,
+  clientSecret?: any;
+  stripePrmoise?: any;
+  setRoute?: any;
+  setOpen?: any;
 };
 
-
-const CourseDetail: FC<Props> = ({ course, stripePrmoise, clientSecret ,setRoute , setOpen }) => {
+const CourseDetail: FC<Props> = ({
+  course,
+  stripePrmoise,
+  clientSecret,
+  setRoute,
+  setOpen,
+}) => {
   const { user } = useSelector((state: any) => state.auth);
-  const [openPaymentModal, setOpenPaymentModal] = useState(false)
-  const ratings = Number(course?.ratings)
-  const courseRating = Number.isInteger(ratings) ? ratings.toFixed(1) : ratings.toFixed(2)
+  const [openPaymentModal, setOpenPaymentModal] = useState(false);
+  const ratings = Number(course?.ratings);
+  const courseRating = Number.isInteger(ratings)
+    ? Number(ratings).toFixed(1)
+    : Number(ratings).toFixed(2);
 
   const discountPercentage =
     ((course?.estimatedPrice - course?.price) / course?.estimatedPrice) * 100;
   const discountPercentagePrice = discountPercentage.toFixed(0);
-  console.log(discountPercentage, "user");
 
   const isPurchased =
     user && user?.courses.find((item: any) => item?._id === course?._id);
 
-  const courseReview = course?.reviews
-  const reviews = courseReview
+  const courseReview = course?.reviews;
+  const reviews = courseReview;
 
   const handleOrder = () => {
-    if(user){
-      setOpenPaymentModal(true)
+    if (user) {
+      setOpenPaymentModal(true);
+    } else {
+      setRoute("Login");
+      setOpen(true);
     }
-    else{
-      setRoute('Login')
-      setOpen(true)
-    }
-  }
+  };
   return (
     <div>
       <div className="w-[90%] m-auto py-5">
@@ -84,7 +89,10 @@ const CourseDetail: FC<Props> = ({ course, stripePrmoise, clientSecret ,setRoute
             </div>
             <div>
               <h1 className="text-[28px] font-semibold">Couse Overview</h1>
-              <CourseContentList courseData={course?.courseData} isDemo={true} />
+              <CourseContentList
+                courseData={course?.courseData}
+                isDemo={true}
+              />
             </div>
             <div className="w-full">
               {/* Course Rating * {course?.reviews?.length} Reviews */}
@@ -97,27 +105,20 @@ const CourseDetail: FC<Props> = ({ course, stripePrmoise, clientSecret ,setRoute
             <div className="w-full">
               <div className="800px:flex block item-center gap-2">
                 <Rating
-                  value={3.5}
+                  value={Number(courseRating)}
                   precision={0.5}
                   emptyIcon={<StarBorder className="text-[orange]" />}
                 />
                 <h5 className="text-[20px] font-Poppins">
-                  {
-                    courseRating
-                  }
-                  {' '}  Course Rating + {reviews?.length || 0} Reviews
+                  {courseRating} Course Rating + {reviews?.length || 0} Reviews
                 </h5>
               </div>
               {/* Reviews  */}
-
             </div>
             <div className="">
-              {
-                reviews?.map((review: any, index: number) => (
-                  <CourseReviews key={review._id} review={review} />
-                ))
-              }
-
+              {reviews?.map((review: any, index: number) => (
+                <CourseReviews key={review._id} review={review} />
+              ))}
             </div>
             <br />
           </div>
@@ -128,32 +129,36 @@ const CourseDetail: FC<Props> = ({ course, stripePrmoise, clientSecret ,setRoute
               <CoursePlayer videoUrl={course?.demoUrl} />
               <div className="flex items-center">
                 <h1 className="pt-5 text-[18px]">
-                  {course?.price === 0 ? "Free" : course.price + '$'}
+                  {course?.price === 0 ? "Free" : course.price + "$"}
                 </h1>
-                {
-                  course?.estimatedPrice && course?.estimatedPrice !== course?.price &&
-                  <>
-                    <h4 className="pl-3 text-[17px] line-through">
-                      {course?.estimatedPrice}$
-                    </h4>
-                    <h4 className="pl-5 pt-4 text-[18px]">
-                      {discountPercentagePrice}% off
-                    </h4>
-                  </>
-                }
+                {course?.estimatedPrice &&
+                  course?.estimatedPrice !== course?.price && (
+                    <>
+                      <h4 className="pl-3 text-[17px] line-through">
+                        {course?.estimatedPrice}$
+                      </h4>
+                      <h4 className="pl-5 pt-4 text-[18px]">
+                        {discountPercentagePrice}% off
+                      </h4>
+                    </>
+                  )}
               </div>
               <div className="flex items-center">
-                {
-                  !isPurchased && !(course?.price === 0) ?
-                    <button className={`${styles.button} rounded-xl !w-[180px] !text-white my-3 font-Poppins cursor-pointer !bg-[--t-red] dark:!bg-[--t-blue]`}
-                      onClick={handleOrder}
-                    >
-                      Buy Now {course?.price}$
-                    </button> :
-                    <Link href={`/courses/course-access/${course?._id}`} className={`${styles.button} !text-white rounded-xl !w-[180px] my-3 font-Poppins cursor-pointer !bg-[--t-red] dark:!bg-[--t-blue]`}>
-                      Enter to Course
-                    </Link>
-                }
+                {!isPurchased && !(course?.price === 0) ? (
+                  <button
+                    className={`${styles.button} rounded-xl !w-[180px] !text-white my-3 font-Poppins cursor-pointer !bg-[--t-red] dark:!bg-[--t-blue]`}
+                    onClick={handleOrder}
+                  >
+                    Buy Now {course?.price}$
+                  </button>
+                ) : (
+                  <Link
+                    href={`/courses/course-access/${course?._id}`}
+                    className={`${styles.button} !text-white rounded-xl !w-[180px] my-3 font-Poppins cursor-pointer !bg-[--t-red] dark:!bg-[--t-blue]`}
+                  >
+                    Enter to Course
+                  </Link>
+                )}
               </div>
               <br />
               <li>Source Code included</li>
@@ -163,20 +168,28 @@ const CourseDetail: FC<Props> = ({ course, stripePrmoise, clientSecret ,setRoute
             </div>
           </div>
         </div>
-
       </div>
       <>
-        {
-          openPaymentModal && <PopUp open={openPaymentModal} setOpen={setOpenPaymentModal} customStyle={'!w-[400px] p-2'} title="Payment Gateway" close>
-            {
-              stripePrmoise && clientSecret && <Elements stripe={stripePrmoise} options={{
-                clientSecret
-              }} >
-                <CheckoutForm course={course} />
+        {openPaymentModal && (
+          <PopUp
+            open={openPaymentModal}
+            setOpen={setOpenPaymentModal}
+            customStyle={"!w-[400px] p-2"}
+            title="Payment Gateway"
+            close
+          >
+            {stripePrmoise && clientSecret && (
+              <Elements
+                stripe={stripePrmoise}
+                options={{
+                  clientSecret,
+                }}
+              >
+                <CheckoutForm course={course} user={user} />
               </Elements>
-            }
+            )}
           </PopUp>
-        }
+        )}
       </>
     </div>
   );

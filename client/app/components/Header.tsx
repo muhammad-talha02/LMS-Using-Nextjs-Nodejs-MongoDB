@@ -42,8 +42,6 @@ const Header: FC<Props> = (props) => {
     })
 
     const [socialLogin, result] = useSocialAuthMutation()
-    console.log("d", data)
-
 
     // Success or Error Message
     useEffect(() => {
@@ -54,7 +52,6 @@ const Header: FC<Props> = (props) => {
                     name: data?.user?.name,
                     avatar: data?.user?.image,
                 })
-                console.log("Loginsndnn")
             }
         }
         if (result.isSuccess) {
@@ -79,18 +76,18 @@ const Header: FC<Props> = (props) => {
         }
     };
 
-    useEffect(() => {
+    // useEffect(() => {
 
         if (typeof window !== undefined) {
             window.addEventListener("scroll", () => {
-                if (window.scrollY > 80) {
+                if (window.scrollY > 90) {
                     setActive(true);
                 } else {
                     setActive(false);
                 }
             });
         }
-    }, [])
+    // }, [])
     return (
         <div className="w-full relative">
             <div

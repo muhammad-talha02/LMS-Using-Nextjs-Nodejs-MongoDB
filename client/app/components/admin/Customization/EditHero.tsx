@@ -18,7 +18,6 @@ const EditHero: FC<Props> = (props) => {
     //? -- Get Layout API
 
     const { data: getBannerData, isLoading, isSuccess, refetch } = useGetLayoutQuery("Banner", { refetchOnMountOrArgChange: true })
-    console.log("banner", getBannerData)
 
 
     //? Update Layout APi
@@ -60,7 +59,6 @@ const EditHero: FC<Props> = (props) => {
 
     }
 
-    console.log("img", imgUrl)
 
     const isDisableUpdate = () => {
         const layout = getBannerData?.layout.banner

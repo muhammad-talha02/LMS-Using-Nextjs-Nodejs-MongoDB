@@ -49,7 +49,6 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
             }
         },
     ]
-    console.log(AllUsers)
 
     const rows: any = []
 

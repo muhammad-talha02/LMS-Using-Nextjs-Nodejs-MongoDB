@@ -32,7 +32,6 @@ const CourseContent: FC<Props> = (props) => {
 
     const handleCollapsesToggle = (index: number) => {
         const updatedCollpased = [...isCollapsed];
-        console.log("Collapsed", updatedCollpased);
         updatedCollpased[index] = !updatedCollpased[index];
         setIsCollapsed(updatedCollpased);
     };

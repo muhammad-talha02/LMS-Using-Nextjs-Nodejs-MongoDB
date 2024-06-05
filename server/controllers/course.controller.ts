@@ -41,7 +41,6 @@ export const editCourse = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = req.body;
-      console.log("backend", data);
       const thumbnail = data.thumbnail;
       if (!thumbnail?.public_id) {
         // await cloudinary.v2.uploader.destroy(thumbnail.public_id);
@@ -54,7 +53,6 @@ export const editCourse = catchAsyncError(
           url: myCloud.secure_url,
         };
       }
-      console.log("hey i am");
       const courseId = req.params.id;
 
       const course = await courseModel.findByIdAndUpdate(
@@ -204,7 +202,6 @@ export const getCourseByUser = catchAsyncError(
     try {
       const userCoursesList = req.user?.courses;
       const courseId = req.params.id;
-      console.log(req.user);
       const courseExist = userCoursesList?.find(
         (course: any) => course._id.toString() === courseId
       );
@@ -340,7 +337,7 @@ export const addAnswer = catchAsyncError(
         await NotificationModel.create({
           userId: req.user?._id,
           title: "Answer on a Question",
-          message: `You have a new Order for ${courseContent?.title}`,
+          message: `${req.user?.name} reply on a question in ${courseContent?.title}`,
         });
       } else {
         const data = {

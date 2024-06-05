@@ -3,23 +3,23 @@ import toast from 'react-hot-toast'
 
 type Props = {
     api: any,
-    successMsg?: string,
+    successMsg?: any,
     successFunc?: () => void
 }
 
 const useMutation = ({ api, successMsg = "Success", successFunc }: Props) => {
     const [actionApi, result] = api()
-console.log("Mutation caaling")
     useEffect(() => {
         if (result.isSuccess) {
-            toast.success(successMsg)
+            if(successMsg){
+                toast.success(successMsg)
+            }
             if (successFunc) {
                 successFunc()
             }
 
         }
         if (result.isError) {
-            console.log("Error ->", result.error.message)
             toast.error(result.error.data.message || "Error")
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

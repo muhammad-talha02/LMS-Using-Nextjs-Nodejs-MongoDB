@@ -67,7 +67,7 @@ const FAQs = () => {
 
   if (isLoading) return <Loader />;
   return (
-    <div className=" px-2 my-20">
+    <div className="px-2 my-20">
       <H1 classes="text-center my-5 text-[25px]">FAQs</H1>
       <Grid container sm={10} m={"auto"}>
         <Grid item sm={12} m={"auto"}>

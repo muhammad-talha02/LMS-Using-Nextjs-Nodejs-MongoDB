@@ -140,14 +140,14 @@ export const getLayout = catchAsyncError(
       const { type } = req.params;
 
       const layout = await LayoutModel.findOne({ type });
-      if (layout) {
+      if (!layout) {
+        return next(new ErrorHandler(`${type} not found`, 404));
+      } else {
         res.status(200).json({
           sucess: true,
           layout,
         });
       }
-
-      return next(new ErrorHandler(`${type} not found`, 404));
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 404));
     }

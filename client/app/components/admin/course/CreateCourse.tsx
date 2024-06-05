@@ -47,7 +47,6 @@ const CreateCourse = (props: Props) => {
         thumbnail: ""
     })
 
-console.log("info", courseContentData)
     const handleSubmit = () => {
         // Format Benefits Array
 
@@ -96,7 +95,6 @@ const data = courseData
             await createCourse(data)
         }
     }
-    console.log("Course Data", courseData)
 
     return (
         <div className='w-full'>

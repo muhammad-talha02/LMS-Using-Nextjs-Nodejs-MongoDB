@@ -95,7 +95,6 @@ const EditFaq = () => {
 
         const updatedAnswer = [...currentQuestion];
         updatedAnswer[index].question = e.target.value;
-        console.log("question", updatedAnswer)
         setQuestions(updatedAnswer);
     }
 

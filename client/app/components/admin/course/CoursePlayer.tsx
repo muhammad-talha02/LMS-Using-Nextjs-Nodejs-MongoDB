@@ -13,7 +13,6 @@ const CoursePlayer: FC<Props> = ({ videoUrl = "1a92588781a7d1f226c934e795dfba50"
         otp: '',
         playbackInfo: ''
     })
-    console.log("Videoo Data", videoData)
     useEffect(() => {
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}getVdoCipherOtp`, { videoId: videoUrl }).then((res) => {
             setVideoData(res.data)

@@ -28,7 +28,6 @@ const Verification: FC<Props> = ({ setRoute }) => {
         }
         if (result.error) {
             const errorData = result.error as any
-            console.log(result)
             setInvalidError(true)
             toast.error(`Error: ${errorData?.data.message}`)
 
@@ -51,7 +50,6 @@ const Verification: FC<Props> = ({ setRoute }) => {
         3: '',
     })
 
-    console.log("vVerify Nukmber", VerifyNumber)
 
     const verificationHandler = async () => {
         const verificationCode = Object.values(VerifyNumber).join("");
