@@ -11,6 +11,7 @@ import orderRouter from "./routes/order.route";
 import notificationRouter from "./routes/notification.route";
 import analyticsRouter from "./routes/analytics.route";
 import layoutRouter from "./routes/layout.route";
+import { rateLimit } from 'express-rate-limit'
 
 // ? Middlewares
 
@@ -25,11 +26,23 @@ app.use(cookieParser());
 //  cors => cross origin resoure sharing
 
 app.use(
-cors({
+  cors({
     origin: ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://127.0.0.1:4000', 'http://localhost:4000'],
-    credentials:true
+    credentials: true
   })
 );
+
+
+// Api requests limit
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+  standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+  // store: ... , // Redis, Memcached, etc. See below.
+})
+
+
 
 //To check Response time
 
@@ -61,4 +74,6 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(err);
 });
 
+// Apply the rate limiting middleware to all requests.
+app.use(limiter)
 app.use(ErrorMiddleware);
