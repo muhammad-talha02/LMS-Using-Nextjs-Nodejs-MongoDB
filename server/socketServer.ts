@@ -3,7 +3,7 @@ import http from "http";
 
 export const initSockerServer = (server: http.Server) => {
   const io = new SocketIOServer(server);
-  io.on("connection", (socket) => {
+  io.on("connection", (socket: any) => {
     console.log("A User is Connected");
 
     // Listen for 'Notifications' from front end
