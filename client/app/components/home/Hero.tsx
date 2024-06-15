@@ -37,13 +37,16 @@ const Hero = (props: Props) => {
         <div className="heroImg w-full max-w-[500px] flex justify-center items-center">
           {/* <Image src={"/"}/> */}
           <div className="w-[350px] h-[350px]">
+            {
+              bannerData?.image?.url  &&
             <Image
-              src={`${bannerData?.image ? bannerData?.image?.url : ""}`}
-              width={500}
-              height={500}
-              alt=""
-              className="rounded-full object-cover w-full h-full hero_animation"
+            src={`${bannerData?.image ? bannerData?.image?.url : ""}`}
+            width={500}
+            height={500}
+            alt=""
+            className="rounded-full object-cover w-full h-full hero_animation"
             />
+          }
           </div>
         </div>
         <div className="heroContent p-2 800px:p-1 flex flex-col gap-2 dark:text-white text-black max-w-[430px] w-full">

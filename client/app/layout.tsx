@@ -36,7 +36,7 @@ export default function RootLayout({
     socketId.on("connection", () => { })
   }, [])
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${poppins.variable} ${josefin.variable} text-black dark:text-white !bg-white bg-no-repeat dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300`}
       >

@@ -76,7 +76,7 @@ const Header: FC<Props> = (props) => {
         }
     };
 
-    // useEffect(() => {
+    useEffect(() => {
 
         if (typeof window !== undefined) {
             window.addEventListener("scroll", () => {
@@ -87,7 +87,7 @@ const Header: FC<Props> = (props) => {
                 }
             });
         }
-    // }, [])
+    }, [])
     return (
         <div className="w-full relative">
             <div
