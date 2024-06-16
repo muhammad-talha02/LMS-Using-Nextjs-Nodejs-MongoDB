@@ -26,10 +26,7 @@ const Courses = (props: Props) => {
                 <div className='grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 1500px:grid-cols-3 1500px:gap-[30px] mt-10'>
                     {
                         courses?.map((course: any, index: number) => (
-                        <>
-                            <CourseCard item={course} key={index} />
-                            <CourseCard item={course} key={index} />
-                        </>
+                            <CourseCard item={course} key={course?._id} />
                         ))
                     }
                 </div>

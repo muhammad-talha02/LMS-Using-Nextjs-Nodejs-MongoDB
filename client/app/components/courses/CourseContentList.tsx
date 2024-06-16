@@ -57,7 +57,7 @@ const CourseContentList: FC<Props> = (props) => {
 
         const sectionContentHours: number = sectionVideoLength / 60;
         return (
-          <>
+          <div key={section}>
             <div
               className={`${!isDemo ? "border-b border-[#fffffe8] py-3" : ""}`}
               key={section}
@@ -125,7 +125,7 @@ const CourseContentList: FC<Props> = (props) => {
                 </div>
               )}
             </div>
-          </>
+          </div>
         );
       })}
     </div>

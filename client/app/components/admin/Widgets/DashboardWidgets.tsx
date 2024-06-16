@@ -1,20 +1,16 @@
-import { CircularProgress, Grid } from '@mui/material'
-import React from 'react'
-import { FaMoneyBill } from 'react-icons/fa'
-import WidgetCard from './WidgetCard'
-import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
-import GroupIcon from '@mui/icons-material/Group';
-import LocalAtmIcon from '@mui/icons-material/LocalAtm';
-import MemoryIcon from '@mui/icons-material/Memory';
-import OrderAnalytics from '../analytics/OrderAnalytics';
-import UserAnalytics from '../analytics/UserAnalytics';
-import AllInvoices from '../order/AllInvoices';
 import { styles } from '@/app/styles/style';
 import { useGetAllOrdersQuery } from '@/redux/features/orders/orderApi';
 import { useGetAllUsersQuery } from '@/redux/features/user/userApi';
-type Props = {}
+import GroupIcon from '@mui/icons-material/Group';
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
+import MemoryIcon from '@mui/icons-material/Memory';
+import { Grid } from '@mui/material';
+import OrderAnalytics from '../analytics/OrderAnalytics';
+import UserAnalytics from '../analytics/UserAnalytics';
+import AllInvoices from '../order/AllInvoices';
+import WidgetCard from './WidgetCard';
 
-const DashboardWidgets = (props: Props) => {
+const DashboardWidgets = () => {
     const {data:AllOrdersData } = useGetAllOrdersQuery({}, { refetchOnMountOrArgChange: true })
     const {data:AllUsersData } = useGetAllUsersQuery({}, { refetchOnMountOrArgChange: true })
     const usersCount = AllUsersData?.users ? AllUsersData?.users?.length + "+" : "..."
@@ -22,7 +18,7 @@ const DashboardWidgets = (props: Props) => {
     const earningsCount = AllOrdersData?.orders ?  "25500$" : "..."
     return (
         <div className='w-full mt-5'>
-            <Grid container xs={12} display={"flex"} justifyContent={"space-around"} rowGap={2}>
+            <Grid container display={"flex"} justifyContent={"space-around"} rowGap={2}>
                 <Grid item lg={4} md={6} xs={12} px={2}>
                     <WidgetCard Icon={<LocalAtmIcon fontSize={"large"} color='warning' />} label='Earnings' value={earningsCount}circleColor='warning' />
                 </Grid>
@@ -33,7 +29,7 @@ const DashboardWidgets = (props: Props) => {
                     <WidgetCard Icon={<MemoryIcon fontSize={"large"} color='error' />} label='Orders' value={ordersCount} circleColor='error' />
                 </Grid>
             </Grid>
-            <Grid container lg={12} mt={2}>
+            <Grid container mt={2}>
                 <Grid item lg={6} xs={12}>
                     <OrderAnalytics isDashboard={true} />
                 </Grid>

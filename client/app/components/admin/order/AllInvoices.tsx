@@ -11,7 +11,7 @@ type Props = {
   isDashboard?: boolean
 }
 
-const AllInvoices = ({ isDashboard }: Props) => {
+const AllInvoices = ({ isDashboard = false }: Props) => {
 
   const { data: getAllOrders, isLoading } = useGetAllOrdersQuery({})
 
