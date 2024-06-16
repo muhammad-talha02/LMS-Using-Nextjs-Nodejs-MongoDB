@@ -1,0 +1,22 @@
+{
+  "version": 2,
+
+  "buildCommand": "npm run build",
+
+  "builds": [
+    {
+      "src": "server.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server.ts"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "outputDirectory": "build"
+}
