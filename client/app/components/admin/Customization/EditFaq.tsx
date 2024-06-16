@@ -139,9 +139,9 @@ const EditFaq = () => {
     return (
         <div>
             <H1 classes='text-center my-5'>FAQs</H1>
-            <Grid container lg={10} m={"auto"}>
+            <Grid container m={"auto"}>
 
-                <Grid item sm={12}>
+                <Grid item sm={12} lg={8} m={"auto"}>
                     <div className="faqs space-y-4">
                         {
                             questions?.map((item: any, index: number) => (
@@ -159,12 +159,12 @@ const EditFaq = () => {
 
 
                     </div>
-                </Grid>
                 <Grid item sm={12} mt={3}>
                     <AddCircle className='cursor-pointer' onClick={handleAddFaq} />
                 </Grid>
                 <Grid item sm={12} mt={3} display={"flex"} justifyContent={"flex-end"}>
                     <button className='text-white bg-[--t-blue] rounded mt-8 cursor-pointer w-full 400px:w-[150px] h-[40px] disabled:cursor-not-allowed' disabled={result.isLoading || areQuestionUnchanged()} onClick={handleUpdateLayout}>Update</button>
+                </Grid>
                 </Grid>
             </Grid>
         </div>

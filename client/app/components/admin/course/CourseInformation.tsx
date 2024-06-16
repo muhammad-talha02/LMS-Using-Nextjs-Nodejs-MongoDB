@@ -154,7 +154,7 @@ const CourseInformation: FC<Props> = (props) => {
                         <select name="category" value={courseInfo.category} onChange={(e) => {
                             setCourseInfo({ ...courseInfo, category: e.target.value })
                         }} id="category" className={`${styles.input}`}>
-                            <option value="" selected disabled className='dark:text-white dark:bg-black'>Select Category</option>
+                            <option value="" defaultChecked disabled className='dark:text-white dark:bg-black'>Select Category</option>
                             {
                                 courseCategories.map((category: any) => (
                                     <option value={category.title} key={category._id} className='dark:text-white dark:bg-black'>{category.title}</option>

@@ -192,7 +192,6 @@ export const updateAcessToken = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const refresh_token = req.cookies.refresh_token;
-
       const decode = Jwt.verify(
         refresh_token,
         process.env.REFRESH_TOKEN as string
@@ -205,7 +204,9 @@ export const updateAcessToken = catchAsyncError(
       }
       const session = await redis.get(decode.id as string);
       if (!session) {
-        return next(new ErrorHandler("Please login to access this resource", 400));
+        return next(
+          new ErrorHandler("Please login to access this resource", 400)
+        );
       }
 
       const user = JSON.parse(session);
@@ -229,11 +230,14 @@ export const updateAcessToken = catchAsyncError(
       res.cookie("refresh_token", refreshToken, refreshTokenOptions);
 
       await redis.set(user._id, JSON.stringify(user), "EX", 604800); // 7 days
-      // res.status(200).json({
-      //   success: true,
-      //   accessToken,
-      // });
-      next()
+      if (req.route.path === "/refresh") {
+        res.status(200).json({
+          success: true,
+          accessToken,
+        });
+      } else {
+        next();
+      }
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }
