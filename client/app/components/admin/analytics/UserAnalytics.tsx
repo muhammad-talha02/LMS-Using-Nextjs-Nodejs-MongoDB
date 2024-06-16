@@ -7,7 +7,7 @@ type Props = {
     isDashboard?: boolean
 }
 
-const UserAnalytics: FC<Props> = ({ isDashboard }) => {
+const UserAnalytics: FC<Props> = ({ isDashboard = false }) => {
     const { data: userAnalytics, isLoading } = useGetUsersAnalyticsQuery({})
 
     const analyticsData: any = []
