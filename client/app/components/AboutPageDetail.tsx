@@ -23,6 +23,8 @@ const AboutPageDetail = (props: Props) => {
             diverse needs of students, educators, and professionals worldwide.
           </p>
           <br />
+          <div>
+
           <h2 className={`${styles.title} !text-left`}>Our Vision</h2>
           <p className="text-[18px] font-Poppins">
             Compile Academy envisions a world where knowledge is accessible to
@@ -31,6 +33,7 @@ const AboutPageDetail = (props: Props) => {
             cutting-edge courses, personalized learning paths, and a supportive
             community of learners and educators.
           </p>
+          </div>
           <br />
           <h2 className={`${styles.title} !text-left`}>Our Mission</h2>
           <p className="text-[18px] font-Poppins">
@@ -39,6 +42,7 @@ const AboutPageDetail = (props: Props) => {
             flexible learning solutions. We strive to:
           </p>
           <br />
+
           <li>
             {" "}
             <b>Innovate:</b> Continuously develop and deliver up-to-date courses
@@ -64,8 +68,8 @@ const AboutPageDetail = (props: Props) => {
             today and start your journey towards achieving your educational and
             professional aspirations.
             
-          <h2 className="text-[22px] font-[500]">Compile Academy – where learning comes to life!</h2>
           </p>
+          <h2 className="text-[22px] font-[500]">Compile Academy – where learning comes to life!</h2>
           <br />
           <h2 className="text-[22px] font-semibold">Muhammad Talha Saeed -</h2>
           <h3 className="">Founder and CEO of Compiler Academy</h3>
