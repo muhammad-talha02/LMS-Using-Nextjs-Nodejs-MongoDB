@@ -38,7 +38,7 @@ const CourseContent = ({ courseId , user }: Props) => {
             setRoute={setRoute}
             route={route}
           />
-          <div className="w-full grid 800px:grid-cols-10">
+          <div className="w-full grid 800px:grid-cols-10 min-h-screen">
             <Heading
               title={courseContentData?.[activeVideo].title}
               description="sdfsfs"
