@@ -68,15 +68,15 @@ const CourseData: FC<Props> = (props) => {
                 {/* <br /> */}
                 {
                     benefits?.map((benefit, index) => (
-                        <>
-                            <InputField type='text' key={index} value={benefit.title} name='Benefit' onChange={(e: any) => handleBenefitsChange(index, e.target.value)} style={{ lg: 10, marginBottom: "10px" }} placeholder="You will expert in MERN Stack" />
+                        <div  key={index} className='w-full flex'>
+                            <InputField type='text' value={benefit.title} name='Benefit' onChange={(e: any) => handleBenefitsChange(index, e.target.value)} style={{ lg: 10, marginBottom: "10px" }} placeholder="You will expert in MERN Stack" />
 
                             <IconButton onClick={() => handleBenefitsDelete(index)} disabled={benefits.length < 2}>
                                 <Close color='error' />
                             </IconButton>
 
 
-                        </>
+                        </div>
                     ))
                 }
                 <Grid item lg={6}>
@@ -94,13 +94,13 @@ const CourseData: FC<Props> = (props) => {
                 {/* <br /> */}
                 {
                     prerequisites?.map((prerequisit, index) => (
-                        <>
+                        <div  key={index} className='w-full flex'>
                             <InputField type='text' key={index} value={prerequisit.title} name='Benefit' onChange={(e: any) => handlePrerequisitesChange(index, e.target.value)} style={{ lg: 10, marginBottom: "10px" }} placeholder="You will expert in MERN Stack" />
                             <IconButton onClick={() => handlePrerequisitesDelete(index)} disabled={prerequisites.length < 2}>
                                 <Close color='error' />
                             </IconButton>
 
-                        </>
+                        </div>
                     ))
                 }
                 <Grid item lg={6}>
