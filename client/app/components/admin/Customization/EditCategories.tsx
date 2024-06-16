@@ -97,7 +97,7 @@ const EditCategories: FC<Props> = (props) => {
     return (
         <div>
             <H1 classes="text-center my-3">All Categeries</H1>
-            <Grid container lg={8} xs={11} m={"auto"}>
+            <Grid container m={"auto"}>
                 {categories?.map((category: any, index: number) => (
                     <Grid item xs={12} key={index} display={"flex"} justifyContent={"center"} my={1} gap={2}>
                         <input type="text" className="bg-transparent w-full max-w-[250px] px-1" value={category.title} onChange={(e: any) => handleCategoryChange(e.target.value, index)} placeholder="Enter Category Title"/>

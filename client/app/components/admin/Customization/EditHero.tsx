@@ -7,6 +7,7 @@ import { BiSearch } from 'react-icons/bi'
 import { InputField } from '../../form'
 import { Button } from '@mui/material'
 import useMutation from '@/app/_hooks/useMutation'
+import { noAvatar } from '@/app/utils/constants'
 
 type Props = {}
 
@@ -88,7 +89,7 @@ const EditHero: FC<Props> = (props) => {
                 <div className="profileImg">
                     <div className="imgBox relative">
                         <label htmlFor='profileImg'>
-                            <Image src={imgUrl} width={150} height={150} alt='profile-img' className='800px:w-[300px] 800px:h-[300px] w-[150px] h-[150px] rounded-full border-[3px] border-[#37a39a]' />
+                            <Image src={imgUrl || noAvatar} width={150} height={150} alt='profile-img' className='800px:w-[300px] 800px:h-[300px] w-[150px] h-[150px] rounded-full border-[3px] border-[#37a39a]' />
                             <div className='dark:bg-[#0b0f19] bg-white  w-[35px] border-[3px] border-[#37a39a] h-[35px] flex justify-center items-center rounded-full absolute bottom-[0px] right-[100px]'>
                                 <AiOutlineCamera size={20} className='dark:text-white text-black' />
 

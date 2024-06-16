@@ -1,5 +1,5 @@
 import { apiSlice } from "../api/apiSlice";
-import { userLoggedIn, userLoggedOut, userRegisteration } from "./authSlice";
+import { userLoading, userLoggedIn, userLoggedOut, userRegisteration } from "./authSlice";
 
 type IRegistrationResponse = {
   message: string;
@@ -47,12 +47,15 @@ export const authApi = apiSlice.injectEndpoints({
         credentials: "include" as const,
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        dispatch(userLoading({isLoading:true})
+        );
         try {
           const result = await queryFulfilled;
           dispatch(
             userLoggedIn({
               token: result.data.accessToken,
               user: result.data.user,
+              isLoading:false
             })
           );
         } catch (error) {}
@@ -72,6 +75,7 @@ export const authApi = apiSlice.injectEndpoints({
             userLoggedIn({
               token: result.data.accessToken,
               user: result.data.user,
+              isLoading:false
             })
           );
         } catch (error) {}
@@ -89,7 +93,9 @@ export const authApi = apiSlice.injectEndpoints({
         try {
           const result = await queryFulfilled;
           dispatch(userLoggedOut());
-        } catch (error) {}
+        } catch (error) {
+          
+        }
       },
     }),
   }),

@@ -16,8 +16,8 @@ export const DeleteAction: FC<IDeleteAction> = (props) => {
 
     return (
         <>
-            <IconButton>
-                <AiOutlineDelete size={20} className='dark:text-white text-black' onClick={() => setDeleteConfirmModal(true)} />
+            <IconButton onClick={() => setDeleteConfirmModal(true)} >
+                <AiOutlineDelete size={20} className='dark:text-white text-black' />
             </IconButton>
             {deleteConfirmModal && <ConfirmModal open={deleteConfirmModal} setOpen={setDeleteConfirmModal} action={() => {
                 action?.()
