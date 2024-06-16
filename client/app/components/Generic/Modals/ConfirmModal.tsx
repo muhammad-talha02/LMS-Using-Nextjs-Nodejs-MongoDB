@@ -18,8 +18,8 @@ const ConfirmModal: FC<Props> = (props) => {
                 <Box>
                     <h2 className='prose text-black dark:text-white text-lg text-center'>{title || "Are you sure want to Delete?"}</h2>
                     <Box display={"flex"} justifyContent={"space-between"} my={3}>
-                        <Button variant='contained' onClick={() => setOpen(false)}>Cancel</Button>
-                        <Button variant='contained' color='error' onClick={() => action()}>Delete</Button>
+                        <Button variant='contained' className='bg-blue-500' onClick={() => setOpen(false)}>Cancel</Button>
+                        <Button variant='contained' className='bg-red-500' onClick={() => action()}>Delete</Button>
                     </Box>
                 </Box>
             </PopUp>}
