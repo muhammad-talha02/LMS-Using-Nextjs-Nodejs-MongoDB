@@ -104,7 +104,7 @@ const Header: FC<Props> = (props) => {
             <div>
               <Link
                 href={"/"}
-                className="text-[25px] font-Poppins font-500 text-black dark:text-white"
+                className="400px:text-[25px] text-[20px] font-Poppins font-500 text-black dark:text-white"
               >
                 Compile Academy
               </Link>
@@ -112,22 +112,15 @@ const Header: FC<Props> = (props) => {
             <div className="flex items-center">
               <NavItems activeItem={activeItem} isMobile={false} />
               <ThemeSwitcher />
-              {/* Only for mobile */}
-              <div className="800px:hidden">
-                <HiOutlineMenuAlt3
-                  size={25}
-                  className="cursor-pointer dark:text-white text-black"
-                  onClick={() => setOpenSidebar(true)}
-                />
-              </div>
+
               {user ? (
-                <Link href={"/profile"}>
+                <Link href={"/profile"} className="w-[30px] h-[30px] hidden 800px:block">
                   <Image
                     src={user?.avatar?.url ? user.avatar.url : noAvatar}
                     width={30}
                     height={30}
                     alt="profile"
-                    className="cursor-pointer rounded-full"
+                    className="cursor-pointer rounded-full "
                   />
                 </Link>
               ) : (
@@ -137,6 +130,14 @@ const Header: FC<Props> = (props) => {
                   onClick={() => setOpen(true)}
                 />
               )}
+              {/* Only for mobile */}
+              <div className="800px:hidden">
+                <HiOutlineMenuAlt3
+                  size={25}
+                  className="cursor-pointer dark:text-white text-black"
+                  onClick={() => setOpenSidebar(true)}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -150,11 +151,35 @@ const Header: FC<Props> = (props) => {
           >
             <div className="fixed w-[70%] z-[99] h-screen bg-white dark:bg-slate-900 dark:bg-opacity-90 top-0 right-0">
               <NavItems activeItem={activeItem} isMobile={true} />
-              <HiOutlineUserCircle
+              {/* <HiOutlineUserCircle
                 size={25}
                 className="cursor-pointer ml-5 my-2 dark:text-white text-black"
                 onClick={() => setOpen(true)}
-              />
+              /> */}
+              <div className="800px:hidden">
+                {/* <HiOutlineMenuAlt3
+                  size={25}
+                  className="cursor-pointer dark:text-white text-black"
+                  onClick={() => setOpenSidebar(true)}
+                /> */}
+              </div>
+              {user ? (
+                <Link href={"/profile"}>
+                  <Image
+                    src={user?.avatar?.url ? user.avatar.url : noAvatar}
+                    width={30}
+                    height={30}
+                    alt="profile"
+                    className="cursor-pointer rounded-full ml-6"
+                  />
+                </Link>
+              ) : (
+                <HiOutlineUserCircle
+                  size={25}
+                  className="hidden 800px:block cursor-pointer dark:text-white text-black ml-6"
+                  onClick={() => setOpen(true)}
+                />
+              )}
               <br />
               <br />
               <br />

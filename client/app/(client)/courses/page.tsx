@@ -73,7 +73,7 @@ const CoursesPage = (props: Props) => {
     {isLoading ? <Loader /> : <div className="min-h-[80vh] w-[95%] m-auto 800px:w-[85%]">
 
       <div className="w-full flex items-center flex-wrap">
-        <div className={`h-[35px] ${categories === 'All' ? "bg-[--t-red]" : "bg-[--t-blue]"} m-3 px-3 rounded-[30px] flex items-center justify-center font-Poppins cursor-pointer `}
+        <div className={`800px:h-[35px] h-[30px] 800px:text-[18px] text-[15px] ${categories === 'All' ? "bg-[--t-red]" : "bg-[--t-blue]"} m-3 px-3 rounded-[30px] flex items-center justify-center font-Poppins cursor-pointer `}
           onClick={() => setCategories("All")}
         >
           All
@@ -81,7 +81,7 @@ const CoursesPage = (props: Props) => {
         {
           categoriesData && categoriesData?.layout?.categories?.map((category: any) => (
             <div key={category?._id}>
-              <div className={`h-[35px] ${categories === category.title ? "bg-[--t-red]" : "bg-[--t-blue]"} m-3 px-3 rounded-[30px] flex items-center justify-center font-Poppins cursor-pointer `}
+              <div className={`800px:h-[35px] h-[30px] 800px:text-[16px] text-[15px] ${categories === category.title ? "bg-[--t-red]" : "bg-[--t-blue]"} m-3 px-3 rounded-[30px] flex items-center justify-center font-Poppins cursor-pointer `}
                 onClick={() => {
                   handleCategory(category.title)
                 }}
