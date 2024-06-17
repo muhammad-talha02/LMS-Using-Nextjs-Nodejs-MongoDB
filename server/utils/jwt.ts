@@ -31,7 +31,7 @@ interface ITokenOptions {
     expires: new Date(Date.now() + accessTokenExpires * 60 * 60 * 1000),
     maxAge: accessTokenExpires * 60 * 60 * 1000,
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: "none",
     secure:true
   };
 
@@ -39,7 +39,7 @@ interface ITokenOptions {
     expires: new Date(Date.now() + refreshTokenExpires * 24 * 60 * 60 * 1000),
     maxAge: refreshTokenExpires * 24 * 60 * 60 * 1000,
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: "none",
     secure:true
   };
   
