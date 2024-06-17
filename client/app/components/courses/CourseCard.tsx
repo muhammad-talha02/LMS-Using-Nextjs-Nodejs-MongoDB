@@ -19,15 +19,21 @@ const CourseCard: FC<Props> = ({ item, isProfile }) => {
                 <Image src={thumbnail?.url} width={500} height={500} alt='Course-thumbnail' objectFit='contain' className='h-[200px] rounded-lg w-full border border-[#00000015]' />
 
                 <h1 className='text-[16px] font-Poppins mt-2'>{name}</h1>
+                {!isProfile &&
+                <>
                 <div className="flex justify-between items-center pt-2">
                     <Rating value={3.5} precision={0.5} emptyIcon={<StarBorder className='text-[orange]' />} readOnly />
-                    {!isProfile && <h5>0 Student</h5>}
+                    <h5>0 Student</h5>
                 </div>
+                </>
+                    }
                 <div className="flex justify-between items-center pt-3">
+                {!isProfile && 
                 <div className="flex">
                     <h3>{price === 0 ? 'Free' : price + '$'}</h3>
                     <h5 className='pl-3 mt-[-5px] line-through opacity-80'>{estimatedPrice}$</h5>
                 </div>
+                }
                 <div className="flex items-center gap-1">
                     <AiOutlineUnorderedList size={20} className='dark:text-white'/>
                     <h5>
