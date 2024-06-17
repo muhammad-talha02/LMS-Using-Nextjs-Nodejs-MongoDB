@@ -36,7 +36,7 @@ const Hero = (props: Props) => {
       <div className="flex flex-col md:flex-row gap-5 justify-center items-center my-14">
         <div className="heroImg w-full max-w-[500px] flex justify-center items-center">
           {/* <Image src={"/"}/> */}
-          <div className="w-[350px] h-[350px]">
+          <div className="800px:w-[350px] 800px:h-[350px] w-[250px] h-[250px]">
             {
               bannerData?.image?.url  &&
             <Image
@@ -50,7 +50,7 @@ const Hero = (props: Props) => {
           </div>
         </div>
         <div className="heroContent p-2 800px:p-1 flex flex-col gap-2 dark:text-white text-black max-w-[430px] w-full">
-          <H1 classes="text-[40px] leading-tight">{bannerData?.title}</H1>
+          <H1 classes="800px:text-[40px] text-[30px] leading-tight">{bannerData?.title}</H1>
           <p className="text-[14px]">{bannerData?.subTitle}</p>
           <div className="w-full flex">
             <input

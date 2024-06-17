@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LMS Activation Email</title>
+  </head>
+  <body>
+    <div class="email-template">
+      <div class="email-header">
+        <h1>Congratulations 💕😍😘</h1>
+      </div>
+      <div class="email-body">
+        <h2>Order #: <%= order._id %></h2>
+        <p>Your order has bee completed</p>
+        <h2>Date: <%= order.date %></h2>
+        <p>
+        Course Name: <%= order.name %>
+        </p>
+        <p>
+        Price: <%= order.price %>
+        </p>
+      </div>
+      <div class="email-footer">
+        <p>
+          if you have any question, please don't hesitate to conatct us at
+          <a href="mailto:iamtalha971@gmail.com">help@CompileAcademy.com</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
